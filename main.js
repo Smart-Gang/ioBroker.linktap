@@ -18,7 +18,7 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
-const LinkTapApiController = require("./linktap_api_controller");
+const LinkTapApiController = require("./lib/linktap_api_controller");
 var myApiController = null;
 // Load your modules here, e.g.:
 // const fs = require("fs");
