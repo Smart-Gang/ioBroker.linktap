@@ -10,7 +10,7 @@
 'use strict';
 
 const utils = require('@iobroker/adapter-core');
-const LinkTapApiController = require("./lib/linktap_api_controller");
+//const LinkTapApiController = require("./lib/linktap_api_controller");
 var myApiController = null;
 
 class LinkTap extends utils.Adapter {
