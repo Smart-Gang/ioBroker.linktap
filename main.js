@@ -10,7 +10,7 @@
 'use strict';
 
 const utils = require('@iobroker/adapter-core');
-//const LinkTapApiController = require("./lib/linktap_api_controller");
+const LinkTapApiController = require("./lib/linktap_api_controller");
 var myApiController = null;
 
 class LinkTap extends utils.Adapter {
@@ -231,7 +231,7 @@ class LinkTap extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     async onReady() {
-        //await this.setConnected(false);
+        await this.setConnected(false);
 
         this.log.info('User : ' + this.config.txtUsername);
 
@@ -240,8 +240,8 @@ class LinkTap extends utils.Adapter {
             return;
         }                               
 
-        //await this.createChannels();
-        //await this.createDPs();
+        await this.createChannels();
+        await this.createDPs();
 
         this.subscribeStates('*');
         this.main();
@@ -324,7 +324,7 @@ class LinkTap extends utils.Adapter {
     }
     
     main(){
-    /*
+    
         if (this.dataPollInterval !== 0) {
             this.dataPollInterval = (this.config.txtPollInterval *60 * 1000) || this.dataPollInterval;
         }    
@@ -333,7 +333,7 @@ class LinkTap extends utils.Adapter {
         this.setConnected(myApiController.connected);
 
         this.setStates();
-        */
+        
  
 
     }
