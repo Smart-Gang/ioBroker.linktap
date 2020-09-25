@@ -1,6 +1,9 @@
 ![Logo](admin/Logo_small.png)
-# ioBroker.template
+# ioBroker.LinkTap
 
+In Development -- Please do not install this adapter 
+
+-- copy from iobroker template -- to be replaced
 [![NPM version](http://img.shields.io/npm/v/iobroker.template.svg)](https://www.npmjs.com/package/iobroker.template)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.template.svg)](https://www.npmjs.com/package/iobroker.template)
 ![Number of Installations (latest)](http://iobroker.live/badges/template-installed.svg)
@@ -11,6 +14,7 @@
 [![NPM](https://nodei.co/npm/iobroker.template.png?downloads=true)](https://nodei.co/npm/iobroker.template/)
 
 **Tests:**: [![Travis-CI](http://img.shields.io/travis/Author/ioBroker.template/master.svg)](https://travis-ci.org/Author/ioBroker.template)
+-- endcopy
 
 ## ioBroker.LinkTap
 

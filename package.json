@@ -4,7 +4,7 @@
   "description": "Control your garden irrigation with the LinkTap Wireless Water Timer",
   "author": {
     "name": "Smart-Gang",
-    "email": "gangrulez@gmai.com"
+    "email": "gangrulez@gmail.com"
   },
   "homepage": "https://github.com/Smart-Gang/ioBroker.LinkTap",
   "license": "MIT",
@@ -21,7 +21,8 @@
     "url": "https://github.com/Smart-Gang/ioBroker.LinkTap.git"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.4.0"
+    "@iobroker/adapter-core": "^2.4.0",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@iobroker/testing": "^2.3.0",
