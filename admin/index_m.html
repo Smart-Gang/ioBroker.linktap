@@ -21,6 +21,8 @@
             function load(settings, onChange) {
                 // example: select elements with id=key and class=value and insert value
                 if (!settings) return;
+                settings.txtUsername = '';
+                settings.txtApiKey = '';
                 $('.value').each(function () {
                     var $key = $(this);
                     var id = $key.attr('id');

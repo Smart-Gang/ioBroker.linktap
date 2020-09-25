@@ -1,5 +1,4 @@
-  
-/**
+  /**
  *      LinkTap adapter
  *
  *      Controls LinkTap Wireless Water Timer via LinkTap Gateway
@@ -8,20 +7,11 @@
  *      MIT License
  *
  */
-
 'use strict';
 
-/*
- * Created with @iobroker/create-adapter v1.26.3
- */
-
-// The adapter-core module gives you access to the core ioBroker functions
-// you need to create an adapter
 const utils = require('@iobroker/adapter-core');
 const LinkTapApiController = require("./lib/linktap_api_controller");
 var myApiController = null;
-// Load your modules here, e.g.:
-// const fs = require("fs");
 
 class LinkTap extends utils.Adapter {
 
