@@ -114,7 +114,7 @@ class LinkTap extends utils.Adapter {
     createChannels() {
         const fctName = 'createChannels';
         this.log.info(fctName + ' started');
-        this.setObjectNotExists('gateways', {
+        this.setObjectNotExists(this.getId(), {
             type: 'channel',
             role: 'gateways',
             common: {
@@ -129,7 +129,7 @@ class LinkTap extends utils.Adapter {
 
         if(myApiController != null ){
             myApiController.gateways.forEach((g) => {
-                this.setObjectNotExists(g.gatewayId, {
+                this.setObjectNotExists(this.getId(g.gatewayId), {
                     type: 'channel',
                     role: 'gateway',
                     common: {
@@ -142,7 +142,7 @@ class LinkTap extends utils.Adapter {
                     }
                 });  
                 g.devices.forEach(d => {
-                    this.setObjectNotExists(d.taplinkerId, {
+                    this.setObjectNotExists(this.getId(g.gatewayId, d.taplinkerId), {
                         type: 'channel',
                         role: 'device',
                         common: {
