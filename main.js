@@ -239,8 +239,9 @@ class LinkTap extends utils.Adapter {
             this.log.warn('Please open Admin page for this adapter to set the username and the API key.');
             return;
         }                               
-        this.myApiController = new LinkTapApiController(this.config.txtUsername, this.config.txtApiKey);
+        this.myApiController = new LinkTapApiController(this.config.txtUsername, this.config.txtApiKey);        
         this.myApiController.getDevices();
+        this.setConnected(this.myApiController.connected);
         await this.createChannels();
         await this.createDPs();
 
@@ -331,7 +332,7 @@ class LinkTap extends utils.Adapter {
         }    
         
         //myApiController = new LinkTapApiController(this.config.txtUsername, this.config.txtApiKey);
-        this.setConnected(this.myApiController.connected);
+        
 
         this.setStates();
         
