@@ -11,7 +11,7 @@
 
 const utils = require('@iobroker/adapter-core');
 const LinkTapApiController = require("./lib/linktap_api_controller");
-var myApiController = null;
+
 
 class LinkTap extends utils.Adapter {
 
@@ -32,7 +32,7 @@ class LinkTap extends utils.Adapter {
         this.connected = null;
         this.dataPollInterval = 60000;
         this.dataPollTimeout = null;
-
+        this.myApiController = null; 
     }
 
     getId(gatewayId, taplinkerId, stateKey){
@@ -115,7 +115,7 @@ class LinkTap extends utils.Adapter {
         const fctName = 'createChannels';
         this.log.info(fctName + ' started');
         this.setObjectNotExists(this.getId(), {
-            type: 'channel',
+            type: 'device',
             role: 'gateways',
             common: {
                 name: this.getId(),
@@ -127,8 +127,8 @@ class LinkTap extends utils.Adapter {
             }
         });
 
-        if(myApiController != null ){
-            myApiController.gateways.forEach((g) => {
+        if(this.myApiController != null ){
+            this.myApiController.gateways.forEach((g) => {
                 this.setObjectNotExists(this.getId(g.gatewayId), {
                     type: 'channel',
                     role: 'gateway',
@@ -195,8 +195,8 @@ class LinkTap extends utils.Adapter {
         const fctName = 'createDPs';   
         this.log.debug(fctName + ' started');
     
-        if(myApiController != null ){
-            myApiController.gateways.forEach((g) => {
+        if(this.myApiController != null ){
+            this.myApiController.gateways.forEach((g) => {
                 this.createState(this.getId(g.gatewayId,null,'id'), '');         
                 this.createState(this.getId(g.gatewayId,null,'name'), '');
                 this.createState(this.getId(g.gatewayId,null,'location'), '');
@@ -331,7 +331,7 @@ class LinkTap extends utils.Adapter {
         }    
         
         //myApiController = new LinkTapApiController(this.config.txtUsername, this.config.txtApiKey);
-        this.setConnected(myApiController.connected);
+        this.setConnected(this.myApiController.connected);
 
         this.setStates();
         
