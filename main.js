@@ -36,27 +36,24 @@ class LinkTap extends utils.Adapter {
     }
 
     getId(gatewayId, taplinkerId, stateKey){
-        if(typeof(gatewayId) === 'undefined'  &&  typeof(taplinkerId) !== 'undefined' && typeof(stateKey) === 'undefined') {
-            return 'gateways';
-        }
-        if(typeof(taplinkerId) === 'undefined' && typeof(stateKey) === 'undefined'){
-            return 'gateways.'+gatewayId;
+        if(taplinkerId == null && stateKey == null){
+            return gatewayId;
         }     
-        if(typeof(gatewayId) !== 'undefined' && typeof(taplinkerId) !== 'undefined' && typeof(stateKey) === 'undefined'){
-            return 'gateways.'+gatewayId+'.'+taplinkerId
+        if(gatewayId != null && taplinkerId != null && stateKey == null){
+            return gatewayId+'.'+taplinkerId
         }            
-        if(typeof(taplinkerId) === 'undefined') {
-            return 'gateways.'+gatewayId+'.'+stateKey;
+        if(taplinkerId == null) {
+            return gatewayId+'.'+stateKey;
         }
-        return 'gateways.'+gatewayId+'.'+taplinkerId+'.'+stateKey;        
+        return gatewayId+'.'+taplinkerId+'.'+stateKey;        
     }    
 
     //Used for creating states
-    createState(name, value, desc, _write, _unit) {
+    createNewState(name, value, desc, _write, _unit) {
 
-        if(typeof(desc) === 'undefined')
+        if(typeof(desc) === null)
             desc = name;
-        if(typeof(_write) === 'undefined')
+        if(typeof(_write) === null)
             _write = false;
         if(typeof(_write) !== 'boolean')
             _write = false;
@@ -64,7 +61,7 @@ class LinkTap extends utils.Adapter {
         if(Array.isArray(value))
             value = value.toString();
 
-        if(typeof(_unit) === 'undefined') {
+        if(typeof(_unit) === null) {
             this.setObjectNotExists(name, {
                 type: 'state',
                 common: {
@@ -75,16 +72,13 @@ class LinkTap extends utils.Adapter {
                     write: _write
                 },
                 native: {id: name}
-            }, function(err, obj) {
-                if (!err && obj) {
-                    if(typeof(value) !== 'undefined') {
-                        this.setState(name, {
-                            val: value,
-                            ack: true
-                        });
-                    }
-                }
             });
+            if(typeof(value) !== null) {
+                this.setStateAsync(name, {
+                    val: value,
+                    ack: true
+                });
+            }            
         } else {
             this.setObjectNotExists(name, {
                 type: 'state',
@@ -97,16 +91,13 @@ class LinkTap extends utils.Adapter {
                     unit: _unit
                 },
                 native: {id: name}
-            }, function(err, obj) {
-                if (!err && obj) {
-                    if(typeof(value) !== 'undefined') {
-                        this.setState(name, {
-                            val: value,
-                            ack: true
-                        });
-                    }
-                }
             });
+            if(typeof(value) !== null) {
+                this.setStateAsync(name, {
+                    val: value,
+                    ack: true
+                });
+            }            
         }
     } 
 
@@ -114,18 +105,6 @@ class LinkTap extends utils.Adapter {
     createChannels() {
         const fctName = 'createChannels';
         this.log.info(fctName + ' started');
-        this.setObjectNotExists(this.getId(), {
-            type: 'device',
-            role: 'gateways',
-            common: {
-                name: this.getId(),
-            },
-            native: {}
-        }, function(err) {
-            if (err) {
-                this.log.error('Cannot write object: ' + err); 
-            }
-        });
 
         if(this.myApiController != null ){
             this.myApiController.gateways.forEach((g) => {
@@ -157,17 +136,19 @@ class LinkTap extends utils.Adapter {
                 });              
             });  
         }    
-        this.log.debug(fctName + ' finished');    
+        this.log.info(fctName + ' finished');    
     } 
 
     setStates(){
-        if(myApiController != null ){
-            myApiController.gateways.forEach((g) => {
+        if(this.myApiController != null ){
+            this.myApiController.gateways.forEach((g) => {
                 this.setStateAsync(this.getId(g.gatewayId,null,'name'), { val: g.name, ack: true });
                 this.setStateAsync(this.getId(g.gatewayId,null,'status'), { val: g.status, ack: true });
                 this.setStateAsync(this.getId(g.gatewayId,null,'location'), { val: g.location, ack: true });
                 this.setStateAsync(this.getId(g.gatewayId,null,'version'), { val: g.version, ack: true });
+                this.setStateAsync(this.getId(g.gatewayId,null,'gatewayId'), { val: g.gatewayId, ack: true });
                 g.devices.forEach(d => {
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), { val: d.taplinkerId, ack: true });
                     this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), { val: d.taplinkerName, ack: true });
                     this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'location'), { val: d.location, ack: true });
                     this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'status'), { val: d.status, ack: true });
@@ -197,30 +178,30 @@ class LinkTap extends utils.Adapter {
     
         if(this.myApiController != null ){
             this.myApiController.gateways.forEach((g) => {
-                this.createState(this.getId(g.gatewayId,null,'id'), '');         
-                this.createState(this.getId(g.gatewayId,null,'name'), '');
-                this.createState(this.getId(g.gatewayId,null,'location'), '');
-                this.createState(this.getId(g.gatewayId,null,'status'), '');
-                this.createState(this.getId(g.gatewayId,null,'version'), '');
+                this.createNewState(this.getId(g.gatewayId,null,'gatewayId'), g.gatewayId, "Gateway ID");         
+                this.createNewState(this.getId(g.gatewayId,null,'name'), g.name, "Gateway name");
+                this.createNewState(this.getId(g.gatewayId,null,'location'), g.location, "Gateway location");
+                this.createNewState(this.getId(g.gatewayId,null,'status'), g.status, "Gateway status");
+                this.createNewState(this.getId(g.gatewayId,null,'version'), g.version, "Gateway version");
                 g.devices.forEach(d => {
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), '');
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'location'),'');
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), '');
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'status'), '');          
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'version'), '');
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'signal'), 0, undefined, false, '%');
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), 0, undefined, false, '%');
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'workMode'), '');
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'watering'), '');
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'vel'), 0, undefined, false, 'ml/min');                    
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'fall'), false);                    
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), false);                    
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'noWater'), false);                    
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'total'), 0, undefined, false, 'min');                    
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'onDuration'), 0,undefined, false, 'min');                    
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'ecoTotal'),0, undefined, false, 'min');                    
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'ecoOn'), 0, undefined, false, 'min');  
-                    this.createState(this.getId(g.gatewayId,d.taplinkerId,'ecoOff'), 0), undefined, false, 'min';                      
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), d.taplinkerName, "Device name");
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'location'), d.location, "Device location");
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), d.taplinkerId, "Device ID");
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'status'), d.status, "Device status");          
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'version'), d.version, "Device version");
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'signal'), d.signal, "Device signal strength");
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), d.batteryStatus, "Device batteryStatus");
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'workMode'), d.workMode, "Device workMode");
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'watering'), d.watering, "Device watering active");
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'vel'), d.vel, "Device flow rate", false, 'ml/min');                    
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'fall'), d.fall, "Device fall");                    
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), d.valveBroken, "Device valve broken");                    
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'noWater'), d.noWater, "Device no water");                    
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'total'), d.total, "Device total", false, 'min');                    
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'onDuration'), d.onDuration, "Device on duration", false, 'min');                    
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'ecoTotal'), d.ecoTotal, "Device eco Total", false, 'min');                    
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'ecoOn'), d.ecoOn, "Device eco on", false, 'min');  
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'ecoOff'), d.ecoOff, "Device eco off", false, 'min');                      
                 });
             });
         }            
@@ -239,9 +220,13 @@ class LinkTap extends utils.Adapter {
             this.log.warn('Please open Admin page for this adapter to set the username and the API key.');
             return;
         }                               
-        this.myApiController = new LinkTapApiController(this.config.txtUsername, this.config.txtApiKey);        
-        this.myApiController.getDevices();
-        this.setConnected(this.myApiController.connected);
+        this.myApiController = new LinkTapApiController({
+            logger: this.log,            
+            username: this.config.txtUsername,
+            apiKey: this.config.txtApiKey
+        });        
+        await this.myApiController.getDevices();
+	    this.setConnected(this.myApiController.connected);
         await this.createChannels();
         await this.createDPs();
 
@@ -329,12 +314,8 @@ class LinkTap extends utils.Adapter {
     
         if (this.dataPollInterval !== 0) {
             this.dataPollInterval = (this.config.txtPollInterval *60 * 1000) || this.dataPollInterval;
-        }    
-        
-        //myApiController = new LinkTapApiController(this.config.txtUsername, this.config.txtApiKey);
-        
-
-        this.setStates();
+        }            
+        //this.setStates();
         
  
 
