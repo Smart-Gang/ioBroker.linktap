@@ -90,7 +90,7 @@
             <div class="row">
                 <div class="col s6 input-field">
                     <input id="txtPollInterval" class="value" type="number" min="1"/>
-                    <label for="checkInitInterval" class="translate">Interval for retrieving watering status in minutes (min. 1) Please enter integer values > 0. A parse is performed for non-integer values.</label>
+                    <label for="checkInitInterval" class="translate">Interval for retrieving watering status in minutes (min. 1) Please enter integer values > 0. A parse is performed for non-integer values. <br />The gateways and taplinker devices are queried every hour or when the adapter is restarted. The manufacturer allows a minimum interval of 5 minutes. If the adapter is restarted several times during this time, it is possible that the gateways / taplinkers cannot be determined immediately.</label>
                                 
             </div>
         </div>

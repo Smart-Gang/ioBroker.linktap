@@ -21,17 +21,17 @@
             "Smart-Gang <gangrulez@gmail.com>"
         ],
         "keywords": [
-            "ioBroker",
-            "template",
-            "Smart Home",
-            "home automation"
+            "LinkTap",            
+            "Irrigation",
+            "Taplinker",
+            "Wireless Water Timer"
         ],
         "license": "MIT",
         "platform": "Javascript/Node.js",
         "main": "main.js",
-        "icon": "template.png",
+        "icon": "LinkTap_Logo.png",
         "enabled": true,
-        "extIcon": "https://github.com/Smart-Gang/ioBroker.LinkTap/blob/master/icon.png",
+        "extIcon": "https://raw.githubusercontent.com/Smart-Gang/ioBroker.LinkTap/master/admin/LinkTap_Logo.png",
         "readme": "https://github.com/Smart-Gang/ioBroker.LinkTap/blob/master/README.md",
         "loglevel": "info",
         "mode": "daemon",
@@ -55,9 +55,10 @@
             }
         ]
     },
-    "native": {
-        "option1": true,
-        "option2": "42"
+    "native": {        
+        "txtUsername": "",
+        "txtApiKey": "",
+        "txtPollInterval": "1"
     },
     "objects": [],
     "instanceObjects": []

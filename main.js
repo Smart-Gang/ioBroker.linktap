@@ -29,9 +29,11 @@ class LinkTap extends utils.Adapter {
         // this.on('message', this.onMessage.bind(this));
         this.on('unload', this.onUnload.bind(this));
 
-        this.connected = null;
-        this.dataPollInterval = 60000;        
-        this.dataPollTimeout = null;
+        this.connected = false;
+        this.dataPollIntervalWatering = 60000;                
+        this.dataPollTimeoutWatering = null;
+        this.dataPollIntervalTaplinker = 3600000;        
+        this.dataPollTimeoutTaplinker = null;        
         this.myApiController = null; 
     }
 
@@ -191,19 +193,45 @@ class LinkTap extends utils.Adapter {
     }
 
     /**
-     * Creates data polling schedule
+     * Creates data polling schedule for gateways and devices
      */
-    createStatusScheduler() {
-        const fctName = 'createStatusScheduler';
+    createTaplinkerScheduler() {
+        const fctName = 'createTaplinkerScheduler';
         this.log.info(fctName + ' started');
     
-        if(this.dataPollTimeout !== null) {
-            clearInterval(this.dataPollTimeout);    
-            this.dataPollTimeout = null;    
+        if(this.dataPollTimeoutTaplinker !== null) {
+            clearInterval(this.dataPollTimeoutTaplinker);    
+            this.dataPollTimeoutTaplinker = null;    
             this.log.info(fctName + ' scheduler stopped');
         }                        
-        this.dataPollTimeout = setTimeout(() =>  {       
-            var fctName = 'updateStatus';
+        this.dataPollTimeoutTaplinker = setInterval(() =>  {       
+            var fctName = 'updateTaplinkerStatus';
+            this.log.info(fctName + ' started');
+    
+            if(this.myApiController != null ){
+                this.myApiController.getDevices();
+            }
+            this.setTaplinkerStates();
+            //this.createWateringScheduler();
+            this.log.info(fctName + ' finished');
+        }, this.dataPollIntervalTaplinker);                    
+        this.log.info(fctName + ' finished');    
+    }    
+
+    /**
+     * Creates data polling schedule for watering state
+     */
+    createWateringScheduler() {
+        const fctName = 'createWateringScheduler';
+        this.log.info(fctName + ' started');
+    
+        if(this.dataPollTimeoutWatering !== null) {
+            clearInterval(this.dataPollTimeoutWatering);    
+            this.dataPollTimeoutWatering = null;    
+            this.log.info(fctName + ' scheduler stopped');
+        }                        
+        this.dataPollTimeoutWatering = setInterval(() =>  {       
+            var fctName = 'updateWateringStatus';
             this.log.info(fctName + ' started');
     
             if(this.myApiController != null ){
@@ -213,39 +241,22 @@ class LinkTap extends utils.Adapter {
                     });
                 });
             }
-            this.setStates();
-            this.createStatusScheduler();
+            this.setWateringStates();
+            //this.createWateringScheduler();
             this.log.info(fctName + ' finished');
-        }, this.dataPollInterval);            
-        //this.log.info(fctName + ' scheduler created, start every ' + this.dataPollInterval / 1000 + ' secands');        
+        }, this.dataPollIntervalWatering);                    
         this.log.info(fctName + ' finished');    
     }
 
     /**
-     * Set device states
+     * Set watering states
      */    
-    setStates(){
+    setWateringStates(){
         if(this.myApiController != null ){
             this.myApiController.gateways.forEach((g) => {
-                //this.setStateAsync(this.getId(g.gatewayId,null,'name'), { val: g.name, ack: true });
-                //this.setStateAsync(this.getId(g.gatewayId,null,'status'), { val: g.status, ack: true });
-                //this.setStateAsync(this.getId(g.gatewayId,null,'location'), { val: g.location, ack: true });
-                //this.setStateAsync(this.getId(g.gatewayId,null,'version'), { val: g.version, ack: true });
-                //this.setStateAsync(this.getId(g.gatewayId,null,'gatewayId'), { val: g.gatewayId, ack: true });
                 g.devices.forEach(d => {
-                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), { val: d.taplinkerId, ack: true });
-                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), { val: d.taplinkerName, ack: true });
-                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'location'), { val: d.location, ack: true });
-                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'status'), { val: d.status, ack: true });
-                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'version'), { val: d.version, ack: true });
-                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'signal'), { val: d.signal, ack: true });
-                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), { val: d.batteryStatus, ack: true });
-                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'workMode'), { val: d.workMode, ack: true });
                     this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'watering'), { val: d.watering, ack: true });
                     this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'vel'), { val: d.vel, ack: true });
-                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'fall'), { val: d.fall, ack: true });
-                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), { val: d.valveBroken, ack: true });
-                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'noWater'), { val: d.noWater, ack: true });
                     this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'total'), { val: d.total, ack: true });
                     this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'onDuration'), { val: d.onDuration, ack: true });
                     this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'ecoTotal'), { val: d.ecoTotal, ack: true });                    
@@ -255,6 +266,34 @@ class LinkTap extends utils.Adapter {
             });
         }
     }    
+
+    /**
+     * Set gateway / device states
+     */    
+    setTaplinkerStates(){
+        if(this.myApiController != null ){
+            this.myApiController.gateways.forEach((g) => {
+                this.setStateAsync(this.getId(g.gatewayId,null,'name'), { val: g.name, ack: true });
+                this.setStateAsync(this.getId(g.gatewayId,null,'status'), { val: g.status, ack: true });
+                this.setStateAsync(this.getId(g.gatewayId,null,'location'), { val: g.location, ack: true });
+                this.setStateAsync(this.getId(g.gatewayId,null,'version'), { val: g.version, ack: true });
+                this.setStateAsync(this.getId(g.gatewayId,null,'gatewayId'), { val: g.gatewayId, ack: true });
+                g.devices.forEach(d => {
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), { val: d.taplinkerId, ack: true });
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), { val: d.taplinkerName, ack: true });
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'location'), { val: d.location, ack: true });
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'status'), { val: d.status, ack: true });
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'version'), { val: d.version, ack: true });
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'signal'), { val: d.signal, ack: true });
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), { val: d.batteryStatus, ack: true });
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'workMode'), { val: d.workMode, ack: true });                    
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'fall'), { val: d.fall, ack: true });
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), { val: d.valveBroken, ack: true });
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'noWater'), { val: d.noWater, ack: true });
+                });
+            });
+        }
+    }       
 
     /**
      * Is called when databases are connected and adapter received configuration.
@@ -270,12 +309,12 @@ class LinkTap extends utils.Adapter {
         }         
         
         if(isNaN(this.config.txtPollInterval) || this.config.txtPollInterval === "" || this.config.txtPollInterval === null){
-            console.log('No valid poll interval found. Set poll interval to 1 minute.');            
+            this.log.warn('No valid poll interval found. Set poll interval to 1 minute.');            
           } else {
             var parsedPollIntervall = parseInt(this.config.txtPollInterval, 10);
             if(parsedPollIntervall < 1) parsedPollIntervall = 1;
-            console.log('Set data poll interval to '+parsedPollIntervall);
-            this.dataPollInterval = (parsedPollIntervall *60 * 1000)
+            this.log.info('Set get water state poll interval to '+parsedPollIntervall+ ' minute(s).');
+            this.dataPollIntervalWatering = (parsedPollIntervall *60 * 1000)
           }                 
 
         this.myApiController = new LinkTapApiController({
@@ -298,8 +337,8 @@ class LinkTap extends utils.Adapter {
      */
     onUnload(callback) {
         try {
-            
-            if(this.dataPollTimeout !== null) clearInterval(this.dataPollTimeout);                 
+            if(this.dataPollTimeoutTaplinker !== null) clearInterval(this.dataPollTimeoutTaplinker);
+            if(this.dataPollTimeoutWatering !== null) clearInterval(this.dataPollTimeoutWatering);
             this.setConnected(false);
             callback();
         } catch (e) {
@@ -365,10 +404,9 @@ class LinkTap extends utils.Adapter {
     }
     
     main(){    
-       this.createStatusScheduler()                
+        this.createTaplinkerScheduler();
+        this.createWateringScheduler();          
     }
-
-
 }
 
 // @ts-ignore parent is a valid property on module
