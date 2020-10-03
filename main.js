@@ -30,11 +30,15 @@ class LinkTap extends utils.Adapter {
         this.on('unload', this.onUnload.bind(this));
 
         this.connected = null;
-        this.dataPollInterval = 60000;
+        this.dataPollInterval = 60000;        
         this.dataPollTimeout = null;
         this.myApiController = null; 
     }
 
+
+    /**
+     * Gets ids for channels and states
+     */    
     getId(gatewayId, taplinkerId, stateKey){
         if(taplinkerId == null && stateKey == null){
             return gatewayId;
@@ -48,7 +52,10 @@ class LinkTap extends utils.Adapter {
         return gatewayId+'.'+taplinkerId+'.'+stateKey;        
     }    
 
-    //Used for creating states
+
+    /**
+     * Creates a state
+     */
     createNewState(name, value, desc, _write, _unit) {
 
         if(typeof(desc) === null)
@@ -101,7 +108,10 @@ class LinkTap extends utils.Adapter {
         }
     } 
 
-    //Creates all channels
+
+    /**
+     * Creates all channels
+     */
     createChannels() {
         const fctName = 'createChannels';
         this.log.info(fctName + ' started');
@@ -139,42 +149,14 @@ class LinkTap extends utils.Adapter {
         this.log.info(fctName + ' finished');    
     } 
 
-    setStates(){
-        if(this.myApiController != null ){
-            this.myApiController.gateways.forEach((g) => {
-                this.setStateAsync(this.getId(g.gatewayId,null,'name'), { val: g.name, ack: true });
-                this.setStateAsync(this.getId(g.gatewayId,null,'status'), { val: g.status, ack: true });
-                this.setStateAsync(this.getId(g.gatewayId,null,'location'), { val: g.location, ack: true });
-                this.setStateAsync(this.getId(g.gatewayId,null,'version'), { val: g.version, ack: true });
-                this.setStateAsync(this.getId(g.gatewayId,null,'gatewayId'), { val: g.gatewayId, ack: true });
-                g.devices.forEach(d => {
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), { val: d.taplinkerId, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), { val: d.taplinkerName, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'location'), { val: d.location, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'status'), { val: d.status, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'version'), { val: d.version, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'signal'), { val: d.signal, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), { val: d.batteryStatus, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'workMode'), { val: d.workMode, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'watering'), { val: d.watering, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'vel'), { val: d.vel, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'fall'), { val: d.fall, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), { val: d.valveBroken, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'noWater'), { val: d.noWater, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'total'), { val: d.total, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'onDuration'), { val: d.onDuration, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'ecoTotal'), { val: d.ecoTotal, ack: true });                    
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'ecoOn'), { val: d.ecoOn, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'ecoOff'), { val: d.ecoOff, ack: true });
-                });
-            });
-        }
-    }
 
+    /**
+     * Creates datapoints
+     */    
     createDPs() {
 
         const fctName = 'createDPs';   
-        this.log.debug(fctName + ' started');
+        this.log.info(fctName + ' started');
     
         if(this.myApiController != null ){
             this.myApiController.gateways.forEach((g) => {
@@ -205,8 +187,74 @@ class LinkTap extends utils.Adapter {
                 });
             });
         }            
-        this.log.debug(fctName + ' finished');    
+        this.log.info(fctName + ' finished');    
     }
+
+    /**
+     * Creates data polling schedule
+     */
+    createStatusScheduler() {
+        const fctName = 'createStatusScheduler';
+        this.log.info(fctName + ' started');
+    
+        if(this.dataPollTimeout !== null) {
+            clearInterval(this.dataPollTimeout);    
+            this.dataPollTimeout = null;    
+            this.log.info(fctName + ' scheduler stopped');
+        }                        
+        this.dataPollTimeout = setTimeout(() =>  {       
+            var fctName = 'updateStatus';
+            this.log.info(fctName + ' started');
+    
+            if(this.myApiController != null ){
+                this.myApiController.gateways.forEach((g) => {
+                    g.devices.forEach(d => {
+                        d.queryWateringStatus();
+                    });
+                });
+            }
+            this.setStates();
+            this.createStatusScheduler();
+            this.log.info(fctName + ' finished');
+        }, this.dataPollInterval);            
+        //this.log.info(fctName + ' scheduler created, start every ' + this.dataPollInterval / 1000 + ' secands');        
+        this.log.info(fctName + ' finished');    
+    }
+
+    /**
+     * Set device states
+     */    
+    setStates(){
+        if(this.myApiController != null ){
+            this.myApiController.gateways.forEach((g) => {
+                //this.setStateAsync(this.getId(g.gatewayId,null,'name'), { val: g.name, ack: true });
+                //this.setStateAsync(this.getId(g.gatewayId,null,'status'), { val: g.status, ack: true });
+                //this.setStateAsync(this.getId(g.gatewayId,null,'location'), { val: g.location, ack: true });
+                //this.setStateAsync(this.getId(g.gatewayId,null,'version'), { val: g.version, ack: true });
+                //this.setStateAsync(this.getId(g.gatewayId,null,'gatewayId'), { val: g.gatewayId, ack: true });
+                g.devices.forEach(d => {
+                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), { val: d.taplinkerId, ack: true });
+                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), { val: d.taplinkerName, ack: true });
+                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'location'), { val: d.location, ack: true });
+                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'status'), { val: d.status, ack: true });
+                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'version'), { val: d.version, ack: true });
+                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'signal'), { val: d.signal, ack: true });
+                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), { val: d.batteryStatus, ack: true });
+                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'workMode'), { val: d.workMode, ack: true });
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'watering'), { val: d.watering, ack: true });
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'vel'), { val: d.vel, ack: true });
+                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'fall'), { val: d.fall, ack: true });
+                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), { val: d.valveBroken, ack: true });
+                    //this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'noWater'), { val: d.noWater, ack: true });
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'total'), { val: d.total, ack: true });
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'onDuration'), { val: d.onDuration, ack: true });
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'ecoTotal'), { val: d.ecoTotal, ack: true });                    
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'ecoOn'), { val: d.ecoOn, ack: true });
+                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'ecoOff'), { val: d.ecoOff, ack: true });
+                });
+            });
+        }
+    }    
 
     /**
      * Is called when databases are connected and adapter received configuration.
@@ -219,17 +267,27 @@ class LinkTap extends utils.Adapter {
         if (!this.config.txtUsername || !this.config.txtApiKey) {
             this.log.warn('Please open Admin page for this adapter to set the username and the API key.');
             return;
-        }                               
+        }         
+        
+        if(isNaN(this.config.txtPollInterval) || this.config.txtPollInterval === "" || this.config.txtPollInterval === null){
+            console.log('No valid poll interval found. Set poll interval to 1 minute.');            
+          } else {
+            var parsedPollIntervall = parseInt(this.config.txtPollInterval, 10);
+            if(parsedPollIntervall < 1) parsedPollIntervall = 1;
+            console.log('Set data poll interval to '+parsedPollIntervall);
+            this.dataPollInterval = (parsedPollIntervall *60 * 1000)
+          }                 
+
         this.myApiController = new LinkTapApiController({
             logger: this.log,            
             username: this.config.txtUsername,
             apiKey: this.config.txtApiKey
-        });        
+        });    
+           
         await this.myApiController.getDevices();
 	    this.setConnected(this.myApiController.connected);
         await this.createChannels();
         await this.createDPs();
-
         this.subscribeStates('*');
         this.main();
     }
@@ -240,12 +298,9 @@ class LinkTap extends utils.Adapter {
      */
     onUnload(callback) {
         try {
-            // Here you must clear all timeouts or intervals that may still be active
-            // clearTimeout(timeout1);
-            // clearTimeout(timeout2);
-            // ...
-            // clearInterval(interval1);
-
+            
+            if(this.dataPollTimeout !== null) clearInterval(this.dataPollTimeout);                 
+            this.setConnected(false);
             callback();
         } catch (e) {
             callback();
@@ -305,33 +360,15 @@ class LinkTap extends utils.Adapter {
 
     setConnected(isConnected) {
         if (this.connected !== isConnected) {
-            this.connected = isConnected;
-            this.setState('info.connection', this.connected, true);
+            this.connected = isConnected;            
         }
     }
     
-    main(){
-    
-        if (this.dataPollInterval !== 0) {
-            this.dataPollInterval = (this.config.txtPollInterval *60 * 1000) || this.dataPollInterval;
-        }            
-        //this.setStates();
-        
- 
+    main(){    
+       this.createStatusScheduler()                
+    }
 
-    }
-    /*
-    startDataPolling(fromTimeout) {
-        if (this.dataPollTimeout) {
-            !fromTimeout && clearTimeout(this.dataPollTimeout);
-            this.dataPollTimeout = null;
-        }
-        if (this.dataPollInterval === 0) {
-            this.log.info('Data polling deactivated.');
-            return;
-        }
-    }    
-    */
+
 }
 
 // @ts-ignore parent is a valid property on module
