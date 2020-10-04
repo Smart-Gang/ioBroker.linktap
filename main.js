@@ -58,10 +58,9 @@ class LinkTap extends utils.Adapter {
     /**
      * Creates a state
      */
-    createNewState(name, value, desc, _write, _unit) {
+    createNewState(id, value, displayName, _write, _unit) {
 
-        if(typeof(desc) === null)
-            desc = name;
+        if(typeof(displayName) === null) displayName = id;
         if(typeof(_write) === null)
             _write = false;
         if(typeof(_write) !== 'boolean')
@@ -71,44 +70,60 @@ class LinkTap extends utils.Adapter {
             value = value.toString();
 
         if(typeof(_unit) === null) {
-            this.setObjectNotExists(name, {
+            this.setObjectNotExists(id, {
                 type: 'state',
                 common: {
-                    name: name,
-                    desc: desc,
+                    name: displayName,
                     type: typeof(value),
                     read: true,
                     write: _write
                 },
-                native: {id: name}
+                native: {id: id}
             });
             if(typeof(value) !== null) {
-                this.setStateAsync(name, {
+                this.setStateAsync(id, {
                     val: value,
                     ack: true
                 });
             }            
         } else {
-            this.setObjectNotExists(name, {
+            this.setObjectNotExists(id, {
                 type: 'state',
                 common: {
-                    name: name,
-                    desc: desc,
+                    name: displayName,
                     type: typeof(value),
                     read: true,
                     write: _write,
                     unit: _unit
                 },
-                native: {id: name}
+                native: {id: id}
             });
             if(typeof(value) !== null) {
-                this.setStateAsync(name, {
+                this.setStateAsync(id, {
                     val: value,
                     ack: true
                 });
             }            
         }
     } 
+
+    /**
+     * Creates a button state
+     */
+    CreateNewButtonState(id, displayName){
+        if(typeof(displayName) === null) displayName = id;
+        this.setObjectNotExists(id, {
+            type: 'state',
+            common: {
+                name: displayName,
+                type: "boolean",
+                role: "button",
+                read: true,
+                write: true
+            },
+            native: {id: id}
+        });       
+    }
 
 
     /**
@@ -124,7 +139,7 @@ class LinkTap extends utils.Adapter {
                     type: 'channel',
                     role: 'gateway',
                     common: {
-                        name: this.getId(g.gatewayId),
+                        name: g.name,
                     },
                     native: {}
                 }, function(err) {
@@ -137,7 +152,7 @@ class LinkTap extends utils.Adapter {
                         type: 'channel',
                         role: 'device',
                         common: {
-                            name:  this.getId(g.gatewayId, d.taplinkerId),
+                            name:  d.taplinkerName,
                         },
                         native: {}
                     }, function(err) {
@@ -185,7 +200,12 @@ class LinkTap extends utils.Adapter {
                     this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'onDuration'), d.onDuration, "Device on duration", false, 'min');                    
                     this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'ecoTotal'), d.ecoTotal, "Device eco Total", false, 'min');                    
                     this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'ecoOn'), d.ecoOn, "Device eco on", false, 'min');  
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'ecoOff'), d.ecoOff, "Device eco off", false, 'min');                      
+                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'ecoOff'), d.ecoOff, "Device eco off", false, 'min');
+
+                    this.CreateNewButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateIntervalMode'), "Activates interval mode");
+                    this.CreateNewButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateOddEvenMode'), "Activates odd even mode");
+                    this.CreateNewButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateMonthMode'), "Activates month mode");
+                    this.CreateNewButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateSevenDayMode'), "Activates seven day mode");
                 });
             });
         }            
@@ -370,8 +390,19 @@ class LinkTap extends utils.Adapter {
      */
     onStateChange(id, state) {
         if (state) {
-            // The state was changed
             this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+            if(id.endsWith('ActivateSevenDayMode') || id.endsWith('ActivateOddEvenMode') || id.endsWith('ActivateMonthMode') || id.endsWith('ActivateIntervalMode')){
+                if(this.myApiController != null ){
+                    var idParts = id.split('.');
+                    if(idParts.length != 5) {
+                      this.logger.error("ID: "+id+" has invalid format.");
+                      return "Error while activating scheduling mode.";
+                    }  
+                    var result = this.myApiController.activateSchedulingMode(idParts);
+                }
+            }
+
+
         } else {
             // The state was deleted
             this.log.info(`state ${id} deleted`);
