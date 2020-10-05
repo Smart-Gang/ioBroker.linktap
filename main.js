@@ -54,11 +54,31 @@ class LinkTap extends utils.Adapter {
         return gatewayId+'.'+taplinkerId+'.'+stateKey;        
     }    
 
+    /**
+     * Gets the current value for the state
+     */   
+    getCurrentState(id) {
+        return new Promise((resolve, reject) => {
+            this.getState(id, function (err, state) {
+                if (err) {
+                    reject(err);
+                } else {
+                    if (typeof state != undefined && state != null) {
+                        const value = state.val;
+                        resolve(value);
+                    } else {
+                        const value = false;
+                        resolve(value);
+                    }
+                }
+            });
+        });
+    }    
 
     /**
      * Creates a state
      */
-    createNewState(id, value, displayName, _write, _unit) {
+    EnsureState(id, value, displayName, _write, _unit) {
 
         if(typeof(displayName) === null) displayName = id;
         if(typeof(_write) === null)
@@ -110,7 +130,7 @@ class LinkTap extends utils.Adapter {
     /**
      * Creates a button state
      */
-    CreateNewButtonState(id, displayName){
+    EnsureButtonState(id, displayName){
         if(typeof(displayName) === null) displayName = id;
         this.setObjectNotExists(id, {
             type: 'state',
@@ -124,6 +144,26 @@ class LinkTap extends utils.Adapter {
             native: {id: id}
         });       
     }
+
+
+    /**
+     * Creates a integer state
+     */
+    EnsureIntegerState(id, displayName, min, max){
+        if(typeof(displayName) === null) displayName = id;
+        this.setObjectNotExists(id, {
+            type: 'state',
+            common: {
+                name: displayName,
+                type: "number",
+                read: true,
+                write: true,
+                min: min,
+                max: max                
+            },
+            native: {id: id}
+        });       
+    }    
 
 
     /**
@@ -177,35 +217,41 @@ class LinkTap extends utils.Adapter {
     
         if(this.myApiController != null ){
             this.myApiController.gateways.forEach((g) => {
-                this.createNewState(this.getId(g.gatewayId,null,'gatewayId'), g.gatewayId, "Gateway ID");         
-                this.createNewState(this.getId(g.gatewayId,null,'name'), g.name, "Gateway name");
-                this.createNewState(this.getId(g.gatewayId,null,'location'), g.location, "Gateway location");
-                this.createNewState(this.getId(g.gatewayId,null,'status'), g.status, "Gateway status");
-                this.createNewState(this.getId(g.gatewayId,null,'version'), g.version, "Gateway version");
+                this.EnsureState(this.getId(g.gatewayId,null,'gatewayId'), g.gatewayId, "Gateway ID");         
+                this.EnsureState(this.getId(g.gatewayId,null,'name'), g.name, "Gateway name");
+                this.EnsureState(this.getId(g.gatewayId,null,'location'), g.location, "Gateway location");
+                this.EnsureState(this.getId(g.gatewayId,null,'status'), g.status, "Gateway status");
+                this.EnsureState(this.getId(g.gatewayId,null,'version'), g.version, "Gateway version");
                 g.devices.forEach(d => {
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), d.taplinkerName, "Device name");
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'location'), d.location, "Device location");
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), d.taplinkerId, "Device ID");
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'status'), d.status, "Device status");          
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'version'), d.version, "Device version");
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'signal'), d.signal, "Device signal strength");
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), d.batteryStatus, "Device batteryStatus");
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'workMode'), d.workMode, "Device workMode");
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'watering'), d.watering, "Device watering active");
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'vel'), d.vel, "Device flow rate", false, 'ml/min');                    
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'fall'), d.fall, "Device fall");                    
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), d.valveBroken, "Device valve broken");                    
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'noWater'), d.noWater, "Device no water");                    
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'total'), d.total, "Device total", false, 'min');                    
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'onDuration'), d.onDuration, "Device on duration", false, 'min');                    
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'ecoTotal'), d.ecoTotal, "Device eco Total", false, 'min');                    
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'ecoOn'), d.ecoOn, "Device eco on", false, 'min');  
-                    this.createNewState(this.getId(g.gatewayId,d.taplinkerId,'ecoOff'), d.ecoOff, "Device eco off", false, 'min');
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), d.taplinkerName, "Device name");
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'location'), d.location, "Device location");
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), d.taplinkerId, "Device ID");
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'status'), d.status, "Device status");          
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'version'), d.version, "Device version");
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'signal'), d.signal, "Device signal strength");
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), d.batteryStatus, "Device batteryStatus");
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'workMode'), d.workMode, "Device workMode");
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'watering'), d.watering, "Device watering active");
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'vel'), d.vel, "Device flow rate", false, 'ml/min');                    
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'fall'), d.fall, "Device fall");                    
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), d.valveBroken, "Device valve broken");                    
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'noWater'), d.noWater, "Device no water");                    
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'total'), d.total, "Device total", false, 'min');                    
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'onDuration'), d.onDuration, "Device on duration", false, 'min');                    
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'ecoTotal'), d.ecoTotal, "Device eco Total", false, 'min');                    
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'ecoOn'), d.ecoOn, "Device eco on", false, 'min');  
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'ecoOff'), d.ecoOff, "Device eco off", false, 'min');
 
-                    this.CreateNewButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateIntervalMode'), "Activates interval mode");
-                    this.CreateNewButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateOddEvenMode'), "Activates odd even mode");
-                    this.CreateNewButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateMonthMode'), "Activates month mode");
-                    this.CreateNewButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateSevenDayMode'), "Activates seven day mode");
+                    this.EnsureButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateIntervalMode'), "Activates interval mode");
+                    this.EnsureButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateOddEvenMode'), "Activates odd even mode");
+                    this.EnsureButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateMonthMode'), "Activates month mode");
+                    this.EnsureButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateSevenDayMode'), "Activates seven day mode");
+                    this.EnsureButtonState(this.getId(g.gatewayId,d.taplinkerId,'StartInstantMode'), "Starts instant mode. (Set duration in state 'InstantModeDuration'");
+                    this.EnsureButtonState(this.getId(g.gatewayId,d.taplinkerId,'StopInstantMode'), "Stops instant / eco instant mode");
+                    this.EnsureIntegerState(this.getId(g.gatewayId,d.taplinkerId,'InstantModeDuration'), "Duration for instant mode (min.1  - max. 1439)", 1, 1439);
+                    this.EnsureButtonState(this.getId(g.gatewayId,d.taplinkerId,'StartEcoInstantMode'), "Starts eco instant mode. (Set duration in state 'InstantModeDuration' and EcoInstantModeOn / EcoInstantModeOff ");                    
+                    this.EnsureIntegerState(this.getId(g.gatewayId,d.taplinkerId,'EcoInstantModeOn'), "The valve ON duration (unit is minute). This value needs to be less than duration.", 1, 1438);                   
+                    this.EnsureIntegerState(this.getId(g.gatewayId,d.taplinkerId,'EcoInstantModeOff'), "The valve OFF duration (unit is minute).", 1, 1438);
                 });
             });
         }            
@@ -391,18 +437,45 @@ class LinkTap extends utils.Adapter {
     onStateChange(id, state) {
         if (state) {
             this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-            if(id.endsWith('ActivateSevenDayMode') || id.endsWith('ActivateOddEvenMode') || id.endsWith('ActivateMonthMode') || id.endsWith('ActivateIntervalMode')){
+            if(id.endsWith('ActivateSevenDayMode') 
+            || id.endsWith('ActivateOddEvenMode') 
+            || id.endsWith('ActivateMonthMode') 
+            || id.endsWith('ActivateIntervalMode') 
+            || id.endsWith('StartInstantMode')
+            || id.endsWith('StopInstantMode')
+            || id.endsWith('StartEcoInstantMode')){
                 if(this.myApiController != null ){
                     var idParts = id.split('.');
                     if(idParts.length != 5) {
                       this.logger.error("ID: "+id+" has invalid format.");
                       return "Error while activating scheduling mode.";
-                    }  
-                    var result = this.myApiController.activateSchedulingMode(idParts);
+                    }
+                    switch(idParts[4]) {
+                        case "StartInstantMode":   
+                                idParts.pop();                         
+                                this.getCurrentState(idParts.join('.')+'.'+'InstantModeDuration').then((value) => {                                                                
+                                this.myApiController.startInstantMode(idParts, value);
+                            });
+                            break;
+                            case "StartEcoInstantMode":   
+                            idParts.pop();                         
+                            this.getCurrentState(idParts.join('.')+'.'+'InstantModeDuration').then((value) => {     
+                                this.getCurrentState(idParts.join('.')+'.'+'EcoInstantModeOn').then((ecoOn) => {  
+                                    this.getCurrentState(idParts.join('.')+'.'+'EcoInstantModeOff').then((ecoOff) => {  
+                                        this.myApiController.startEcoInstantMode(idParts, value, ecoOn, ecoOff);
+                                    });
+                                });                                                                                       
+                        });
+                        break;                            
+                        case "StopInstantMode":                            
+                            this.myApiController.stopInstantMode(idParts);
+                            break;
+                        default:
+                            this.myApiController.activateSchedulingMode(idParts);
+                            break;
+                    }                    
                 }
             }
-
-
         } else {
             // The state was deleted
             this.log.info(`state ${id} deleted`);
