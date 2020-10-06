@@ -90,9 +90,14 @@
             <div class="row">
                 <div class="col s6 input-field">
                     <input id="txtPollInterval" class="value" type="number" min="1"/>
-                    <label for="checkInitInterval" class="translate">Interval for retrieving watering status in minutes (min. 1) Please enter integer values > 0. A parse is performed for non-integer values. <br />The gateways and taplinker devices are queried every hour or when the adapter is restarted. The manufacturer allows a minimum interval of 5 minutes. If the adapter is restarted several times during this time, it is possible that the gateways / taplinkers cannot be determined immediately.</label>
+                    <label for="checkInitInterval" class="translate">Interval for retrieving watering state in minutes (min. 1) Please enter integer values > 0. A parse is performed for non-integer values.<br />The gateways and taplinker devices are queried every hour or when the adapter is restarted. The manufacturer allows a minimum interval of 5 minutes.<br />If the adapter is restarted several times during this time, it is possible that the gateways / taplinkers cannot be determined immediately.</label>
                                 
             </div>
+            <div class="row">
+                <div class="col s12">
+                    <p" class="translate">The start of the watering options can be initiated using the buttons. For this, however, it is necessary that the corresponding modes are also initially configured in the app. The API Link-Tap.com does not allow the creation of modes, but only the activation and changing of modes.<br /><br />Please also set the relevant arguments for executing the mode.<br /><br />Instant mode: InstantModeDuration<br /><br />Eco instant mode: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff</p>
+                                
+            </div>            
         </div>
 
     </body>
