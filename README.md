@@ -38,7 +38,7 @@ The interval for retrieving the status information of the devices is every minut
 ## License
 MIT License
 
-Copyright (c) 2020 Author <author@mail.com>
+Copyright (c) 2020 Author <gangrulez@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
