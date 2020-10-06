@@ -45,13 +45,13 @@ class LinkTap extends utils.Adapter {
      * @param {string} stateKey     ID of state
      */    
     getId(gatewayId, taplinkerId, stateKey){
-        if(taplinkerId == null && stateKey == null){
+        if(taplinkerId === null && stateKey === null){
             return gatewayId;
         }     
         if(gatewayId != null && taplinkerId != null && stateKey == null){
             return gatewayId+'.'+taplinkerId
         }            
-        if(taplinkerId == null) {
+        if(taplinkerId === null) {
             return gatewayId+'.'+stateKey;
         }
         return gatewayId+'.'+taplinkerId+'.'+stateKey;        
