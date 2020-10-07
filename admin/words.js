@@ -14,9 +14,9 @@ systemDictionary = {
         'en': 'Interval for retrieving watering state in minutes (min. 1)',
         'de': 'Intervall zum Abrufen des Bewässerungsstatus in Minuten (min. 1)'
     },
-    'Please enter integer values > 0. A parse is performed for non-integer values.' :{
-        'en': 'Please enter integer values > 0. A parse is performed for non-integer values.',
-        'de': 'Bitte geben Sie ganzzahlige Werte > 0 ein. Für nicht ganzzahlige Werte wird ein Parse durchgeführt.'
+    'Please enter integer values greate than 0. A parse is performed for non-integer values.' :{
+        'en': 'Please enter integer values greate than 0. A parse is performed for non-integer values.',
+        'de': 'Bitte geben Sie ganzzahlige Werte größer als 0 ein. Für nicht ganzzahlige Werte wird ein Parse durchgeführt.'
     },
     'The gateways and taplinker devices are queried every hour or when the adapter is restarted. The manufacturer allows a minimum interval of 5 minutes.' :{
         'en': 'The gateways and taplinker devices are queried every hour or when the adapter is restarted. The manufacturer allows a minimum interval of 5 minutes.',
@@ -32,7 +32,7 @@ systemDictionary = {
     },
     'Please also set the relevant arguments for executing the mode.' :{
         'en': 'Please also set the relevant arguments for executing the mode.',
-        'de': ''
+        'de': 'Bitte auch die relevanten Argumente für die Ausführung des Modi setzen.'
     },
     'Instant mode: InstantModeDuration<br /><br />Eco instant mode: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff' :{
         'en': 'Instant mode: InstantModeDuration<br /><br />Eco instant mode: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff',
