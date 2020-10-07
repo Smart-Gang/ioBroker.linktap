@@ -245,7 +245,7 @@ class LinkTap extends utils.Adapter {
                     this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), d.taplinkerId, "Device ID", "device", false, null);
                     this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'status'), d.status, "Device status", "device", false, null);          
                     this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'version'), d.version, "Device version", "device", false, null);
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'signal'), d.signal, "Device signal strength","device", false, null;
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'signal'), d.signal, "Device signal strength","device", false, null);
                     this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), d.batteryStatus, "Device batteryStatus", "device", false, null);
                     this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'workMode'), d.workMode, "Device workMode", "device", false, null);
                     this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'watering'), d.watering, "Device watering active", "device", false, null);
