@@ -381,7 +381,7 @@ class LinkTap extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     async onReady() {
-        await this.setConnected(false);
+        this.setConnected(false);
 
         this.log.info('User : ' + this.config.txtUsername);
 
@@ -389,6 +389,8 @@ class LinkTap extends utils.Adapter {
             this.log.warn('Please open Admin page for this adapter to set the username and the API key.');
             return;
         }         
+
+        await this.getApiKey();
         
         if(isNaN(this.config.txtPollInterval) || this.config.txtPollInterval === "" || this.config.txtPollInterval === null){
             this.log.warn('No valid poll interval found. Set poll interval to 1 minute.');            
@@ -524,6 +526,28 @@ class LinkTap extends utils.Adapter {
         if (this.connected !== isConnected) {
             this.connected = isConnected;            
         }
+    }
+
+    decrypt(key, value) {
+        let result = '';
+        for (let i = 0; i < value.length; ++i) {
+            result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
+        }
+        return result;
+    }
+
+    async getApiKey(){
+        this.getForeignObject('system.config', (err, obj) => {
+            if (!this.supportsFeature || !this.supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE')) {
+                if (obj && obj.native && obj.native.secret) {
+                    //noinspection JSUnresolvedVariable
+                    this.config.txtApiKey = this.decrypt(obj.native.secret, this.config.txtApiKey);
+                } else {
+                    //noinspection JSUnresolvedVariable
+                    this.config.txtApiKey = this.decrypt('f6wnH4yKBJTKsnyu', this.config.txtApiKey);
+                }
+            }            
+        });        
     }
     
     /**
