@@ -41,8 +41,8 @@ class LinkTap extends utils.Adapter {
     /**
      * Gets ids for channels and states
      * @param {string} gatewayId    ID of gateway
-     * @param {string} taplinkerId  ID of taplinker
-     * @param {string} stateKey     ID of state
+     * @param {object} taplinkerId  ID of taplinker
+     * @param {object} stateKey     ID of state
      */    
     getId(gatewayId, taplinkerId, stateKey){
         if(taplinkerId === null && stateKey === null){
@@ -194,7 +194,7 @@ class LinkTap extends utils.Adapter {
 
         if(this.myApiController != null ){
             this.myApiController.gateways.forEach((g) => {
-                this.setObjectNotExists(this.getId(g.gatewayId), {
+                this.setObjectNotExists(this.getId(g.gatewayId, null, null), {
                     type: 'channel',
                     role: 'gateway',
                     common: {
@@ -207,7 +207,7 @@ class LinkTap extends utils.Adapter {
                     }
                 });  
                 g.devices.forEach(d => {
-                    this.setObjectNotExists(this.getId(g.gatewayId, d.taplinkerId), {
+                    this.setObjectNotExists(this.getId(g.gatewayId, d.taplinkerId, null), {
                         type: 'channel',
                         role: 'device',
                         common: {
@@ -234,25 +234,25 @@ class LinkTap extends utils.Adapter {
         this.log.info(fctName + ' started');    
         if(this.myApiController != null ){
             this.myApiController.gateways.forEach((g) => {
-                this.EnsureState(this.getId(g.gatewayId,null,'gatewayId'), g.gatewayId, "Gateway ID", "gateway");         
-                this.EnsureState(this.getId(g.gatewayId,null,'name'), g.name, "Gateway name", "gateway");
-                this.EnsureState(this.getId(g.gatewayId,null,'location'), g.location, "Gateway location", "gateway");
-                this.EnsureState(this.getId(g.gatewayId,null,'status'), g.status, "Gateway status", "gateway");
-                this.EnsureState(this.getId(g.gatewayId,null,'version'), g.version, "Gateway version", "gateway");
+                this.EnsureState(this.getId(g.gatewayId,null,'gatewayId'), g.gatewayId, "Gateway ID", "gateway", false, null);         
+                this.EnsureState(this.getId(g.gatewayId,null,'name'), g.name, "Gateway name", "gateway", false, null);
+                this.EnsureState(this.getId(g.gatewayId,null,'location'), g.location, "Gateway location", "gateway", false, null);
+                this.EnsureState(this.getId(g.gatewayId,null,'status'), g.status, "Gateway status", "gateway", false, null);
+                this.EnsureState(this.getId(g.gatewayId,null,'version'), g.version, "Gateway version", "gateway", false, null);
                 g.devices.forEach(d => {
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), d.taplinkerName, "Device name", "device");
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'location'), d.location, "Device location", "device");
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), d.taplinkerId, "Device ID", "device");
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'status'), d.status, "Device status", "device");          
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'version'), d.version, "Device version"), "device";
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'signal'), d.signal, "Device signal strength");
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), d.batteryStatus, "Device batteryStatus", "device");
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'workMode'), d.workMode, "Device workMode", "device");
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'watering'), d.watering, "Device watering active", "device");
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), d.taplinkerName, "Device name", "device", false, null);
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'location'), d.location, "Device location", "device", false, null);
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), d.taplinkerId, "Device ID", "device", false, null);
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'status'), d.status, "Device status", "device", false, null);          
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'version'), d.version, "Device version", "device", false, null);
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'signal'), d.signal, "Device signal strength","device", false, null;
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), d.batteryStatus, "Device batteryStatus", "device", false, null);
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'workMode'), d.workMode, "Device workMode", "device", false, null);
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'watering'), d.watering, "Device watering active", "device", false, null);
                     this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'vel'), d.vel, "Device flow rate", "device", false, 'ml/min');                    
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'fall'), d.fall, "Device fall", "device");                    
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), d.valveBroken, "Device valve broken", "device");                    
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'noWater'), d.noWater, "Device no water", "device");                    
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'fall'), d.fall, "Device fall", "device", false, null);                    
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), d.valveBroken, "Device valve broken", "device", false, null);                    
+                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'noWater'), d.noWater, "Device no water", "device", false, null);                    
                     this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'total'), d.total, "Device total of current watering slot", "device", false, 'min');                    
                     this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'onDuration'), d.onDuration, "Device on duration of current watering slot", "device", false, 'min');                    
                     this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'ecoTotal'), d.ecoTotal, "Device eco Total of current eco watering slot", "device", false, 'min');                    
