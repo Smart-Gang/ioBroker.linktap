@@ -11,6 +11,10 @@
                 "en": "initial test release",
                 "de": "Erste Testversion"
             },
+            "0.0.3": {
+                "en": "second test release",
+                "de": "Zweite Testversion"
+            }            
         },
         "connectionType": "cloud",
         "dataSource": "poll",
