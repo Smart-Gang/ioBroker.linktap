@@ -5,8 +5,6 @@
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.linktap.svg)](https://www.npmjs.com/package/iobroker.linktap)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.linktap.svg)](https://www.npmjs.com/package/iobroker.linktap)
-![Number of Installations (latest)](http://iobroker.live/badges/linktap-installed.svg)
-![Number of Installations (stable)](http://iobroker.live/badges/linktap-stable.svg)
 
 [![NPM](https://nodei.co/npm/iobroker.linktap.png?downloads=true)](https://nodei.co/npm/iobroker.linktap/)
 
