@@ -1,19 +1,15 @@
 {
     "common": {
         "name": "linktap",
-        "version": "0.0.3",
+        "version": "0.0.4",
         "news": {
             "0.0.1": {
                 "en": "initial release",
                 "de": "Erstveröffentlichung"
             },
-            "0.0.2": {
-                "en": "initial test release",
-                "de": "Erste Testversion"
-            },
-            "0.0.3": {
-                "en": "second test release",
-                "de": "Zweite Testversion"
+            "0.0.4": {
+                "en": "test release",
+                "de": "Testversion"
             }            
         },
         "connectionType": "cloud",

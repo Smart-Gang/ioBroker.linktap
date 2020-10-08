@@ -407,8 +407,7 @@ class LinkTap extends utils.Adapter {
             apiKey: this.config.txtApiKey
         });    
            
-        await this.myApiController.getDevices();
-	    this.setConnected(this.myApiController.connected);
+        await this.myApiController.getDevices();	    
         await this.createChannels();
         await this.createDPs();
         this.subscribeStates('*');
@@ -528,6 +527,11 @@ class LinkTap extends utils.Adapter {
         }
     }
 
+    /**
+     * Decrypts a value
+     * @param {string} key
+     * @param {string} value
+     */    
     decrypt(key, value) {
         let result = '';
         for (let i = 0; i < value.length; ++i) {
@@ -536,6 +540,9 @@ class LinkTap extends utils.Adapter {
         return result;
     }
 
+    /**
+     * Gets the API key
+     */    
     async getApiKey(){
         this.getForeignObject('system.config', (err, obj) => {
             if (!this.supportsFeature || !this.supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE')) {
@@ -553,7 +560,8 @@ class LinkTap extends utils.Adapter {
     /**
      * Main method
      */    
-    main(){    
+    main(){
+        this.setConnected(this.myApiController.connected);
         this.createTaplinkerScheduler();
         this.createWateringScheduler();          
     }

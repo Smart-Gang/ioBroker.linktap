@@ -28,8 +28,8 @@ The interval for retrieving the status information of the devices is every minut
 
 ## Changelog
 
-### 0.0.1
-* (Smart-Gang) initial release
+### 0.0.4
+* (Smart-Gang) test release
 
 ## License
 MIT License
