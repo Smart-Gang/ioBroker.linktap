@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "linktap",
-        "version": "0.0.5",
+        "version": "0.0.6",
         "news": {
+            "0.0.6": {
+                "en": "Added travis referece to readme",
+                "de": "Hinzufügen eines Travis Accounts"
+            },            
             "0.0.5": {
                 "en": "test release (only config update)",
                 "de": "Testversion (Konfigurationsupdate)"
@@ -48,16 +52,6 @@
         "type": "garden",
         "compact": true,
         "materialize": true,
-        "materializeTab": true,
-        "adminTab": {
-            "singleton": true,
-            "name": {
-                "en": "LinkTap",
-                "de": "LinkTap"
-            },
-            "link": "",
-            "fa-icon": "info"
-        },
         "supportCustoms": true,
         "dependencies": [
             {

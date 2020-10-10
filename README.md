@@ -8,9 +8,8 @@
 
 [![NPM](https://nodei.co/npm/iobroker.linktap.png?downloads=true)](https://nodei.co/npm/iobroker.linktap/)
 
---To Do
-**Tests:**: [![Travis-CI](http://img.shields.io/travis/Author/ioBroker.template/master.svg)](https://travis-ci.org/Author/ioBroker.template)
--- End To Do
+**Tests:**: [![Travis-CI](https://api.travis-ci.com/Smart-Gang/ioBroker.LinkTap.svg)](https://travis-ci.com/github/Smart-Gang/ioBroker.LinkTap)
+
 
 ## ioBroker.LinkTap
 
@@ -27,6 +26,9 @@ All connected gateways and taplinkers will be retrieved after the adapter is sta
 The interval for retrieving the status information of the devices is every minute.
 
 ## Changelog
+
+### 0.0.6
+* (Smart-Gang) test release with Travis
 
 ### 0.0.4
 * (Smart-Gang) test release
