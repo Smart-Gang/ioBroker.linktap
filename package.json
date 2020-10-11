@@ -6,7 +6,7 @@
     "name": "Smart-Gang",
     "email": "gangrulez@gmail.com"
   },
-  "homepage": "https://github.com/Smart-Gang/ioBroker.LinkTap",
+  "homepage": "https://github.com/Smart-Gang/ioBroker.linktap",
   "license": "MIT",
   "keywords": [
     "ioBroker",
@@ -18,7 +18,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Smart-Gang/ioBroker.LinkTap.git"
+    "url": "https://github.com/Smart-Gang/ioBroker.linktap.git"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.4.0",
@@ -57,7 +57,7 @@
     "lint": "eslint"
   },
   "bugs": {
-    "url": "https://github.com/Smart-Gang/ioBroker.LinkTap/issues"
+    "url": "https://github.com/Smart-Gang/ioBroker.linktap/issues"
   },
   "readmeFilename": "README.md"
 }
