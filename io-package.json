@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "linktap",
-        "version": "0.0.6",
+        "version": "0.0.7",
         "news": {
+            "0.0.7": {
+                "en": "Improvement of the readme and other comments",
+                "de": "Verbesserung der readme und weiterer Kommentare"
+            },               
             "0.0.6": {
                 "en": "Added travis referece to readme",
                 "de": "Hinzufügen eines Travis Accounts"

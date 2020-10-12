@@ -5,27 +5,39 @@
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.linktap.svg)](https://www.npmjs.com/package/iobroker.linktap)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.linktap.svg)](https://www.npmjs.com/package/iobroker.linktap)
+[![Dependency Status](https://img.shields.io/david/Smart-Gang/iobroker.linktap.svg)](https://david-dm.org/Smart-Gang/iobroker.linktap)
 
 [![NPM](https://nodei.co/npm/iobroker.linktap.png?downloads=true)](https://nodei.co/npm/iobroker.linktap/)
 
 **Tests:**: [![Travis-CI](https://api.travis-ci.com/Smart-Gang/ioBroker.LinkTap.svg)](https://travis-ci.com/github/Smart-Gang/ioBroker.LinkTap)
 
 
-## ioBroker.LinkTap
+## ioBroker.linktap
 
 Control your garden irrigation with the LinkTap Wireless Water Timer
+Manufacturer: https://www.link-tap.com/
 
 ## Installation
 Was developed under Node.js 12. So it is recommended to use this version at least.
 
 ## Settings
-Create Api key at https://www.link-tap.com/#!/api-for-developers with your LinkTap credentials.
+Create Api key at https://www.link-tap.com/#!/api-for-developers with your LinkTap credentials. 
 
 Please enter the username and API key in the configuration.
-All connected gateways and taplinkers will be retrieved after the adapter is started. The retrieval can be done again at the earliest after 5 minutes.
-The interval for retrieving the status information of the devices is every minute.
+All connected gateways and taplinkers will be retrieved after the adapter is started. The manufacturer allows a polling of all gateway and devices every 5 minutes. The adapter performs the retrieval automatically every hour or each time the adapter is restarted.
+
+The watering status retrieval can be set individually in the configuration based on minutes. It may take up to one minute for LinkTap's web service to provide updated watering information.
+
+All irrigation functions provided by the API have been implemented. 
+
+Important: The desired schedules must be set up in the app prior to use. These can then be enabled / disabled via the adapter. For this purpose the corresponding states of the role "Argument in" must be set additionally.
+
+Translated with www.DeepL.com/Translator (free version)
 
 ## Changelog
+
+### 0.0.7
+* (Smart-Gang) Improvement of the readme and other comments
 
 ### 0.0.6
 * (Smart-Gang) test release with Travis
