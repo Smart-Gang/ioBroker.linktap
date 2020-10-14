@@ -1,8 +1,12 @@
 {
     "common": {
         "name": "linktap",
-        "version": "0.0.7",
-        "news": {
+        "version": "0.0.8",
+        "news": {            
+            "0.0.8": {
+                "en": "Fixed dimensions of logo image",
+                "de": "Korrektur der Bildgröße der Logo Bilder"
+            },               
             "0.0.7": {
                 "en": "Improvement of the readme and other comments",
                 "de": "Verbesserung der readme und weiterer Kommentare"

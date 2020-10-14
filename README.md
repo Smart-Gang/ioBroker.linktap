@@ -1,16 +1,12 @@
 ![Logo](admin/Logo_small.png)
 # ioBroker.LinkTap
 
- -- Currently in testing and stabilization
-
 [![NPM version](http://img.shields.io/npm/v/iobroker.linktap.svg)](https://www.npmjs.com/package/iobroker.linktap)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.linktap.svg)](https://www.npmjs.com/package/iobroker.linktap)
 [![Dependency Status](https://img.shields.io/david/Smart-Gang/iobroker.linktap.svg)](https://david-dm.org/Smart-Gang/iobroker.linktap)
+[![Travis-CI](https://api.travis-ci.com/Smart-Gang/ioBroker.LinkTap.svg)](https://travis-ci.com/github/Smart-Gang/ioBroker.LinkTap)
 
 [![NPM](https://nodei.co/npm/iobroker.linktap.png?downloads=true)](https://nodei.co/npm/iobroker.linktap/)
-
-**Tests:**: [![Travis-CI](https://api.travis-ci.com/Smart-Gang/ioBroker.LinkTap.svg)](https://travis-ci.com/github/Smart-Gang/ioBroker.LinkTap)
-
 
 ## ioBroker.linktap
 
@@ -35,6 +31,9 @@ Important: The desired schedules must be set up in the app prior to use. These c
 Translated with www.DeepL.com/Translator (free version)
 
 ## Changelog
+
+### 0.0.8
+* (Smart-Gang) Fixed dimensions of logo image
 
 ### 0.0.7
 * (Smart-Gang) Improvement of the readme and other comments
