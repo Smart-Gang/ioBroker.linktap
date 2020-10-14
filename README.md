@@ -28,8 +28,6 @@ All irrigation functions provided by the API have been implemented.
 
 Important: The desired schedules must be set up in the app prior to use. These can then be enabled / disabled via the adapter. For this purpose the corresponding states of the role "Argument in" must be set additionally.
 
-Translated with www.DeepL.com/Translator (free version)
-
 ## Changelog
 
 ### 0.0.8
