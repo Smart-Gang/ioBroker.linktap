@@ -30,6 +30,9 @@ Important: The desired schedules must be set up in the app prior to use. These c
 
 ## Changelog
 
+### 0.0.9
+* (Smart-Gang) Added more translations
+
 ### 0.0.8
 * (Smart-Gang) Fixed dimensions of logo image
 

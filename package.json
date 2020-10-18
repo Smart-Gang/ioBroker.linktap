@@ -1,6 +1,6 @@
 {
   "name": "iobroker.linktap",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Control your garden irrigation with the LinkTap Wireless Water Timer",
   "author": {
     "name": "Smart-Gang",
@@ -50,7 +50,7 @@
   "main": "main.js",
   "scripts": {
     "test:js": "mocha \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
-    "test:package": "mocha test/package --exit",
+    "test:package": "mocha test/testPackageFiles.js --exit",
     "test:unit": "mocha test/unit --exit",
     "test:integration": "mocha test/integration --exit",
     "test": "npm run test:js && npm run test:package",

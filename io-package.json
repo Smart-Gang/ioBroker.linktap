@@ -1,43 +1,107 @@
 {
     "common": {
         "name": "linktap",
-        "version": "0.0.8",
-        "news": {            
+        "version": "0.0.9",
+        "news": {    
+            "0.0.9": {
+                "en": "Added more translations",
+                "de": "Weitere Übersetzungen hinzugefügt",
+                "ru": "Добавлено больше переводов",
+                "pt": "Adicionadas mais traduções",
+                "nl": "Meer vertalingen toegevoegd",
+                "fr": "Ajout de nouvelles traductions",
+                "it": "Aggiunto altre traduzioni",
+                "es": "Se han añadido más traducciones",
+                "pl": "Dodano więcej tłumaczeń",
+                "zh-cn": "增加了更多的译文"
+            },                     
             "0.0.8": {
                 "en": "Fixed dimensions of logo image",
-                "de": "Korrektur der Bildgröße der Logo Bilder"
+                "de": "Korrektur der Bildgröße der Logo Bilder",
+                "ru": "Исправлены размеры изображения логотипа",
+                "pt": "Dimensões fixas da imagem do logótipo",
+                "nl": "Vaste afmetingen van het logobeeld",
+                "fr": "Dimensions fixes de l'image du logo",
+                "it": "Dimensioni fisse dell'immagine del logo",
+                "es": "Dimensiones fijas de la imagen del logo",
+                "pl": "Stałe wymiary obrazu logo",
+                "zh-cn": "标志图像的固定尺寸"
             },               
             "0.0.7": {
                 "en": "Improvement of the readme and other comments",
-                "de": "Verbesserung der readme und weiterer Kommentare"
+                "de": "Verbesserung der readme und weiterer Kommentare",
+                "ru": "Улучшение читаемой темы и других комментариев",
+                "pt": "Melhoria do readme e outros comentários",
+                "nl": "Verbetering van de readme en andere opmerkingen",
+                "fr": "Amélioration du readme et autres commentaires",
+                "it": "Miglioramento del readme e altri commenti",
+                "es": "Mejora del léeme y otros comentarios",
+                "pl": "Ulepszenie readme i inne uwagi",
+                "zh-cn": "改进readme和其他评论"
             },               
             "0.0.6": {
                 "en": "Added travis referece to readme",
-                "de": "Hinzufügen eines Travis Accounts"
+                "de": "Hinzufügen eines Travis Accounts",
+                "ru": "Добавлен рефери Travis для чтения",
+                "pt": "Adicionado travis referece a readme",
+                "nl": "Travis-referece toegevoegd aan readme",
+                "fr": "Ajout de la référence travis pour me lire",
+                "it": "Aggiunto travis referece a readme",
+                "es": "Añadido travis referece a readme",
+                "pl": "Dodano referencje travis do readme",
+                "zh-cn": "在readme中添加了travis referece"
             },            
             "0.0.5": {
                 "en": "test release (only config update)",
-                "de": "Testversion (Konfigurationsupdate)"
+                "de": "Testversion (Konfigurationsupdate)",
+                "ru": "тестовый релиз (только обновление конфигурации)",
+                "pt": "lançamento de teste (apenas actualização de configuração)",
+                "nl": "testversie (alleen configuratie-update)",
+                "fr": "version d'essai (uniquement mise à jour de la configuration)",
+                "it": "rilascio di prova (solo aggiornamento della configurazione)",
+                "es": "versión de prueba (sólo actualización de la configuración)",
+                "pl": "wydanie testowe (tylko aktualizacja konfiguracji)",
+                "zh-cn": "测试版"
             },
             "0.0.4": {
                 "en": "test release",
-                "de": "Testversion"
-            },
-            "0.0.1": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung"
-            }            
+                "de": "Testversion",
+                "ru": "тестовый релиз",
+                "pt": "liberação de teste",
+                "nl": "proefvrijgave",
+                "fr": "libération d'essai",
+                "it": "rilascio di prova",
+                "es": "liberación de la prueba",
+                "pl": "zwolnienie testowe",
+                "zh-cn": "试放"
+            }           
         },
         "connectionType": "cloud",
         "dataSource": "poll",
         "title": "LinkTap",
         "titleLang": {
             "en": "LinkTap",
-            "de": "LinkTap"
+            "de": "LinkTap",
+            "ru": "LinkTap",
+            "pt": "LinkTap",
+            "nl": "LinkTap",
+            "fr": "LinkTap",
+            "it": "LinkTap",
+            "es": "LinkTap",
+            "pl": "LinkTap",
+            "zh-cn": "链接点击"
         },
         "desc": {
             "en": "Control your garden irrigation with the LinkTap Wireless Water Timer",
-            "de": "Adapter zur Steuerung der Gartenbewässerung mit dem LinkTap Wireless Water Timer"
+            "de": "Adapter zur Steuerung der Gartenbewässerung mit dem LinkTap Wireless Water Timer",
+            "ru": "Управляйте поливом сада с помощью беспроводного таймера подачи воды LinkTap.",
+            "pt": "Controle a irrigação do seu jardim com o temporizador de água sem fios LinkTap",
+            "nl": "Bedien uw tuinbevloeiing met de LinkTap Draadloze Watertimer",
+            "fr": "Contrôlez l'irrigation de votre jardin grâce au programmateur d'arrosage sans fil LinkTap",
+            "it": "Controlla l'irrigazione del tuo giardino con il timer per l'acqua wireless LinkTap",
+            "es": "Controla el riego de tu jardín con el temporizador de agua inalámbrico LinkTap",
+            "pl": "Sterowanie nawadnianiem ogrodu za pomocą bezprzewodowego wyłącznika czasowego LinkTap",
+            "zh-cn": "使用LinkTap无线水定时器控制花园灌溉。"
         },
         "authors": [
             "Smart-Gang <gangrulez@gmail.com>"
