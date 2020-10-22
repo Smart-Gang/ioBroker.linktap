@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "linktap",
-        "version": "0.0.9",
-        "news": {    
+        "version": "0.1.0",
+        "news": {
+            "0.1.0": {
+                "en": "Added travis-ci.org referece to readme",
+                "de": "Hinzufügen eines travis-ci.org Accounts",
+                "ru": "Добавлен рефери travis-ci.org для чтения",
+                "pt": "Adicionado travis-ci.org referece a readme",
+                "nl": "travis-ci.org-referece toegevoegd aan readme",
+                "fr": "Ajout de la référence travis-ci.org pour me lire",
+                "it": "Aggiunto travis-ci.org referece a readme",
+                "es": "Añadido travis-ci.org referece a readme",
+                "pl": "Dodano referencje travis-ci.org do readme",
+                "zh-cn": "在readme中添加了travis-ci.org referece"
+            },                
             "0.0.9": {
                 "en": "Added more translations",
                 "de": "Weitere Übersetzungen hinzugefügt",

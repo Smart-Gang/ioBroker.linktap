@@ -4,7 +4,7 @@
 [![NPM version](http://img.shields.io/npm/v/iobroker.linktap.svg)](https://www.npmjs.com/package/iobroker.linktap)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.linktap.svg)](https://www.npmjs.com/package/iobroker.linktap)
 [![Dependency Status](https://img.shields.io/david/Smart-Gang/iobroker.linktap.svg)](https://david-dm.org/Smart-Gang/iobroker.linktap)
-[![Travis-CI](https://api.travis-ci.com/Smart-Gang/ioBroker.LinkTap.svg)](https://travis-ci.com/github/Smart-Gang/ioBroker.LinkTap)
+[![Tests](https://img.shields.io/travis/Smart-Gang/ioBroker.linktap.svg)](https://travis-ci.org/Smart-Gang/ioBroker.linktap)
 
 [![NPM](https://nodei.co/npm/iobroker.linktap.png?downloads=true)](https://nodei.co/npm/iobroker.linktap/)
 
@@ -29,6 +29,9 @@ All irrigation functions provided by the API have been implemented.
 Important: The desired schedules must be set up in the app prior to use. These can then be enabled / disabled via the adapter. For this purpose the corresponding states of the role "Argument in" must be set additionally.
 
 ## Changelog
+
+### 0.1.0
+* (Smart-Gang) Added travis-ci.org referece to readme
 
 ### 0.0.9
 * (Smart-Gang) Added more translations
