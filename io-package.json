@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "linktap",
-        "version": "0.1.0",
+        "version": "0.1.1",
         "news": {
+            "0.1.1": {
+                "en": "Polling requests updated",
+                "de": "Webdienstaufrufe aktualisiert",
+                "ru": "Обновлены запросы на обслуживание веб-сайтов",
+                "pt": "Pedidos de Webservice actualizados",
+                "nl": "Webserviceverzoeken bijgewerkt",
+                "fr": "Mise à jour des demandes de service web",
+                "it": "Richieste di servizio web aggiornate",
+                "es": "Solicitudes de servicio web actualizadas",
+                "pl": "Aktualizacja wniosków o usługi internetowe",
+                "zh-cn": "更新了网络服务请求"
+            },              
             "0.1.0": {
                 "en": "Added travis-ci.org referece to readme",
                 "de": "Hinzufügen eines travis-ci.org Accounts",

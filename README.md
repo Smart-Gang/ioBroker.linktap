@@ -30,6 +30,9 @@ Important: The desired schedules must be set up in the app prior to use. These c
 
 ## Changelog
 
+### 0.1.1
+* (Smart-Gang) Polling requests updated
+
 ### 0.1.0
 * (Smart-Gang) Added travis-ci.org referece to readme
 
