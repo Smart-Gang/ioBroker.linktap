@@ -390,7 +390,7 @@ class LinkTap extends utils.Adapter {
             return;
         }         
 
-        await this.getApiKey();
+        let apiKey = await this.getApiKey();
         
         if(isNaN(this.config.txtPollInterval) || this.config.txtPollInterval === "" || this.config.txtPollInterval === null){
             this.log.warn('No valid poll interval found. Set poll interval to 1 minute.');            
@@ -404,7 +404,7 @@ class LinkTap extends utils.Adapter {
         this.myApiController = new LinkTapApiController({
             logger: this.log,            
             username: this.config.txtUsername,
-            apiKey: this.config.txtApiKey
+            apiKey: apiKey
         });    
            
         await this.myApiController.getDevices();	    
@@ -548,10 +548,10 @@ class LinkTap extends utils.Adapter {
             if (!this.supportsFeature || !this.supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE')) {
                 if (obj && obj.native && obj.native.secret) {
                     //noinspection JSUnresolvedVariable
-                    this.config.txtApiKey = this.decrypt(obj.native.secret, this.config.txtApiKey);
+                    return this.decrypt(obj.native.secret, this.config.txtApiKey);
                 } else {
                     //noinspection JSUnresolvedVariable
-                    this.config.txtApiKey = this.decrypt('f6wnH4yKBJTKsnyu', this.config.txtApiKey);
+                    return this.decrypt('f6wnH4yKBJTKsnyu', this.config.txtApiKey);
                 }
             }            
         });        
