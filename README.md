@@ -30,6 +30,9 @@ Important: The desired schedules must be set up in the app prior to use. These c
 
 ## Changelog
 
+### 0.1.2
+* (Smart-Gang) Revision regarding comments from the review
+
 ### 0.1.1
 * (Smart-Gang) Polling requests updated
 
