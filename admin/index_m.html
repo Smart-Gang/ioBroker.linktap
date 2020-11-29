@@ -97,7 +97,7 @@
                         obj[$this.attr('id')] = $this.prop('checked');
                     } else {                        
                         var value = $this.val();
-                        if (id === 'txtApiKey' && (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE'))) {
+                        if (id === 'txtApiKey') {
                             value = encrypt(secret, value);
                         }
                         obj[$this.attr('id')] = value;                        
