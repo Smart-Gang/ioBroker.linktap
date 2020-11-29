@@ -408,8 +408,8 @@ class LinkTap extends utils.Adapter {
         });    
            
         await this.myApiController.getDevices();	    
-        await this.createChannels();
-        await this.createDPs();
+        this.createChannels();
+        this.createDPs();
         this.subscribeStates('*');
         this.main();
     }
