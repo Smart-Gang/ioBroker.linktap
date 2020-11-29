@@ -452,7 +452,7 @@ class LinkTap extends utils.Adapter {
      * @param {ioBroker.State | null | undefined} state
      */
     onStateChange(id, state) {
-        if (state) {
+        if (state && !state.ack) {
             this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
             if(id.endsWith('ActivateSevenDayMode') 
             || id.endsWith('ActivateOddEvenMode') 
