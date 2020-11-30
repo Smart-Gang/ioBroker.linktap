@@ -380,7 +380,7 @@ class LinkTap extends utils.Adapter {
     /**
      * Is called when databases are connected and adapter received configuration.
      */
-    async onReady() {
+    onReady() {
         this.setConnected(false);
 
         this.log.info('User : ' + this.config.txtUsername);
@@ -389,8 +389,6 @@ class LinkTap extends utils.Adapter {
             this.log.warn('Please open Admin page for this adapter to set the username and the API key.');
             return;
         }         
-
-        let apiKey = await this.getApiKey();
         
         if(isNaN(this.config.txtPollInterval) || this.config.txtPollInterval === "" || this.config.txtPollInterval === null){
             this.log.warn('No valid poll interval found. Set poll interval to 1 minute.');            
@@ -399,19 +397,34 @@ class LinkTap extends utils.Adapter {
             if(parsedPollIntervall < 1) parsedPollIntervall = 1;
             this.log.info('Set get water state poll interval to '+parsedPollIntervall+ ' minute(s).');
             this.dataPollIntervalWatering = (parsedPollIntervall *60 * 1000)
-          }                 
+        }                         
+        const foreignObject = this.getForeignObject('system.config', (err, obj) => {
+            let apiKey;
+            if (obj && obj.native && obj.native.secret) {
+                //noinspection JSUnresolvedVariable
+                apiKey =  this.decrypt(obj.native.secret, this.config.txtApiKey);
+            } else {
+                //noinspection JSUnresolvedVariable
+                apiKey =  this.decrypt('f6wnH4yKBJTKsnyu', this.config.txtApiKey);
+            }                
+            this.myApiController = new LinkTapApiController({
+                logger: this.log,            
+                username: this.config.txtUsername,
+                apiKey: apiKey
+            });                 
+            this.queryAndCreateStructure();                       
+        });                   
+    }
 
-        this.myApiController = new LinkTapApiController({
-            logger: this.log,            
-            username: this.config.txtUsername,
-            apiKey: apiKey
-        });    
-           
-        await this.myApiController.getDevices();	    
-        this.createChannels();
-        this.createDPs();
-        this.subscribeStates('*');
-        this.main();
+    /**
+     * Queries gateways and devices and creates the data structure
+     */
+    async queryAndCreateStructure(){        
+        await this.myApiController.getDevices();	            
+        this.createChannels();        
+        this.createDPs();        
+        this.subscribeStates('*');        
+        this.main();          
     }
 
     /**
@@ -539,24 +552,7 @@ class LinkTap extends utils.Adapter {
         }
         return result;
     }
-
-    /**
-     * Gets the API key
-     */    
-    async getApiKey(){
-        this.getForeignObject('system.config', (err, obj) => {
-            if (!this.supportsFeature || !this.supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE')) {
-                if (obj && obj.native && obj.native.secret) {
-                    //noinspection JSUnresolvedVariable
-                    return this.decrypt(obj.native.secret, this.config.txtApiKey);
-                } else {
-                    //noinspection JSUnresolvedVariable
-                    return this.decrypt('f6wnH4yKBJTKsnyu', this.config.txtApiKey);
-                }
-            }            
-        });        
-    }
-    
+       
     /**
      * Main method
      */    
