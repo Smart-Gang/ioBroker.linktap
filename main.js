@@ -111,7 +111,7 @@ class LinkTap extends utils.Adapter {
                 native: {id: id}
             });
             if(typeof(value) !== null) {
-                this.setStateAsync(id, {
+                this.setState(id, {
                     val: value,
                     ack: true
                 });
@@ -130,7 +130,7 @@ class LinkTap extends utils.Adapter {
                 native: {id: id}
             });
             if(typeof(value) !== null) {
-                this.setStateAsync(id, {
+                this.setState(id, {
                     val: value,
                     ack: true
                 });
