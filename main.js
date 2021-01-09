@@ -337,13 +337,13 @@ class LinkTap extends utils.Adapter {
         if(this.myApiController != null ){
             this.myApiController.gateways.forEach((g) => {
                 g.devices.forEach(d => {
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'watering'), { val: d.watering, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'vel'), { val: d.vel, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'total'), { val: d.total, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'onDuration'), { val: d.onDuration, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'ecoTotal'), { val: d.ecoTotal, ack: true });                    
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'ecoOn'), { val: d.ecoOn, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'ecoOff'), { val: d.ecoOff, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'watering'), { val: d.watering, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'vel'), { val: d.vel, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'total'), { val: d.total, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'onDuration'), { val: d.onDuration, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'ecoTotal'), { val: d.ecoTotal, ack: true });                    
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'ecoOn'), { val: d.ecoOn, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'ecoOff'), { val: d.ecoOff, ack: true });
                 });
             });
         }
@@ -355,23 +355,23 @@ class LinkTap extends utils.Adapter {
     setTaplinkerStates(){
         if(this.myApiController != null ){
             this.myApiController.gateways.forEach((g) => {
-                this.setStateAsync(this.getId(g.gatewayId,null,'name'), { val: g.name, ack: true });
-                this.setStateAsync(this.getId(g.gatewayId,null,'status'), { val: g.status, ack: true });
-                this.setStateAsync(this.getId(g.gatewayId,null,'location'), { val: g.location, ack: true });
-                this.setStateAsync(this.getId(g.gatewayId,null,'version'), { val: g.version, ack: true });
-                this.setStateAsync(this.getId(g.gatewayId,null,'gatewayId'), { val: g.gatewayId, ack: true });
+                this.setState(this.getId(g.gatewayId,null,'name'), { val: g.name, ack: true });
+                this.setState(this.getId(g.gatewayId,null,'status'), { val: g.status, ack: true });
+                this.setState(this.getId(g.gatewayId,null,'location'), { val: g.location, ack: true });
+                this.setState(this.getId(g.gatewayId,null,'version'), { val: g.version, ack: true });
+                this.setState(this.getId(g.gatewayId,null,'gatewayId'), { val: g.gatewayId, ack: true });
                 g.devices.forEach(d => {
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), { val: d.taplinkerId, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), { val: d.taplinkerName, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'location'), { val: d.location, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'status'), { val: d.status, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'version'), { val: d.version, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'signal'), { val: d.signal, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), { val: d.batteryStatus, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'workMode'), { val: d.workMode, ack: true });                    
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'fall'), { val: d.fall, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), { val: d.valveBroken, ack: true });
-                    this.setStateAsync(this.getId(g.gatewayId,d.taplinkerId,'noWater'), { val: d.noWater, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), { val: d.taplinkerId, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), { val: d.taplinkerName, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'location'), { val: d.location, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'status'), { val: d.status, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'version'), { val: d.version, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'signal'), { val: d.signal, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), { val: d.batteryStatus, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'workMode'), { val: d.workMode, ack: true });                    
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'fall'), { val: d.fall, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), { val: d.valveBroken, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'noWater'), { val: d.noWater, ack: true });
                 });
             });
         }
@@ -398,20 +398,12 @@ class LinkTap extends utils.Adapter {
             this.log.info('Set get water state poll interval to '+parsedPollIntervall+ ' minute(s).');
             this.dataPollIntervalWatering = (parsedPollIntervall *60 * 1000)
         }                         
-        const foreignObject = this.getForeignObject('system.config', (err, obj) => {
-            let apiKey;
-            if (obj && obj.native && obj.native.secret) {
-                //noinspection JSUnresolvedVariable
-                apiKey =  this.decrypt(obj.native.secret, this.config.txtApiKey);
-            } else {
-                //noinspection JSUnresolvedVariable
-                apiKey =  this.decrypt('f6wnH4yKBJTKsnyu', this.config.txtApiKey);
-            }                
+        const foreignObject = this.getForeignObject('system.config', (err, obj) => {            
             this.myApiController = new LinkTapApiController({
                 logger: this.log,            
                 username: this.config.txtUsername,
-                apiKey: apiKey
-            });                 
+                apiKey: obj && obj.native && obj.native.secret ? this.decrypt(obj.native.secret, this.config.txtApiKey) : this.decrypt('f6wnH4yKBJTKsnyu', this.config.txtApiKey)
+            });              
             this.queryAndCreateStructure();                       
         });                   
     }

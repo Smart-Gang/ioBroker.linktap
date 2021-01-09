@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "linktap",
-        "version": "0.1.2",
+        "version": "0.1.3",
         "news": {
+            "0.1.3": {
+                "en": "Revision regarding comments from the review",
+                "de": "Überarbeitung bezüglich der Kommentare aus der Überprüfung",
+                "ru": "Пересмотр в отношении замечаний по итогам обзора",
+                "pt": "Revisão relativa aos comentários da revisão",
+                "nl": "Herziening van de opmerkingen uit de herziening",
+                "fr": "Révision concernant les commentaires issus de la révision",
+                "it": "Revisione dei commenti della revisione",
+                "es": "Revisión de los comentarios de la revisión",
+                "pl": "Korekta dotycząca uwag z przeglądu",
+                "zh-cn": "关于审查意见的修订"
+            },            
             "0.1.2": {
                 "en": "Revision regarding comments from the review",
                 "de": "Überarbeitung bezüglich der Kommentare aus der Überprüfung",
