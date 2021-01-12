@@ -174,15 +174,21 @@
         "materialize": true,
         "dependencies": [
             {
-                "js-controller": ">=2"
+                "js-controller": ">=3.0.0"
             }
         ]
-    },
+    },    
     "native": {        
-        "txtUsername": "",
+        "txtUsername": "", 
         "txtApiKey": "",
         "txtPollInterval": "1"
     },
+    "encryptedNative":[
+        "txtApiKey"        
+    ],    
+    "protectedNative": [
+        "txtApiKey"
+    ],    
     "objects": [],
     "instanceObjects": []
 }

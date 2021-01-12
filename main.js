@@ -397,12 +397,12 @@ class LinkTap extends utils.Adapter {
             if(parsedPollIntervall < 1) parsedPollIntervall = 1;
             this.log.info('Set get water state poll interval to '+parsedPollIntervall+ ' minute(s).');
             this.dataPollIntervalWatering = (parsedPollIntervall *60 * 1000)
-        }                         
+        }     
         const foreignObject = this.getForeignObject('system.config', (err, obj) => {            
             this.myApiController = new LinkTapApiController({
                 logger: this.log,            
                 username: this.config.txtUsername,
-                apiKey: obj && obj.native && obj.native.secret ? this.decrypt(obj.native.secret, this.config.txtApiKey) : this.decrypt('f6wnH4yKBJTKsnyu', this.config.txtApiKey)
+                apiKey: this.config.txtApiKey
             });              
             this.queryAndCreateStructure();                       
         });                   

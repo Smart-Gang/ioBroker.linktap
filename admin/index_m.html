@@ -17,35 +17,6 @@
         <script type="text/javascript" src="words.js"></script>
 
         <script type="text/javascript">
-            var secret;
-
-            if (!encrypt || typeof encrypt !== 'function') {
-                function encrypt(key, value) {
-                    if (value === undefined) {
-                        value = key;
-                        key = secret;
-                    }
-                    var result = '';
-                    for (var i = 0; i < value.length; ++i) {
-                        result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
-                    }
-                    return result;
-                }
-            }
-            if (!decrypt || typeof decrypt !== 'function') {
-                function decrypt(key, value) {
-                    if (value === undefined) {
-                        value = key;
-                        key = secret;
-                    }
-                    var result = '';
-                    for (var i = 0; i < value.length; ++i) {
-                        result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
-                    }
-                    return result;
-                }
-            }
-
 
             // This will be called by the admin adapter when the settings page loads
             function loadHelper(settings, onChange) {
@@ -54,10 +25,7 @@
                 //settings.txtApiKey = '';
                 $('.value').each(function () {
                     var $key = $(this);
-                    var id = $key.attr('id');
-                    if (id === 'txtApiKey' && (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE'))) {
-                        settings[id] = decrypt(secret, settings[id]);
-                    }                    
+                    var id = $key.attr('id');                  
                     if ($key.attr('type') === 'checkbox') {
                         // do not call onChange direct, because onChange could expect some arguments
                         $key.prop('checked', settings[id])
@@ -79,7 +47,6 @@
             // the function loadSettings has to exist ...
             function load(settings, onChange) {
                 socket.emit('getObject', 'system.config', function (err, obj) {
-                    secret = (obj.native ? obj.native.secret : '') || 'f6wnH4yKBJTKsnyu';
                     loadHelper(settings, onChange);
                 });
 
@@ -97,9 +64,6 @@
                         obj[$this.attr('id')] = $this.prop('checked');
                     } else {                        
                         var value = $this.val();
-                        if (id === 'txtApiKey') {
-                            value = encrypt(secret, value);
-                        }
                         obj[$this.attr('id')] = value;                        
                     }
                 });
