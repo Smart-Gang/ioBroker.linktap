@@ -30,6 +30,9 @@ Important: The desired schedules must be set up in the app prior to use. These c
 
 ## Changelog
 
+### 0.1.4
+* (Smart-Gang) Revision regarding comments from the review
+
 ### 0.1.3
 * (Smart-Gang) Revision regarding comments from the review
 
@@ -42,20 +45,6 @@ Important: The desired schedules must be set up in the app prior to use. These c
 ### 0.1.0
 * (Smart-Gang) Added travis-ci.org referece to readme
 
-### 0.0.9
-* (Smart-Gang) Added more translations
-
-### 0.0.8
-* (Smart-Gang) Fixed dimensions of logo image
-
-### 0.0.7
-* (Smart-Gang) Improvement of the readme and other comments
-
-### 0.0.6
-* (Smart-Gang) test release with Travis
-
-### 0.0.4
-* (Smart-Gang) test release
 
 ## License
 MIT License
