@@ -80,14 +80,15 @@ class LinkTap extends utils.Adapter {
     }    
 
     /**
-     * Creates a state
-     * @param {string} id           ID of state
-     * @param {string} displayName  Name of state
-     * @param {string} role         Role of state
-     * @param {boolean} _write       Write enabled
-     * @param {object} _unit        Unit of state
+     * Creates a data point
+     * @param {string} id           ID of data point
+     * @param {object} value        value
+     * @param {string} displayName  Name of data point
+     * @param {string} role         Role of data point
+     * @param {boolean} _write      Write enabled
+     * @param {object} _unit        Unit of of data point
      */
-    EnsureState(id, value, displayName, role,  _write, _unit) {
+    ensureDataPoint(id, value, displayName, role,  _write, _unit) {
 
         if(typeof(displayName) === null) displayName = id;
         if(typeof(_write) === null)
@@ -109,13 +110,7 @@ class LinkTap extends utils.Adapter {
                     write: _write
                 },
                 native: {id: id}
-            });
-            if(typeof(value) !== null) {
-                this.setState(id, {
-                    val: value,
-                    ack: true
-                });
-            }            
+            });          
         } else {
             this.setObjectNotExists(id, {
                 type: 'state',
@@ -128,13 +123,7 @@ class LinkTap extends utils.Adapter {
                     unit: _unit
                 },
                 native: {id: id}
-            });
-            if(typeof(value) !== null) {
-                this.setState(id, {
-                    val: value,
-                    ack: true
-                });
-            }            
+            });          
         }
     } 
 
@@ -143,7 +132,7 @@ class LinkTap extends utils.Adapter {
      * @param {string} id           ID of state
      * @param {string} displayName  Name of state
      */
-    EnsureButtonState(id, displayName){
+    ensureButtonDataPoint(id, displayName){
         if(typeof(displayName) === null) displayName = id;
         this.setObjectNotExists(id, {
             type: 'state',
@@ -167,7 +156,7 @@ class LinkTap extends utils.Adapter {
      * @param {number} min          Min value
      * @param {number} max          Max value
      */
-    EnsureIntegerState(id, displayName, role, min, max){
+    ensureIntegerDataPoint(id, displayName, role, min, max){
         if(typeof(displayName) === null) displayName = id;
         this.setObjectNotExists(id, {
             type: 'state',
@@ -227,48 +216,48 @@ class LinkTap extends utils.Adapter {
 
 
     /**
-     * Creates datapoints
+     * Creates the data points
      */    
-    createDPs() {
-        const fctName = 'createDPs';   
+    createDataPoints() {
+        const fctName = 'createDataPoints';   
         this.log.info(fctName + ' started');    
         if(this.myApiController != null ){
             this.myApiController.gateways.forEach((g) => {
-                this.EnsureState(this.getId(g.gatewayId,null,'gatewayId'), g.gatewayId, "Gateway ID", "gateway", false, null);         
-                this.EnsureState(this.getId(g.gatewayId,null,'name'), g.name, "Gateway name", "gateway", false, null);
-                this.EnsureState(this.getId(g.gatewayId,null,'location'), g.location, "Gateway location", "gateway", false, null);
-                this.EnsureState(this.getId(g.gatewayId,null,'status'), g.status, "Gateway status", "gateway", false, null);
-                this.EnsureState(this.getId(g.gatewayId,null,'version'), g.version, "Gateway version", "gateway", false, null);
+                this.ensureDataPoint(this.getId(g.gatewayId,null,'gatewayId'), g.gatewayId, "Gateway ID", "gateway", false, null);         
+                this.ensureDataPoint(this.getId(g.gatewayId,null,'name'), g.name, "Gateway name", "gateway", false, null);
+                this.ensureDataPoint(this.getId(g.gatewayId,null,'location'), g.location, "Gateway location", "gateway", false, null);
+                this.ensureDataPoint(this.getId(g.gatewayId,null,'status'), g.status, "Gateway status", "gateway", false, null);
+                this.ensureDataPoint(this.getId(g.gatewayId,null,'version'), g.version, "Gateway version", "gateway", false, null);
                 g.devices.forEach(d => {
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), d.taplinkerName, "Device name", "device", false, null);
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'location'), d.location, "Device location", "device", false, null);
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), d.taplinkerId, "Device ID", "device", false, null);
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'status'), d.status, "Device status", "device", false, null);          
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'version'), d.version, "Device version", "device", false, null);
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'signal'), d.signal, "Device signal strength","device", false, null);
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), d.batteryStatus, "Device batteryStatus", "device", false, null);
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'workMode'), d.workMode, "Device workMode", "device", false, null);
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'watering'), d.watering, "Device watering active", "device", false, null);
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'vel'), d.vel, "Device flow rate", "device", false, 'ml/min');                    
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'fall'), d.fall, "Device fall", "device", false, null);                    
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), d.valveBroken, "Device valve broken", "device", false, null);                    
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'noWater'), d.noWater, "Device no water", "device", false, null);                    
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'total'), d.total, "Device total of current watering slot", "device", false, 'min');                    
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'onDuration'), d.onDuration, "Device on duration of current watering slot", "device", false, 'min');                    
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'ecoTotal'), d.ecoTotal, "Device eco Total of current eco watering slot", "device", false, 'min');                    
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'ecoOn'), d.ecoOn, "Device eco on", "device", false, 'min');  
-                    this.EnsureState(this.getId(g.gatewayId,d.taplinkerId,'ecoOff'), d.ecoOff, "Device eco off", "device", false, 'min');
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), d.taplinkerName, "Device name", "device", false, null);
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'location'), d.location, "Device location", "device", false, null);
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), d.taplinkerId, "Device ID", "device", false, null);
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'status'), d.status, "Device status", "device", false, null);          
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'version'), d.version, "Device version", "device", false, null);
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'signal'), d.signal, "Device signal strength","device", false, null);
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), d.batteryStatus, "Device batteryStatus", "device", false, null);
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'workMode'), d.workMode, "Device workMode", "device", false, null);
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'watering'), d.watering, "Device watering active", "device", false, null);
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'vel'), d.vel, "Device flow rate", "device", false, 'ml/min');                    
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'fall'), d.fall, "Device fall", "device", false, null);                    
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), d.valveBroken, "Device valve broken", "device", false, null);                    
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'noWater'), d.noWater, "Device no water", "device", false, null);                    
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'total'), d.total, "Device total of current watering slot", "device", false, 'min');                    
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'onDuration'), d.onDuration, "Device on duration of current watering slot", "device", false, 'min');                    
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'ecoTotal'), d.ecoTotal, "Device eco Total of current eco watering slot", "device", false, 'min');                    
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'ecoOn'), d.ecoOn, "Device eco on", "device", false, 'min');  
+                    this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'ecoOff'), d.ecoOff, "Device eco off", "device", false, 'min');
 
-                    this.EnsureButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateIntervalMode'), "Activates interval mode");
-                    this.EnsureButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateOddEvenMode'), "Activates odd even mode");
-                    this.EnsureButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateMonthMode'), "Activates month mode");
-                    this.EnsureButtonState(this.getId(g.gatewayId,d.taplinkerId,'ActivateSevenDayMode'), "Activates seven day mode");
-                    this.EnsureButtonState(this.getId(g.gatewayId,d.taplinkerId,'StartInstantMode'), "Starts instant mode. (Set duration in state 'InstantModeDuration'");
-                    this.EnsureButtonState(this.getId(g.gatewayId,d.taplinkerId,'StopInstantMode'), "Stops instant / eco instant mode");
-                    this.EnsureIntegerState(this.getId(g.gatewayId,d.taplinkerId,'InstantModeDuration'), "Duration for instant mode (min.1  - max. 1439)", "state argument in", 1, 1439);
-                    this.EnsureButtonState(this.getId(g.gatewayId,d.taplinkerId,'StartEcoInstantMode'), "Starts eco instant mode. (Set duration in state 'InstantModeDuration' and 'EcoInstantModeOn' / 'EcoInstantModeOff'");                    
-                    this.EnsureIntegerState(this.getId(g.gatewayId,d.taplinkerId,'EcoInstantModeOn'), "The valve ON duration (unit is minute). This value needs to be less than duration.", "state argument in", 1, 1438);                   
-                    this.EnsureIntegerState(this.getId(g.gatewayId,d.taplinkerId,'EcoInstantModeOff'), "The valve OFF duration (unit is minute).", "state argument in", 1, 1438);
+                    this.ensureButtonDataPoint(this.getId(g.gatewayId,d.taplinkerId,'ActivateIntervalMode'), "Activates interval mode");
+                    this.ensureButtonDataPoint(this.getId(g.gatewayId,d.taplinkerId,'ActivateOddEvenMode'), "Activates odd even mode");
+                    this.ensureButtonDataPoint(this.getId(g.gatewayId,d.taplinkerId,'ActivateMonthMode'), "Activates month mode");
+                    this.ensureButtonDataPoint(this.getId(g.gatewayId,d.taplinkerId,'ActivateSevenDayMode'), "Activates seven day mode");
+                    this.ensureButtonDataPoint(this.getId(g.gatewayId,d.taplinkerId,'StartInstantMode'), "Starts instant mode. (Set duration in state 'InstantModeDuration'");
+                    this.ensureButtonDataPoint(this.getId(g.gatewayId,d.taplinkerId,'StopInstantMode'), "Stops instant / eco instant mode");
+                    this.ensureIntegerDataPoint(this.getId(g.gatewayId,d.taplinkerId,'InstantModeDuration'), "Duration for instant mode (min.1  - max. 1439)", "state argument in", 1, 1439);
+                    this.ensureButtonDataPoint(this.getId(g.gatewayId,d.taplinkerId,'StartEcoInstantMode'), "Starts eco instant mode. (Set duration in state 'InstantModeDuration' and 'EcoInstantModeOn' / 'EcoInstantModeOff'");                    
+                    this.ensureIntegerDataPoint(this.getId(g.gatewayId,d.taplinkerId,'EcoInstantModeOn'), "The valve ON duration (unit is minute). This value needs to be less than duration.", "state argument in", 1, 1438);                   
+                    this.ensureIntegerDataPoint(this.getId(g.gatewayId,d.taplinkerId,'EcoInstantModeOff'), "The valve OFF duration (unit is minute).", "state argument in", 1, 1438);
                 });
             });
         }            
@@ -411,12 +400,16 @@ class LinkTap extends utils.Adapter {
     /**
      * Queries gateways and devices and creates the data structure
      */
-    async queryAndCreateStructure(){        
-        await this.myApiController.getDevices();	            
-        this.createChannels();        
-        this.createDPs();        
-        this.subscribeStates('*');        
-        this.main();          
+    queryAndCreateStructure(){        
+        this.myApiController.getDevices().then(() => {	                        
+            this.createChannels();                    
+            this.createDataPoints();        
+            this.setTaplinkerStates() 
+            this.subscribeStates('*');        
+            this.setConnected(this.myApiController.connected);
+            this.createTaplinkerScheduler();
+            this.createWateringScheduler();                  
+        }); 
     }
 
     /**
@@ -527,28 +520,7 @@ class LinkTap extends utils.Adapter {
             this.connected = isConnected;            
         }
     }
-
-    /**
-     * Decrypts a value
-     * @param {string} key
-     * @param {string} value
-     */    
-    decrypt(key, value) {
-        let result = '';
-        for (let i = 0; i < value.length; ++i) {
-            result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
-        }
-        return result;
-    }
        
-    /**
-     * Main method
-     */    
-    main(){
-        this.setConnected(this.myApiController.connected);
-        this.createTaplinkerScheduler();
-        this.createWateringScheduler();          
-    }
 }
 
 // @ts-ignore parent is a valid property on module
