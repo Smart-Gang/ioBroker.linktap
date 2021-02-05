@@ -98,32 +98,50 @@ class LinkTap extends utils.Adapter {
 
         if(Array.isArray(value))
             value = value.toString();
-
+        let promise = Promise.resolve();
         if(typeof(_unit) === null) {
-            this.setObjectNotExists(id, {
-                type: 'state',
-                common: {
-                    name: displayName,
-                    type: typeof(value),
-                    role: role,
-                    read: true,
-                    write: _write
-                },
-                native: {id: id}
-            });          
+            promise = promise.then(() => {
+                this.setObjectNotExists(id, {
+                    type: 'state',
+                    common: {
+                        name: displayName,
+                        type: typeof(value),
+                        role: role,
+                        read: true,
+                        write: _write
+                    },
+                    native: {id: id}
+                });   
+            }).then(() => {
+                if(typeof(value) !== null) {
+                    this.setState(id, {
+                        val: value,
+                        ack: true
+                    });
+                }                                
+            });            
         } else {
-            this.setObjectNotExists(id, {
-                type: 'state',
-                common: {
-                    name: displayName,
-                    type: typeof(value),
-                    role: role,
-                    read: true,
-                    write: _write,
-                    unit: _unit
-                },
-                native: {id: id}
-            });          
+            promise = promise.then(() => {            
+                this.setObjectNotExists(id, {
+                    type: 'state',
+                    common: {
+                        name: displayName,
+                        type: typeof(value),
+                        role: role,
+                        read: true,
+                        write: _write,
+                        unit: _unit
+                    },
+                    native: {id: id}
+                });     
+            }).then(() => {
+                if(typeof(value) !== null) {
+                    this.setState(id, {
+                        val: value,
+                        ack: true
+                    });
+                }                                
+            });
         }
     } 
 
@@ -403,8 +421,7 @@ class LinkTap extends utils.Adapter {
     queryAndCreateStructure(){        
         this.myApiController.getDevices().then(() => {	                        
             this.createChannels();                    
-            this.createDataPoints();        
-            this.setTaplinkerStates() 
+            this.createDataPoints();                    
             this.subscribeStates('*');        
             this.setConnected(this.myApiController.connected);
             this.createTaplinkerScheduler();
