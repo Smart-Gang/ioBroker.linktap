@@ -199,34 +199,38 @@ class LinkTap extends utils.Adapter {
         const fctName = 'createChannels';
         this.log.info(fctName + ' started');
 
-        if(this.myApiController != null ){
+        if(this.myApiController != null ){            
             this.myApiController.gateways.forEach((g) => {
-                this.setObjectNotExists(this.getId(g.gatewayId, null, null), {
-                    type: 'channel',
-                    role: 'gateway',
-                    common: {
-                        name: g.name,
-                    },
-                    native: {}
-                }, function(err) {
-                    if (err) {
-                        this.log.error('Cannot write object: ' + err); 
-                    }
-                });  
-                g.devices.forEach(d => {
-                    this.setObjectNotExists(this.getId(g.gatewayId, d.taplinkerId, null), {
+                let promise = Promise.resolve();
+                promise = promise.then(() => {
+                    this.setObjectNotExists(this.getId(g.gatewayId, null, null), {
                         type: 'channel',
-                        role: 'device',
+                        role: 'gateway',
                         common: {
-                            name:  d.taplinkerName,
+                            name: g.name,
                         },
                         native: {}
                     }, function(err) {
                         if (err) {
                             this.log.error('Cannot write object: ' + err); 
                         }
-                    });                      
-                });              
+                    })
+                }).then(() => {
+                    g.devices.forEach(d => {
+                        this.setObjectNotExists(this.getId(g.gatewayId, d.taplinkerId, null), {
+                            type: 'channel',
+                            role: 'device',
+                            common: {
+                                name:  d.taplinkerName,
+                            },
+                            native: {}
+                        }, function(err) {
+                            if (err) {
+                                this.log.error('Cannot write object: ' + err); 
+                            }
+                        });                      
+                    });  
+                });            
             });  
         }    
         this.log.info(fctName + ' finished');    
