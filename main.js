@@ -417,7 +417,7 @@ class LinkTap extends utils.Adapter {
      * Queries gateways and devices and creates the data structure
      */
     async queryAndCreateStructure(){        
-        this.myApiController.getDevices();
+        await this.myApiController.getDevices();
         await this.createChannels();                    
         await this.createDataPoints();                    
         this.subscribeStates('*');        
