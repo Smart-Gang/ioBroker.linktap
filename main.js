@@ -196,7 +196,7 @@ class LinkTap extends utils.Adapter {
         this.log.info(fctName + ' started');
 
         if(this.myApiController != null ){            
-            await this.myApiController.gateways.forEach(async (g) => {
+            this.myApiController.gateways.forEach(async (g) => {
                 await this.setObjectNotExistsAsync(this.getId(g.gatewayId, null, null), {
                     type: 'channel',
                     role: 'gateway',
@@ -223,8 +223,8 @@ class LinkTap extends utils.Adapter {
                             this.log.error('Cannot write object: ' + err);
                         }
                     });
-                });  
-         
+                });
+
             });  
         }    
         this.log.info(fctName + ' finished');    
@@ -238,42 +238,42 @@ class LinkTap extends utils.Adapter {
         const fctName = 'createDataPoints';   
         this.log.info(fctName + ' started');    
         if(this.myApiController != null ){
-            await this.myApiController.gateways.forEach(async (g) => {
-                await this.ensureDataPoint(this.getId(g.gatewayId,null,'gatewayId'), g.gatewayId, "Gateway ID", "gateway", false, null);         
-                await this.ensureDataPoint(this.getId(g.gatewayId,null,'name'), g.name, "Gateway name", "gateway", false, null);
-                await this.ensureDataPoint(this.getId(g.gatewayId,null,'location'), g.location, "Gateway location", "gateway", false, null);
-                await this.ensureDataPoint(this.getId(g.gatewayId,null,'status'), g.status, "Gateway status", "gateway", false, null);
-                await this.ensureDataPoint(this.getId(g.gatewayId,null,'version'), g.version, "Gateway version", "gateway", false, null);
+            this.myApiController.gateways.forEach(async (g) => {
+                await this.ensureDataPoint(this.getId(g.gatewayId, null, 'gatewayId'), g.gatewayId, "Gateway ID", "gateway", false, null);
+                await this.ensureDataPoint(this.getId(g.gatewayId, null, 'name'), g.name, "Gateway name", "gateway", false, null);
+                await this.ensureDataPoint(this.getId(g.gatewayId, null, 'location'), g.location, "Gateway location", "gateway", false, null);
+                await this.ensureDataPoint(this.getId(g.gatewayId, null, 'status'), g.status, "Gateway status", "gateway", false, null);
+                await this.ensureDataPoint(this.getId(g.gatewayId, null, 'version'), g.version, "Gateway version", "gateway", false, null);
                 await g.devices.forEach(async (d) => {
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'taplinkerName'), d.taplinkerName, "Device name", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'location'), d.location, "Device location", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'taplinkerId'), d.taplinkerId, "Device ID", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'status'), d.status, "Device status", "device", false, null);          
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'version'), d.version, "Device version", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'signal'), d.signal, "Device signal strength","device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), d.batteryStatus, "Device batteryStatus", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'workMode'), d.workMode, "Device workMode", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'watering'), d.watering, "Device watering active", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'vel'), d.vel, "Device flow rate", "device", false, 'ml/min');                    
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'fall'), d.fall, "Device fall", "device", false, null);                    
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), d.valveBroken, "Device valve broken", "device", false, null);                    
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'noWater'), d.noWater, "Device no water", "device", false, null);                    
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'total'), d.total, "Device total of current watering slot", "device", false, 'min');                    
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'onDuration'), d.onDuration, "Device on duration of current watering slot", "device", false, 'min');                    
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'ecoTotal'), d.ecoTotal, "Device eco Total of current eco watering slot", "device", false, 'min');                    
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'ecoOn'), d.ecoOn, "Device eco on", "device", false, 'min');  
-                    await this.ensureDataPoint(this.getId(g.gatewayId,d.taplinkerId,'ecoOff'), d.ecoOff, "Device eco off", "device", false, 'min');
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'taplinkerName'), d.taplinkerName, "Device name", "device", false, null);
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'location'), d.location, "Device location", "device", false, null);
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'taplinkerId'), d.taplinkerId, "Device ID", "device", false, null);
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'status'), d.status, "Device status", "device", false, null);
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'version'), d.version, "Device version", "device", false, null);
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'signal'), d.signal, "Device signal strength", "device", false, null);
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'batteryStatus'), d.batteryStatus, "Device batteryStatus", "device", false, null);
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'workMode'), d.workMode, "Device workMode", "device", false, null);
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'watering'), d.watering, "Device watering active", "device", false, null);
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'vel'), d.vel, "Device flow rate", "device", false, 'ml/min');
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'fall'), d.fall, "Device fall", "device", false, null);
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'valveBroken'), d.valveBroken, "Device valve broken", "device", false, null);
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'noWater'), d.noWater, "Device no water", "device", false, null);
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'total'), d.total, "Device total of current watering slot", "device", false, 'min');
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'onDuration'), d.onDuration, "Device on duration of current watering slot", "device", false, 'min');
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'ecoTotal'), d.ecoTotal, "Device eco Total of current eco watering slot", "device", false, 'min');
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'ecoOn'), d.ecoOn, "Device eco on", "device", false, 'min');
+                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'ecoOff'), d.ecoOff, "Device eco off", "device", false, 'min');
 
-                    await this.ensureButtonDataPoint(this.getId(g.gatewayId,d.taplinkerId,'ActivateIntervalMode'), "Activates interval mode");
-                    await this.ensureButtonDataPoint(this.getId(g.gatewayId,d.taplinkerId,'ActivateOddEvenMode'), "Activates odd even mode");
-                    await this.ensureButtonDataPoint(this.getId(g.gatewayId,d.taplinkerId,'ActivateMonthMode'), "Activates month mode");
-                    await this.ensureButtonDataPoint(this.getId(g.gatewayId,d.taplinkerId,'ActivateSevenDayMode'), "Activates seven day mode");
-                    await this.ensureButtonDataPoint(this.getId(g.gatewayId,d.taplinkerId,'StartInstantMode'), "Starts instant mode. (Set duration in state 'InstantModeDuration'");
-                    await this.ensureButtonDataPoint(this.getId(g.gatewayId,d.taplinkerId,'StopInstantMode'), "Stops instant / eco instant mode");
-                    await this.ensureIntegerDataPoint(this.getId(g.gatewayId,d.taplinkerId,'InstantModeDuration'), "Duration for instant mode (min.1  - max. 1439)", "state argument in", 1, 1439);
-                    await this.ensureButtonDataPoint(this.getId(g.gatewayId,d.taplinkerId,'StartEcoInstantMode'), "Starts eco instant mode. (Set duration in state 'InstantModeDuration' and 'EcoInstantModeOn' / 'EcoInstantModeOff'");                    
-                    await this.ensureIntegerDataPoint(this.getId(g.gatewayId,d.taplinkerId,'EcoInstantModeOn'), "The valve ON duration (unit is minute). This value needs to be less than duration.", "state argument in", 1, 1438);                   
-                    await this.ensureIntegerDataPoint(this.getId(g.gatewayId,d.taplinkerId,'EcoInstantModeOff'), "The valve OFF duration (unit is minute).", "state argument in", 1, 1438);
+                    await this.ensureButtonDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'ActivateIntervalMode'), "Activates interval mode");
+                    await this.ensureButtonDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'ActivateOddEvenMode'), "Activates odd even mode");
+                    await this.ensureButtonDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'ActivateMonthMode'), "Activates month mode");
+                    await this.ensureButtonDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'ActivateSevenDayMode'), "Activates seven day mode");
+                    await this.ensureButtonDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'StartInstantMode'), "Starts instant mode. (Set duration in state 'InstantModeDuration'");
+                    await this.ensureButtonDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'StopInstantMode'), "Stops instant / eco instant mode");
+                    await this.ensureIntegerDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'InstantModeDuration'), "Duration for instant mode (min.1  - max. 1439)", "state argument in", 1, 1439);
+                    await this.ensureButtonDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'StartEcoInstantMode'), "Starts eco instant mode. (Set duration in state 'InstantModeDuration' and 'EcoInstantModeOn' / 'EcoInstantModeOff'");
+                    await this.ensureIntegerDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'EcoInstantModeOn'), "The valve ON duration (unit is minute). This value needs to be less than duration.", "state argument in", 1, 1438);
+                    await this.ensureIntegerDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'EcoInstantModeOff'), "The valve OFF duration (unit is minute).", "state argument in", 1, 1438);
                 });
             });
         }            
@@ -417,7 +417,7 @@ class LinkTap extends utils.Adapter {
      * Queries gateways and devices and creates the data structure
      */
     async queryAndCreateStructure(){        
-        await this.myApiController.getDevices();
+        this.myApiController.getDevices();
         await this.createChannels();                    
         await this.createDataPoints();                    
         this.subscribeStates('*');        
