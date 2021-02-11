@@ -1,0 +1,57 @@
+{
+    "gatewayId": {
+        "type": "state",
+        "common": {
+            "name": "Gateway ID",
+            "type": "string",
+            "read": true,
+            "write": false,
+            "role": "gateway"
+        },
+        "native": {}
+    },
+    "name": {
+        "type": "state",
+        "common": {
+            "name": "Gateway name",
+            "type": "string",
+            "read": true,
+            "write": false,
+            "role": "gateway"
+        },
+        "native": {}
+    },
+    "location": {
+        "type": "state",
+        "common": {
+            "name": "Gateway location",
+            "type": "string",
+            "read": true,
+            "write": false,
+            "role": "gateway"
+        },
+        "native": {}
+    },
+    "status": {
+        "type": "state",
+        "common": {
+            "name": "Gateway status",
+            "type": "string",
+            "read": true,
+            "write": false,
+            "role": "gateway"
+        },
+        "native": {}
+    },
+    "version": {
+        "type": "state",
+        "common": {
+            "name": "Gateway version",
+            "type": "string",
+            "read": true,
+            "write": false,
+            "role": "gateway"
+        },
+        "native": {}
+    }         
+}

@@ -1,0 +1,322 @@
+{
+    "taplinkerName": {
+        "type": "state",
+        "common": {
+            "name": "Device name",
+            "type": "string",
+            "read": true,
+            "write": false,
+            "role": "device"
+        },
+        "native": {}
+    },
+    "location": {
+        "type": "state",
+        "common": {
+            "name": "Device location",
+            "type": "string",
+            "read": true,
+            "write": false,
+            "role": "device"
+        },
+        "native": {}
+    },
+    "taplinkerId": {
+        "type": "state",
+        "common": {
+            "name": "Device ID",
+            "type": "string",
+            "read": true,
+            "write": false,
+            "role": "device"
+        },
+        "native": {}
+    },
+    "status": {
+        "type": "state",
+        "common": {
+            "name": "Device status",
+            "type": "string",
+            "read": true,
+            "write": false,
+            "role": "device"
+        },
+        "native": {}
+    },
+    "version": {
+        "type": "state",
+        "common": {
+            "name": "Device version",
+            "type": "string",
+            "read": true,
+            "write": false,
+            "role": "device"
+        },
+        "native": {}
+    },
+    "signal": {
+        "type": "state",
+        "common": {
+            "name": "Device signal strength",
+            "type": "string",
+            "read": true,
+            "write": false,
+            "role": "device"
+        },
+        "native": {}
+    },
+    "batteryStatus": {
+        "type": "state",
+        "common": {
+            "name": "Device batteryStatus",
+            "type": "string",
+            "read": true,
+            "write": false,
+            "role": "device"
+        },
+        "native": {}
+    },
+    "workMode": {
+        "type": "state",
+        "common": {
+            "name": "Device workMode",
+            "type": "string",
+            "read": true,
+            "write": false,
+            "role": "device"
+        },
+        "native": {}
+    },
+    "watering": {
+        "type": "state",
+        "common": {
+            "name": "Device watering active",
+            "type": "boolean",
+            "read": true,
+            "write": false,
+            "role": "device"
+        },
+        "native": {}
+    },
+    "vel": {
+        "type": "state",
+        "common": {
+            "name": "Device flow rate",
+            "type": "number",
+            "read": true,
+            "write": false,
+            "role": "device",
+            "unit": "ml/min"
+        },
+        "native": {}
+    },
+    "fall": {
+        "type": "state",
+        "common": {
+            "name": "Device fall",
+            "type": "boolean",
+            "read": true,
+            "write": false,
+            "role": "device"
+        },
+        "native": {}
+    }, 
+    "valveBroken": {
+        "type": "state",
+        "common": {
+            "name": "Device valve broken",
+            "type": "boolean",
+            "read": true,
+            "write": false,
+            "role": "device"
+        },
+        "native": {}
+    }, 
+    "noWater": {
+        "type": "state",
+        "common": {
+            "name": "Device no water",
+            "type": "boolean",
+            "read": true,
+            "write": false,
+            "role": "device"
+        },
+        "native": {}
+    }, 
+    "total": {
+        "type": "state",
+        "common": {
+            "name": "Device total duration of current watering slot",
+            "type": "number",
+            "read": true,
+            "write": false,
+            "role": "device",
+            "unit": "min"
+        },
+        "native": {}
+    }, 
+    "onDuration": {
+        "type": "state",
+        "common": {
+            "name": "Device remaining duration of current watering slot",
+            "type": "number",
+            "read": true,
+            "write": false,
+            "role": "device",
+            "unit": "min"            
+        },
+        "native": {}
+    }, 
+    "ecoTotal": {
+        "type": "state",
+        "common": {
+            "name": "Device eco total duration of current eco watering slot",
+            "type": "number",
+            "read": true,
+            "write": false,
+            "role": "device",
+            "unit": "min"      
+        },
+        "native": {}
+    },
+    "ecoOn": {
+        "type": "state",
+        "common": {
+            "name": "Device eco on",
+            "type": "number",
+            "read": true,
+            "write": false,
+            "role": "device",
+            "unit": "min"      
+        },
+        "native": {}
+    }, 
+    "ecoOff": {
+        "type": "state",
+        "common": {
+            "name": "Device eco off",
+            "type": "number",
+            "read": true,
+            "write": false,
+            "role": "device",
+            "unit": "min"      
+        },
+        "native": {}
+    },       
+    "ActivateIntervalMode": {
+        "type": "state",
+        "common": {
+            "name": "Activates interval mode",
+            "type": "boolean",
+            "read": true,
+            "write": true,
+            "role": "button"  
+        },
+        "native": {}
+    },       
+    "ActivateOddEvenMode": {
+        "type": "state",
+        "common": {
+            "name": "Activates odd even mode",
+            "type": "boolean",
+            "read": true,
+            "write": true,
+            "role": "button"    
+        },
+        "native": {}
+    },       
+    "ActivateMonthMode": {
+        "type": "state",
+        "common": {
+            "name": "Activates month mode",
+            "type": "boolean",
+            "read": true,
+            "write": true,
+            "role": "button"   
+        },
+        "native": {}
+    },       
+    "ActivateSevenDayMode": {
+        "type": "state",
+        "common": {
+            "name": "Activates seven day mode",
+            "type": "boolean",
+            "read": true,
+            "write": true,
+            "role": "button"
+        },
+        "native": {}
+    },       
+    "StartInstantMode": {
+        "type": "state",
+        "common": {
+            "name": "Starts instant mode. (Set duration in state 'InstantModeDuration'",
+            "type": "boolean",
+            "read": true,
+            "write": true,
+            "role": "button"    
+        },
+        "native": {}
+    },       
+    "StopInstantMode": {
+        "type": "state",
+        "common": {
+            "name": "Stops instant / eco instant mode",
+            "type": "boolean",
+            "read": true,
+            "write": true,
+            "role": "button"    
+        },
+        "native": {}
+    },       
+    "InstantModeDuration": {
+        "type": "state",
+        "common": {
+            "name": "Duration for instant mode (min.1  - max. 1439)",
+            "type": "number",
+            "read": true,
+            "write": true,
+            "role": "state argument in",
+            "min": 1,
+            "max": 1439    
+        },
+        "native": {}
+    },       
+    "StartEcoInstantMode": {
+        "type": "state",
+        "common": {
+            "name": "Starts eco instant mode. (Set duration in state 'InstantModeDuration' and 'EcoInstantModeOn' / 'EcoInstantModeOff'",
+            "type": "number",
+            "read": true,
+            "write": true,
+            "role": "button"  
+        },
+        "native": {}
+    },       
+    "EcoInstantModeOn": {
+        "type": "state",
+        "common": {
+            "name": "The valve ON duration (unit is minute). This value needs to be less than duration.",
+            "type": "number",
+            "read": true,
+            "write": true,
+            "role": "state argument in",
+            "min": 1,
+            "max": 1438    
+        },
+        "native": {}
+    },       
+    "EcoInstantModeOff": {
+        "type": "state",
+        "common": {
+            "name": "The valve OFF duration (unit is minute).",
+            "type": "number",
+            "read": true,
+            "write": true,
+            "role": "state argument in",
+            "min": 1,
+            "max": 1438
+        },
+        "native": {}
+    }
+}

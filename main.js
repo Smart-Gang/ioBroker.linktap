@@ -80,115 +80,6 @@ class LinkTap extends utils.Adapter {
     }    
 
     /**
-     * Creates a data point
-     * @param {string} id           ID of data point
-     * @param {object} value        value
-     * @param {string} displayName  Name of data point
-     * @param {string} role         Role of data point
-     * @param {boolean} _write      Write enabled
-     * @param {object} _unit        Unit of of data point
-     */
-    async ensureDataPoint(id, value, displayName, role,  _write, _unit) {
-
-        if(typeof(displayName) === null) displayName = id;
-        if(typeof(_write) === null)
-            _write = false;
-        if(typeof(_write) !== 'boolean')
-            _write = false;
-
-        if(Array.isArray(value))
-            value = value.toString();
-        
-        if(typeof(_unit) === null) {            
-            await this.setObjectNotExistsAsync(id, {
-                type: 'state',
-                common: {
-                    name: displayName,
-                    type: typeof (value),
-                    role: role,
-                    read: true,
-                    write: _write
-                },
-                native: { id: id }
-            });
-
-            if (typeof (value) !== null) {
-                this.setState(id, {
-                    val: value,
-                    ack: true
-                });
-            }                                            
-        } else {                     
-            await this.setObjectNotExistsAsync(id, {
-                type: 'state',
-                common: {
-                    name: displayName,
-                    type: typeof (value),
-                    role: role,
-                    read: true,
-                    write: _write,
-                    unit: _unit
-                },
-                native: { id: id }
-            });
-
-            if (typeof (value) !== null) {
-                this.setState(id, {
-                    val: value,
-                    ack: true
-                });
-            }                                            
-        }
-    } 
-
-    /**
-     * Creates a button state
-     * @param {string} id           ID of state
-     * @param {string} displayName  Name of state
-     */
-    async ensureButtonDataPoint(id, displayName){
-        if(typeof(displayName) === null) displayName = id;
-        await this.setObjectNotExistsAsync(id, {
-            type: 'state',
-            common: {
-                name: displayName,
-                type: "boolean",
-                role: "button",
-                read: true,
-                write: true
-            },
-            native: {id: id}
-        });       
-    }
-
-
-    /**
-     * Creates a integer state
-     * @param {string} id           ID of state
-     * @param {string} displayName  Name of state
-     * @param {string} role         Role of state
-     * @param {number} min          Min value
-     * @param {number} max          Max value
-     */
-    async ensureIntegerDataPoint(id, displayName, role, min, max){
-        if(typeof(displayName) === null) displayName = id;
-        await this.setObjectNotExistsAsync(id, {
-            type: 'state',
-            common: {
-                name: displayName,
-                type: "number",
-                role: role,
-                read: true,
-                write: true,
-                min: min,
-                max: max                
-            },
-            native: {id: id}
-        });       
-    }    
-
-
-    /**
      * Creates all channels
      */
     async createChannels() {
@@ -238,42 +129,26 @@ class LinkTap extends utils.Adapter {
         const fctName = 'createDataPoints';   
         this.log.info(fctName + ' started');    
         if(this.myApiController != null ){
+            const gatewayStructure = require("./lib/gateway.json");
+            const taplinkerStructure = require("./lib/taplinker.json");
             this.myApiController.gateways.forEach(async (g) => {
-                await this.ensureDataPoint(this.getId(g.gatewayId, null, 'gatewayId'), g.gatewayId, "Gateway ID", "gateway", false, null);
-                await this.ensureDataPoint(this.getId(g.gatewayId, null, 'name'), g.name, "Gateway name", "gateway", false, null);
-                await this.ensureDataPoint(this.getId(g.gatewayId, null, 'location'), g.location, "Gateway location", "gateway", false, null);
-                await this.ensureDataPoint(this.getId(g.gatewayId, null, 'status'), g.status, "Gateway status", "gateway", false, null);
-                await this.ensureDataPoint(this.getId(g.gatewayId, null, 'version'), g.version, "Gateway version", "gateway", false, null);
-                await g.devices.forEach(async (d) => {
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'taplinkerName'), d.taplinkerName, "Device name", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'location'), d.location, "Device location", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'taplinkerId'), d.taplinkerId, "Device ID", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'status'), d.status, "Device status", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'version'), d.version, "Device version", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'signal'), d.signal, "Device signal strength", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'batteryStatus'), d.batteryStatus, "Device batteryStatus", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'workMode'), d.workMode, "Device workMode", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'watering'), d.watering, "Device watering active", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'vel'), d.vel, "Device flow rate", "device", false, 'ml/min');
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'fall'), d.fall, "Device fall", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'valveBroken'), d.valveBroken, "Device valve broken", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'noWater'), d.noWater, "Device no water", "device", false, null);
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'total'), d.total, "Device total of current watering slot", "device", false, 'min');
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'onDuration'), d.onDuration, "Device on duration of current watering slot", "device", false, 'min');
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'ecoTotal'), d.ecoTotal, "Device eco Total of current eco watering slot", "device", false, 'min');
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'ecoOn'), d.ecoOn, "Device eco on", "device", false, 'min');
-                    await this.ensureDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'ecoOff'), d.ecoOff, "Device eco off", "device", false, 'min');
-
-                    await this.ensureButtonDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'ActivateIntervalMode'), "Activates interval mode");
-                    await this.ensureButtonDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'ActivateOddEvenMode'), "Activates odd even mode");
-                    await this.ensureButtonDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'ActivateMonthMode'), "Activates month mode");
-                    await this.ensureButtonDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'ActivateSevenDayMode'), "Activates seven day mode");
-                    await this.ensureButtonDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'StartInstantMode'), "Starts instant mode. (Set duration in state 'InstantModeDuration'");
-                    await this.ensureButtonDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'StopInstantMode'), "Stops instant / eco instant mode");
-                    await this.ensureIntegerDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'InstantModeDuration'), "Duration for instant mode (min.1  - max. 1439)", "state argument in", 1, 1439);
-                    await this.ensureButtonDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'StartEcoInstantMode'), "Starts eco instant mode. (Set duration in state 'InstantModeDuration' and 'EcoInstantModeOn' / 'EcoInstantModeOff'");
-                    await this.ensureIntegerDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'EcoInstantModeOn'), "The valve ON duration (unit is minute). This value needs to be less than duration.", "state argument in", 1, 1438);
-                    await this.ensureIntegerDataPoint(this.getId(g.gatewayId, d.taplinkerId, 'EcoInstantModeOff'), "The valve OFF duration (unit is minute).", "state argument in", 1, 1438);
+                const gatewayObject = Object.assign({}, gatewayStructure);
+                for (const gatewayProp in gatewayObject) {
+                    var dataPointId = this.getId(g.gatewayId, null, gatewayProp)
+                    await this.setObjectNotExistsAsync(dataPointId, gatewayObject[gatewayProp]);
+                    if(gatewayProp.write === false){
+                        this.setState(dataPointId, { val: g[gatewayProp], ack: true });
+                    }
+                }
+                g.devices.forEach(async (d) => {
+                    const taplinkerObject = Object.assign({}, taplinkerStructure);
+                    for (const taplinkerProp in taplinkerObject) {
+                        var dataPointId = this.getId(g.gatewayId, d.taplinkerId, taplinkerProp)
+                        await this.setObjectNotExistsAsync(dataPointId, taplinkerObject[taplinkerProp]);
+                        if(taplinkerProp.write === false){
+                            this.setState(dataPointId, { val: d[taplinkerProp], ack: true });
+                        }                        
+                    }
                 });
             });
         }            
@@ -419,7 +294,7 @@ class LinkTap extends utils.Adapter {
     async queryAndCreateStructure(){        
         await this.myApiController.getDevices();
         await this.createChannels();                    
-        await this.createDataPoints();                    
+        await this.createDataPoints();                
         this.subscribeStates('*');        
         this.setConnected(this.myApiController.connected);
         this.createTaplinkerScheduler();
