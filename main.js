@@ -136,7 +136,7 @@ class LinkTap extends utils.Adapter {
                 for (const gatewayProp in gatewayObject) {
                     var dataPointId = this.getId(g.gatewayId, null, gatewayProp)
                     await this.setObjectNotExistsAsync(dataPointId, gatewayObject[gatewayProp]);
-                    if(gatewayProp.write === false){
+                    if(gatewayObject[gatewayProp].common.write === false){
                         this.setState(dataPointId, { val: g[gatewayProp], ack: true });
                     }
                 }
@@ -145,7 +145,7 @@ class LinkTap extends utils.Adapter {
                     for (const taplinkerProp in taplinkerObject) {
                         var dataPointId = this.getId(g.gatewayId, d.taplinkerId, taplinkerProp)
                         await this.setObjectNotExistsAsync(dataPointId, taplinkerObject[taplinkerProp]);
-                        if(taplinkerProp.write === false){
+                        if(taplinkerObject[taplinkerProp].common.write === false){
                             this.setState(dataPointId, { val: d[taplinkerProp], ack: true });
                         }                        
                     }
