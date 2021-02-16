@@ -1,19 +1,19 @@
 {
     "common": {
         "name": "linktap",
-        "version": "0.1.6",
+        "version": "0.1.7",
         "news": {
-            "0.1.6": {
-                "en": "Revision regarding comments from the review",
-                "de": "Überarbeitung bezüglich der Kommentare aus der Überprüfung",
-                "ru": "Пересмотр в отношении замечаний по итогам обзора",
-                "pt": "Revisão relativa aos comentários da revisão",
-                "nl": "Herziening van de opmerkingen uit de herziening",
-                "fr": "Révision concernant les commentaires issus de la révision",
-                "it": "Revisione dei commenti della revisione",
-                "es": "Revisión de los comentarios de la revisión",
-                "pl": "Korekta dotycząca uwag z przeglądu",
-                "zh-cn": "关于审查意见的修订"
+            "0.1.7": {
+                "en": "First public release",
+                "de": "Erste öffentliche Version",
+                "ru": "Первый публичный релиз",
+                "pt": "Primeiro lançamento público",
+                "nl": "Eerste publieke release",
+                "fr": "Première publication",
+                "it": "Prima uscita pubblica",
+                "es": "Primera publicación",
+                "pl": "Pierwsza publiczna publikacja",
+                "zh-cn": "第一次公开发行"
             }                 
         },
         "connectionType": "cloud",

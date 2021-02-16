@@ -3,7 +3,7 @@
  *
  *      Controls LinkTap Wireless Water Timer via LinkTap Gateway
  *
- *      Copyright 2020 Smart-Gang <gangrulez@gmail.com>,
+ *      Copyright 2021 Smart-Gang <gangrulez@gmail.com>,
  *      MIT License
  *
  */
@@ -86,8 +86,8 @@ class LinkTap extends utils.Adapter {
         const fctName = 'createChannels';
         this.log.info(fctName + ' started');
 
-        if(this.myApiController != null ){            
-            this.myApiController.gateways.forEach(async (g) => {
+        if(this.myApiController != null ){                        
+            for(const g of this.myApiController.gateways) {
                 await this.setObjectNotExistsAsync(this.getId(g.gatewayId, null, null), {
                     type: 'channel',
                     role: 'gateway',
@@ -95,13 +95,8 @@ class LinkTap extends utils.Adapter {
                         name: g.name,
                     },
                     native: {}
-                }, function (err) {
-                    if (err) {
-                        this.log.error('Cannot write object: ' + err);
-                    }
                 });
-
-                await g.devices.forEach(async (d) => {
+                for(const d of g.devices) {                
                     await this.setObjectNotExistsAsync(this.getId(g.gatewayId, d.taplinkerId, null), {
                         type: 'channel',
                         role: 'device',
@@ -109,14 +104,9 @@ class LinkTap extends utils.Adapter {
                             name: d.taplinkerName,
                         },
                         native: {}
-                    }, function (err) {
-                        if (err) {
-                            this.log.error('Cannot write object: ' + err);
-                        }
                     });
-                });
-
-            });  
+                }
+            }
         }    
         this.log.info(fctName + ' finished');    
     } 
@@ -130,8 +120,8 @@ class LinkTap extends utils.Adapter {
         this.log.info(fctName + ' started');    
         if(this.myApiController != null ){
             const gatewayStructure = require("./lib/gateway.json");
-            const taplinkerStructure = require("./lib/taplinker.json");
-            this.myApiController.gateways.forEach(async (g) => {
+            const taplinkerStructure = require("./lib/taplinker.json");            
+            for(const g of this.myApiController.gateways) {                
                 const gatewayObject = Object.assign({}, gatewayStructure);
                 for (const gatewayProp in gatewayObject) {
                     var dataPointId = this.getId(g.gatewayId, null, gatewayProp)
@@ -140,7 +130,7 @@ class LinkTap extends utils.Adapter {
                         this.setState(dataPointId, { val: g[gatewayProp], ack: true });
                     }
                 }
-                g.devices.forEach(async (d) => {
+                for(const d of g.devices) {        
                     const taplinkerObject = Object.assign({}, taplinkerStructure);
                     for (const taplinkerProp in taplinkerObject) {
                         var dataPointId = this.getId(g.gatewayId, d.taplinkerId, taplinkerProp)
@@ -149,8 +139,8 @@ class LinkTap extends utils.Adapter {
                             this.setState(dataPointId, { val: d[taplinkerProp], ack: true });
                         }                        
                     }
-                });
-            });
+                }
+            }
         }            
         this.log.info(fctName + ' finished');    
     }
