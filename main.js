@@ -269,7 +269,7 @@ class LinkTap extends utils.Adapter {
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'status'), { val: d.status, ack: true });
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'version'), { val: d.version, ack: true });
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'signal'), { val: d.signal, ack: true });
-                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), { val: parseInt(d.batteryStatus.replace("%","")), ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), { val: d.batteryStatus, ack: true });
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'workMode'), { val: d.workMode, ack: true });                    
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'fall'), { val: d.fall, ack: true });
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), { val: d.valveBroken, ack: true });
@@ -336,6 +336,7 @@ class LinkTap extends utils.Adapter {
      */
     async queryAndCreateStructure(){        
         await this.myApiController.getDevices();
+        await this.myApiController.getHistory();
         await this.createChannels();                    
         await this.createDataPoints();                
         this.subscribeStates('*');        
