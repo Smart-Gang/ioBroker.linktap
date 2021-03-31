@@ -90,7 +90,7 @@ class LinkTap extends utils.Adapter {
 
         if(this.myApiController != null ){                        
             for(const g of this.myApiController.gateways) {
-                await this.setObjectNotExistsAsync(this.getId(g.gatewayId, null, null), {
+                await this.setObjectAsync(this.getId(g.gatewayId, null, null), {
                     type: 'channel',
                     role: 'gateway',
                     common: {
@@ -99,7 +99,7 @@ class LinkTap extends utils.Adapter {
                     native: {}
                 });
                 for(const d of g.devices) {                
-                    await this.setObjectNotExistsAsync(this.getId(g.gatewayId, d.taplinkerId, null), {
+                    await this.setObjectAsync(this.getId(g.gatewayId, d.taplinkerId, null), {
                         type: 'channel',
                         role: 'device',
                         common: {
@@ -127,7 +127,7 @@ class LinkTap extends utils.Adapter {
                 const gatewayObject = Object.assign({}, gatewayStructure);
                 for (const gatewayProp in gatewayObject) {
                     var dataPointId = this.getId(g.gatewayId, null, gatewayProp)
-                    await this.setObjectNotExistsAsync(dataPointId, gatewayObject[gatewayProp]);
+                    await this.setObjectAsync(dataPointId, gatewayObject[gatewayProp]);
                     if(gatewayObject[gatewayProp].common.write === false){
                         this.setState(dataPointId, { val: g[gatewayProp], ack: true });
                     }
@@ -136,7 +136,7 @@ class LinkTap extends utils.Adapter {
                     const taplinkerObject = Object.assign({}, taplinkerStructure);
                     for (const taplinkerProp in taplinkerObject) {
                         var dataPointId = this.getId(g.gatewayId, d.taplinkerId, taplinkerProp)
-                        await this.setObjectNotExistsAsync(dataPointId, taplinkerObject[taplinkerProp]);
+                        await this.setObjectAsync(dataPointId, taplinkerObject[taplinkerProp]);
                         if(taplinkerObject[taplinkerProp].common.write === false){
                             this.setState(dataPointId, { val: d[taplinkerProp], ack: true });
                         }                        
