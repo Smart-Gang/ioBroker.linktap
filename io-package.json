@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "linktap",
-        "version": "0.1.7",
+        "version": "0.1.8",
         "news": {
+            "0.1.8": {
+                "en": "Retrieve historical data (API update from manufacturer) and optimize data point settingse",
+                "de": "Abruf von historischen Daten (API Update vom Hersteller) und Optimierung von Datenpunkteinstellungen.",
+                "ru": "Извлекайте исторические данные (обновление API от производителя) и оптимизируйте настройки точек данных.",
+                "pt": "Recuperar dados históricos (actualização API do fabricante) e optimizar as definições dos pontos de dados.",
+                "nl": "Historische gegevens ophalen (API-update van fabrikant) en datapuntinstellingen optimaliseren.",
+                "fr": "Récupérer les données historiques (mise à jour API du fabricant) et optimiser les paramètres des points de données.",
+                "it": "Recupera i dati storici (aggiornamento API dal produttore) e ottimizza le impostazioni dei punti dati.",
+                "es": "Recuperar los datos históricos (actualización de la API del fabricante) y optimizar la configuración de los puntos de datos.",
+                "pl": "Pobieranie danych historycznych (aktualizacja API od producenta) i optymalizacja ustawień punktów danych.",
+                "zh-cn": "检索历史数据（来自制造商的API更新）并优化数据点设置。"
+            },             
             "0.1.7": {
                 "en": "First public release",
                 "de": "Erste öffentliche Version",
@@ -78,7 +90,8 @@
     "native": {        
         "txtUsername": "", 
         "txtApiKey": "",
-        "txtPollInterval": "1"
+        "txtPollIntervalWatering": "1",
+        "txtPollIntervalHistory": "10"
     },
     "encryptedNative":[
         "txtApiKey"        

@@ -69,10 +69,11 @@
         "type": "state",
         "common": {
             "name": "Device batteryStatus",
-            "type": "string",
+            "type": "number",
             "read": true,
             "write": false,
-            "role": "device"
+            "role": "device",
+            "unit": "%"            
         },
         "native": {}
     },
@@ -83,7 +84,15 @@
             "type": "string",
             "read": true,
             "write": false,
-            "role": "device"
+            "role": "device",
+            "states": {
+                "O": "Odd-Even Mode",
+                "M": "Instant Mode",
+                "I": "Interval Mode",
+                "T": "7-Day Mode",
+                "Y": "Month Mode",
+                "N": "Mode not set"
+              }
         },
         "native": {}
     },
@@ -110,6 +119,18 @@
         },
         "native": {}
     },
+    "vol": {
+        "type": "state",
+        "common": {
+            "name": "Accumulated volume of running watering slot.",
+            "type": "number",
+            "read": true,
+            "write": false,
+            "role": "device",
+            "unit": "ml"
+        },
+        "native": {}
+    },    
     "fall": {
         "type": "state",
         "common": {
@@ -278,7 +299,8 @@
             "write": true,
             "role": "state argument in",
             "min": 1,
-            "max": 1439    
+            "max": 1439,
+            "unit": "min"            
         },
         "native": {}
     },       
@@ -316,6 +338,18 @@
             "role": "state argument in",
             "min": 1,
             "max": 1438
+        },
+        "native": {}
+    },
+    "history": {
+        "type": "state",
+        "common": {
+            "name": "Watering Historical Data for the Past 30 Days",
+            "desc" : "Explanation of relevant fields in the watering historical data: Y: the date a watering cycle ended. Its format is YYYYMMDD. H: the hour (0 - 23) a watering cycle ended. M: the minute (0 - 59) a watering cycle ended. ss: the second (0 - 59) a watering cycle ended. D: the minute part of the duration of a watering cycle. S: the second part (0 - 59) of the duration of a watering cycle. vol: total volume of a watering cycle. (unit: ml. For G2 and G2S only).",
+            "type": "array",
+            "read": true,
+            "write": false,
+            "role": "device"
         },
         "native": {}
     }

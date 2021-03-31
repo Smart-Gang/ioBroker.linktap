@@ -38,8 +38,8 @@ systemDictionary = {
         "pl": "Odstęp czasowy do przywrócenia stanu podlewania w minutach (min. 1)",
         "zh-cn": "恢复浇水状态的时间间隔，以分钟为单位(min. 1)"
     },
-    "Please enter integer values greate than 0. A parse is performed for non-integer values." :{
-        "en": "Please enter integer values greate than 0. A parse is performed for non-integer values.",
+    "Please enter integer values greater than 0. A parse is performed for non-integer values." :{
+        "en": "Please enter integer values greater than 0. A parse is performed for non-integer values.",
         "de": "Bitte geben Sie ganzzahlige Werte größer als 0 ein. Für nicht ganzzahlige Werte wird ein Parse durchgeführt.",
         "ru": "Пожалуйста, введите целочисленные значения greate than 0. Разбор выполняется для нецелых значений.",
         "pt": "Por favor, introduza valores inteiros greate than 0. Um parse é realizado para valores não inteiros.",
@@ -109,5 +109,29 @@ systemDictionary = {
         "es": "Modo instantáneo: InstantModeDuration<br /><br />Modo instantáneo Eco: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff",
         "pl": "Tryb natychmiastowy: InstantModeDuration<br /><br />Eco tryb natychmiastowy: Tryb natychmiastowy: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff",
         "zh-cn": "即时模式。InstantModeDuration<br /><br />Eco即时模式。InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff。"
+    },
+    "Interval to retrieve the historical data on irrigation for the last 30 days (min. 10)." :{
+        "en": "Interval to retrieve the historical data on irrigation for the last 30 days (min. 10).",
+        "de": "Intervall zum Abrufen der historischen Daten zur Bewässerung für die letzten 30 Tage (min. 10).",
+        "ru": "Интервал для получения исторических данных по орошению за последние 30 дней (мин. 10).",
+        "pt": "Intervalo para recuperar os dados históricos sobre irrigação dos últimos 30 dias (min. 10).",
+        "nl": "Interval voor het ophalen van de historische gegevens over irrigatie van de laatste 30 dagen (min. 10).",
+        "fr": "Intervalle pour récupérer les données historiques sur l'irrigation pour les 30 derniers jours (min. 10).",
+        "it": "Intervallo per recuperare i dati storici sull'irrigazione per gli ultimi 30 giorni (min. 10).",
+        "es": "Intervalo para recuperar los datos históricos de riego de los últimos 30 días (mín. 10).",
+        "pl": "Przedział czasu, w którym należy pobrać dane historyczne dotyczące nawadniania za ostatnie 30 dni (min. 10).",
+        "zh-cn": "检索过去30天灌溉历史数据的时间间隔(最少10天)"
+    },
+    "Please enter integer values greater or equal than 10. A parse is performed for non-integer values." :{
+        "en": "Please enter integer values greater or equal than 10. A parse is performed for non-integer values.",
+        "de": "Bitte geben Sie ganzzahlige Werte größer oder gleich 10 ein. Bei nicht-ganzzahligen Werten wird ein Parse durchgeführt.",
+        "ru": "Пожалуйста, введите целочисленные значения больше или равные 10. Разбор выполняется для нецелых значений.",
+        "pt": "Por favor, introduza valores inteiros maiores ou iguais a 10. Um parse é realizado para valores não inteiros.",
+        "nl": "Gelieve gehele waarden groter of gelijk aan 10 in te voeren. Voor niet-integer waarden wordt een parse uitgevoerd.",
+        "fr": "Veuillez saisir des valeurs entières supérieures ou égales à 10. Une analyse syntaxique est effectuée pour les valeurs non entières.",
+        "it": "Si prega di inserire valori interi maggiori o uguali a 10. Un parsing viene eseguito per i valori non interi.",
+        "es": "Por favor, introduzca valores enteros mayores o iguales a 10. Se realiza un análisis sintáctico para los valores no enteros.",
+        "pl": "Proszę wprowadzić wartości całkowite większe lub równe 10. Dla wartości niecałkowitych wykonywany jest parsek.",
+        "zh-cn": "请输入大于或等于10的整数值。对非整数值进行解析。"
     }
 };

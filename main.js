@@ -30,11 +30,13 @@ class LinkTap extends utils.Adapter {
         this.on('unload', this.onUnload.bind(this));
 
         this.connected = false;
-        this.dataPollIntervalWatering = 60000;                
+        this.dataPollIntervalWatering = 60000;             
         this.dataPollTimeoutWatering = null;
-        this.dataPollIntervalTaplinker = 3600000;        
-        this.dataPollTimeoutTaplinker = null;        
-        this.myApiController = null; 
+        this.dataPollIntervalTaplinker = 3600000;
+        this.dataPollTimeoutTaplinker = null;
+        this.dataPollIntervalHistory = 3600000;
+        this.dataPollTimeoutHistory = null;        
+        this.myApiController = null;
     }
 
 
@@ -201,6 +203,35 @@ class LinkTap extends utils.Adapter {
     }
 
     /**
+     * Creates data polling schedule for history
+     */
+     createHistoryScheduler() {
+        const fctName = 'createHistoryScheduler';
+        this.log.info(fctName + ' started');
+    
+        if(this.dataPollTimeoutHistory !== null) {
+            clearInterval(this.dataPollTimeoutHistory);    
+            this.dataPollTimeoutHistory = null;    
+            this.log.info(fctName + ' scheduler stopped');
+        }                        
+        this.dataPollTimeoutHistory = setInterval(() =>  {       
+            var fctName = 'updateHistory';
+            this.log.info(fctName + ' started');
+    
+            if(this.myApiController != null ){
+                this.myApiController.gateways.forEach((g) => {
+                    g.devices.forEach(d => {
+                        d.getHistory();
+                    });
+                });
+            }
+            this.setHistoryState();            
+            this.log.info(fctName + ' finished');
+        }, this.dataPollIntervalHistory);                    
+        this.log.info(fctName + ' finished');    
+    }    
+
+    /**
      * Set watering states
      */    
     setWateringStates(){
@@ -209,6 +240,7 @@ class LinkTap extends utils.Adapter {
                 g.devices.forEach(d => {
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'watering'), { val: d.watering, ack: true });
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'vel'), { val: d.vel, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'vol'), { val: d.vol, ack: true });
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'total'), { val: d.total, ack: true });
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'onDuration'), { val: d.onDuration, ack: true });
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'ecoTotal'), { val: d.ecoTotal, ack: true });                    
@@ -237,7 +269,7 @@ class LinkTap extends utils.Adapter {
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'status'), { val: d.status, ack: true });
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'version'), { val: d.version, ack: true });
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'signal'), { val: d.signal, ack: true });
-                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), { val: d.batteryStatus, ack: true });
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'batteryStatus'), { val: parseInt(d.batteryStatus.replace("%","")), ack: true });
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'workMode'), { val: d.workMode, ack: true });                    
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'fall'), { val: d.fall, ack: true });
                     this.setState(this.getId(g.gatewayId,d.taplinkerId,'valveBroken'), { val: d.valveBroken, ack: true });
@@ -246,6 +278,19 @@ class LinkTap extends utils.Adapter {
             });
         }
     }       
+
+    /**
+     * Set history state
+     */    
+     setHistoryState(){
+        if(this.myApiController != null ){
+            this.myApiController.gateways.forEach((g) => {
+                g.devices.forEach(d => {
+                    this.setState(this.getId(g.gatewayId,d.taplinkerId,'history'), { val: d.history, ack: true });
+                });
+            });
+        }
+    } 
 
     /**
      * Is called when databases are connected and adapter received configuration.
@@ -260,14 +305,22 @@ class LinkTap extends utils.Adapter {
             return;
         }         
         
-        if(isNaN(this.config.txtPollInterval) || this.config.txtPollInterval === "" || this.config.txtPollInterval === null){
-            this.log.warn('No valid poll interval found. Set poll interval to 1 minute.');            
+        if(isNaN(this.config.txtPollIntervalWatering) || this.config.txtPollIntervalWatering === "" || this.config.txtPollIntervalWatering === null){
+            this.log.warn('No valid watering poll interval found. Set poll interval to 1 minute.');            
           } else {
-            var parsedPollIntervall = parseInt(this.config.txtPollInterval, 10);
-            if(parsedPollIntervall < 1) parsedPollIntervall = 1;
-            this.log.info('Set get water state poll interval to '+parsedPollIntervall+ ' minute(s).');
-            this.dataPollIntervalWatering = (parsedPollIntervall *60 * 1000)
-        }     
+            var parsedPollIntervalWatering = parseInt(this.config.txtPollIntervalWatering, 10);
+            if(parsedPollIntervalWatering < 1) parsedPollIntervalWatering = 1;
+            this.log.info('Set water state poll interval to '+parsedPollIntervalWatering+ ' minute(s).');
+            this.dataPollIntervalWatering = (parsedPollIntervalWatering *60 * 1000)
+        }
+        if(isNaN(this.config.txtPollIntervalHistory) || this.config.txtPollIntervalHistory === "" || this.config.txtPollIntervalHistory === null){
+            this.log.warn('No valid history poll interval found. Set poll interval to 10 minute.');            
+          } else {
+            var parsedPollIntervalHistory = parseInt(this.config.txtPollIntervalHistory, 10);
+            if(parsedPollIntervalHistory < 10) parsedPollIntervalHistory = 10;
+            this.log.info('Set history state poll interval to '+parsedPollIntervalHistory+ ' minute(s).');
+            this.dataPollIntervalHistory = (parsedPollIntervalHistory *60 * 1000)
+        }               
         const foreignObject = this.getForeignObject('system.config', (err, obj) => {            
             this.myApiController = new LinkTapApiController({
                 logger: this.log,            
@@ -288,7 +341,8 @@ class LinkTap extends utils.Adapter {
         this.subscribeStates('*');        
         this.setConnected(this.myApiController.connected);
         this.createTaplinkerScheduler();
-        this.createWateringScheduler();                          
+        this.createWateringScheduler();
+        this.createHistoryScheduler();
     }
 
     /**
@@ -299,6 +353,7 @@ class LinkTap extends utils.Adapter {
         try {
             if(this.dataPollTimeoutTaplinker !== null) clearInterval(this.dataPollTimeoutTaplinker);
             if(this.dataPollTimeoutWatering !== null) clearInterval(this.dataPollTimeoutWatering);
+            if(this.dataPollTimeoutHistory !== null) clearInterval(this.dataPollTimeoutHistory);
             this.setConnected(false);
             callback();
         } catch (e) {
