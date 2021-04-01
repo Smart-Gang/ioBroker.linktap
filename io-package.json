@@ -91,7 +91,8 @@
         "txtUsername": "", 
         "txtApiKey": "",
         "txtPollIntervalWatering": "1",
-        "txtPollIntervalHistory": "10"
+        "txtPollIntervalHistory": "10",
+        "txtPollIntervalDevices": "5"
     },
     "encryptedNative":[
         "txtApiKey"        
