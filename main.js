@@ -159,12 +159,12 @@ class LinkTap extends utils.Adapter {
             this.dataPollTimeoutTaplinker = null;    
             this.log.info(fctName + ' scheduler stopped');
         }                        
-        this.dataPollTimeoutTaplinker = setInterval(() =>  {       
+        this.dataPollTimeoutTaplinker = setInterval(async () =>  {       
             var fctName = 'updateTaplinkerStatus';
             this.log.info(fctName + ' started');
     
             if(this.myApiController != null ){
-                this.myApiController.getDevices();
+                await this.myApiController.getDevices();
             }
             this.setTaplinkerStates();
             this.log.info(fctName + ' finished');
@@ -184,12 +184,12 @@ class LinkTap extends utils.Adapter {
             this.dataPollTimeoutWatering = null;    
             this.log.info(fctName + ' scheduler stopped');
         }                        
-        this.dataPollTimeoutWatering = setInterval(() =>  {       
+        this.dataPollTimeoutWatering = setInterval(async () =>  {       
             var fctName = 'updateWateringStatus';
             this.log.info(fctName + ' started');
     
             if(this.myApiController != null ){
-                this.myApiController.getWateringStatus();
+                await this.myApiController.getWateringStatus();
             }
             this.setWateringStates();            
             this.log.info(fctName + ' finished');
@@ -209,12 +209,12 @@ class LinkTap extends utils.Adapter {
             this.dataPollTimeoutHistory = null;    
             this.log.info(fctName + ' scheduler stopped');
         }                        
-        this.dataPollTimeoutHistory = setInterval(() =>  {       
+        this.dataPollTimeoutHistory = setInterval(async () =>  {       
             var fctName = 'updateHistory';
             this.log.info(fctName + ' started');
     
             if(this.myApiController != null ){
-                this.myApiController.getHistory();
+                await this.myApiController.getHistory();
             }
             this.setHistoryState();            
             this.log.info(fctName + ' finished');
