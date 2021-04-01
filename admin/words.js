@@ -50,18 +50,6 @@ systemDictionary = {
         "pl": "Proszę wprowadzić wartości całkowite greate niż 0. Dla wartości niezintegrowanych wykonywany jest pars.",
         "zh-cn": "请输入大于 0 的整数值，对于非整数值将进行解析。"
     },
-    "The gateways and taplinker devices are queried every hour or when the adapter is restarted. The manufacturer allows a minimum interval of 5 minutes." :{
-        "en": "The gateways and taplinker devices are queried every hour or when the adapter is restarted. The manufacturer allows a minimum interval of 5 minutes.",
-        "de": "Die Gateways und Taplinker-Geräte werden stündlich oder beim Neustart des Adapters abgefragt. Der Hersteller erlaubt ein Mindestintervall von 5 Minuten.",
-        "ru": "Опрос шлюзов и устройств РПН производится каждый час или при перезапуске адаптера. Производитель допускает минимальный интервал в 5 минут.",
-        "pt": "Os gateways e dispositivos de taplinker são consultados a cada hora ou quando o adaptador é reiniciado. O fabricante permite um intervalo mínimo de 5 minutos.",
-        "nl": "De gateways en taplinkers worden elk uur opgevraagd of wanneer de adapter opnieuw wordt opgestart. De fabrikant staat een minimum interval van 5 minuten toe.",
-        "fr": "Les passerelles et les dispositifs taplinker sont interrogés toutes les heures ou lors du redémarrage de l'adaptateur. Le fabricant autorise un intervalle minimum de 5 minutes.",
-        "it": "I gateway e i dispositivi taplinker vengono interrogati ogni ora o quando l'adattatore viene riavviato. Il produttore consente un intervallo minimo di 5 minuti.",
-        "es": "Los gateways y los dispositivos taplinker se consultan cada hora o cuando se reinicia el adaptador. El fabricante permite un intervalo mínimo de 5 minutos.",
-        "pl": "Bramki i urządzenia typu taplinker są sprawdzane co godzinę lub po ponownym uruchomieniu adaptera. Producent dopuszcza minimalny odstęp czasu wynoszący 5 minut.",
-        "zh-cn": "每隔一小时或在适配器重新启动时，对网关和分接联动设备进行查询。制造商允许的最小间隔时间为5分钟。"
-    },
     "If the adapter is restarted several times during this time, it is possible that the gateways / taplinkers cannot be determined immediately." :{
         "en": "If the adapter is restarted several times during this time, it is possible that the gateways / taplinkers cannot be determined immediately.",
         "de": "Wenn der Adapter in dieser Zeit mehrmals neu gestartet wird, ist es möglich, dass die Gateways / Taplinker nicht sofort ermittelt werden können.",
@@ -133,5 +121,29 @@ systemDictionary = {
         "es": "Por favor, introduzca valores enteros mayores o iguales a 10. Se realiza un análisis sintáctico para los valores no enteros.",
         "pl": "Proszę wprowadzić wartości całkowite większe lub równe 10. Dla wartości niecałkowitych wykonywany jest parsek.",
         "zh-cn": "请输入大于或等于10的整数值。对非整数值进行解析。"
+    },
+    "Please enter integer values greater or equal than 5. A parse is performed for non-integer values." :{
+        "en": "Please enter integer values greater or equal than 5. A parse is performed for non-integer values.",
+        "de": "Bitte geben Sie ganzzahlige Werte größer oder gleich 5 ein. Bei nicht-ganzzahligen Werten wird ein Parse durchgeführt.",
+        "ru": "Пожалуйста, введите целочисленные значения больше или равные 5. Разбор выполняется для нецелых значений.",
+        "pt": "Por favor, introduza valores inteiros maiores ou iguais a 5. Um parse é realizado para valores não inteiros.",
+        "nl": "Gelieve gehele waarden groter of gelijk aan 5 in te voeren. Voor niet-integer waarden wordt een parse uitgevoerd.",
+        "fr": "Veuillez saisir des valeurs entières supérieures ou égales à 5. Une analyse syntaxique est effectuée pour les valeurs non entières.",
+        "it": "Si prega di inserire valori interi maggiori o uguali a 5. Un parsing viene eseguito per i valori non interi.",
+        "es": "Por favor, introduzca valores enteros mayores o iguales a 5. Se realiza un análisis sintáctico para los valores no enteros.",
+        "pl": "Proszę wprowadzić wartości całkowite większe lub równe 5. Dla wartości niecałkowitych wykonywany jest parsek.",
+        "zh-cn": "请输入大于或等于5的整数值。非整数值将进行解析。"
+    },
+    "Interval for retrieving the gateways and the devices in minutes (min. 5)" :{
+        "en": "Interval for retrieving the gateways and the devices in minutes (min. 5)",
+        "de": "Intervall zum Abrufen der Gateways und der Devices in Minuten (min. 5)",
+        "ru": "Интервал для извлечения шлюзов и устройств в минутах (мин. 5).",
+        "pt": "Intervalo para recuperação dos portões e dos dispositivos em minutos (mín. 5)",
+        "nl": "Interval voor het ophalen van de gateways en de apparaten in minuten (min. 5)",
+        "fr": "Intervalle pour la récupération des passerelles et des dispositifs en minutes (min. 5)",
+        "it": "Intervallo per il recupero dei gateway e dei dispositivi in minuti (min. 5)",
+        "es": "Intervalo para recuperar las pasarelas y los dispositivos en minutos (min. 5)",
+        "pl": "Interwał odświeżania bram i urządzeń w minutach (min. 5)",
+        "zh-cn": "检索网关和设备的时间间隔，以分钟为单位(5分钟)"
     }
 };

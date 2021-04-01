@@ -32,7 +32,7 @@ class LinkTap extends utils.Adapter {
         this.connected = false;
         this.dataPollIntervalWatering = 60000;             
         this.dataPollTimeoutWatering = null;
-        this.dataPollIntervalTaplinker = 3600000;
+        this.dataPollIntervalTaplinker = 300000;
         this.dataPollTimeoutTaplinker = null;
         this.dataPollIntervalHistory = 3600000;
         this.dataPollTimeoutHistory = null;        
@@ -167,7 +167,6 @@ class LinkTap extends utils.Adapter {
                 this.myApiController.getDevices();
             }
             this.setTaplinkerStates();
-            //this.createWateringScheduler();
             this.log.info(fctName + ' finished');
         }, this.dataPollIntervalTaplinker);                    
         this.log.info(fctName + ' finished');    
@@ -190,11 +189,7 @@ class LinkTap extends utils.Adapter {
             this.log.info(fctName + ' started');
     
             if(this.myApiController != null ){
-                this.myApiController.gateways.forEach((g) => {
-                    g.devices.forEach(d => {
-                        d.queryWateringStatus();
-                    });
-                });
+                this.myApiController.getWateringStatus();
             }
             this.setWateringStates();            
             this.log.info(fctName + ' finished');
@@ -219,11 +214,7 @@ class LinkTap extends utils.Adapter {
             this.log.info(fctName + ' started');
     
             if(this.myApiController != null ){
-                this.myApiController.gateways.forEach((g) => {
-                    g.devices.forEach(d => {
-                        d.getHistory();
-                    });
-                });
+                this.myApiController.getHistory();
             }
             this.setHistoryState();            
             this.log.info(fctName + ' finished');
@@ -304,7 +295,15 @@ class LinkTap extends utils.Adapter {
             this.log.warn('Please open Admin page for this adapter to set the username and the API key.');
             return;
         }         
-        
+
+        if(isNaN(this.config.txtPollIntervalDevices) || this.config.txtPollIntervalDevices === "" || this.config.txtPollIntervalDevices === null){
+            this.log.warn('No valid device poll interval found. Set poll interval to 10 minute.');            
+          } else {
+            var parsedPollIntervalDevices = parseInt(this.config.txtPollIntervalDevices, 10);
+            if(parsedPollIntervalDevices < 5) parsedPollIntervalDevices = 5;
+            this.log.info('Set device poll interval to '+parsedPollIntervalDevices+ ' minute(s).');
+            this.dataPollIntervalTaplinker = (parsedPollIntervalDevices *60 * 1000)
+        }        
         if(isNaN(this.config.txtPollIntervalWatering) || this.config.txtPollIntervalWatering === "" || this.config.txtPollIntervalWatering === null){
             this.log.warn('No valid watering poll interval found. Set poll interval to 1 minute.');            
           } else {
@@ -320,7 +319,8 @@ class LinkTap extends utils.Adapter {
             if(parsedPollIntervalHistory < 10) parsedPollIntervalHistory = 10;
             this.log.info('Set history state poll interval to '+parsedPollIntervalHistory+ ' minute(s).');
             this.dataPollIntervalHistory = (parsedPollIntervalHistory *60 * 1000)
-        }               
+        } 
+                            
         const foreignObject = this.getForeignObject('system.config', (err, obj) => {            
             this.myApiController = new LinkTapApiController({
                 logger: this.log,            
@@ -336,6 +336,7 @@ class LinkTap extends utils.Adapter {
      */
     async queryAndCreateStructure(){        
         await this.myApiController.getDevices();
+        await this.myApiController.getWateringStatus();
         await this.myApiController.getHistory();
         await this.createChannels();                    
         await this.createDataPoints();                
