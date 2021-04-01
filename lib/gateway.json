@@ -6,7 +6,7 @@
             "type": "string",
             "read": true,
             "write": false,
-            "role": "gateway"
+            "role": "value"
         },
         "native": {}
     },
@@ -17,7 +17,7 @@
             "type": "string",
             "read": true,
             "write": false,
-            "role": "gateway"
+            "role": "value"
         },
         "native": {}
     },
@@ -28,7 +28,7 @@
             "type": "string",
             "read": true,
             "write": false,
-            "role": "gateway"
+            "role": "value"
         },
         "native": {}
     },
@@ -39,7 +39,7 @@
             "type": "string",
             "read": true,
             "write": false,
-            "role": "gateway"
+            "role": "value"
         },
         "native": {}
     },
@@ -50,7 +50,7 @@
             "type": "string",
             "read": true,
             "write": false,
-            "role": "gateway"
+            "role": "value"
         },
         "native": {}
     }         
