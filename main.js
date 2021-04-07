@@ -113,13 +113,30 @@ class LinkTap extends utils.Adapter {
         this.log.info(fctName + ' finished');    
     } 
 
+    /**
+     * Creates or updates adapter objects
+     */   
+    async createOrUpdateObject(id, object){
+        const foundObject = await this.getObjectAsync(id);
+        if (foundObject == null) {
+            await this.setObjectAsync(id, object);
+            this.log.info('Creating new object: '+id);
+            return; //new object
+        }        
+        if(foundObject.hasOwnProperty("common") && object.hasOwnProperty("common")) {
+            if(JSON.stringify(foundObject.common) !== JSON.stringify(object.common)) {
+                this.log.info('Update required for changed property: common for object: '+id);
+                await this.setObjectAsync(id, object); //updating changed object
+            }
+        }                    
+    }
 
     /**
      * Creates the data points
      */    
     async createDataPoints() {
         const fctName = 'createDataPoints';   
-        this.log.info(fctName + ' started');    
+        this.log.info(fctName + ' started');
         if(this.myApiController != null ){
             const gatewayStructure = require("./lib/gateway.json");
             const taplinkerStructure = require("./lib/taplinker.json");            
@@ -127,7 +144,7 @@ class LinkTap extends utils.Adapter {
                 const gatewayObject = Object.assign({}, gatewayStructure);
                 for (const gatewayProp in gatewayObject) {
                     var dataPointId = this.getId(g.gatewayId, null, gatewayProp)
-                    await this.setObjectAsync(dataPointId, gatewayObject[gatewayProp]);
+                    await this.createOrUpdateObject(dataPointId, gatewayObject[gatewayProp]);
                     if(gatewayObject[gatewayProp].common.write === false){
                         this.setState(dataPointId, { val: g[gatewayProp], ack: true });
                     }
@@ -136,7 +153,7 @@ class LinkTap extends utils.Adapter {
                     const taplinkerObject = Object.assign({}, taplinkerStructure);
                     for (const taplinkerProp in taplinkerObject) {
                         var dataPointId = this.getId(g.gatewayId, d.taplinkerId, taplinkerProp)
-                        await this.setObjectAsync(dataPointId, taplinkerObject[taplinkerProp]);
+                        await this.createOrUpdateObject(dataPointId, taplinkerObject[taplinkerProp]);
                         if(taplinkerObject[taplinkerProp].common.write === false){
                             this.setState(dataPointId, { val: d[taplinkerProp], ack: true });
                         }                        
