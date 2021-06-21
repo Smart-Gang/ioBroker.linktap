@@ -1,10 +1,22 @@
 {
     "common": {
         "name": "linktap",
-        "version": "0.1.8",
+        "version": "0.1.9",
         "news": {
+            "0.1.9": {
+                "en": "Community suggestion: The trigger data points (buttons) now have the status set to false by default.",
+                "de": "Vorschlag der Community: Die Triggerdatenpunkte (Buttons) haben jetzt standardmäßig den Status auf false.",
+                "ru": "Предложение от сообщества: Триггерные точки данных (кнопки) теперь по умолчанию имеют статус false.",
+                "pt": "Sugestão da comunidade: Os pontos de dados de disparo (botões) têm agora o estado definido como falso por defeito.",
+                "nl": "Suggestie van de gemeenschap: De trigger datapunten (knoppen) hebben nu standaard de status op false staan.",
+                "fr": "Suggestion de la communauté : Les points de données déclencheurs (boutons) ont maintenant le statut défini sur faux par défaut.",
+                "it": "Suggerimento dalla comunità: i punti di dati trigger (pulsanti) ora hanno lo stato impostato su false per impostazione predefinita.",
+                "es": "Sugerencia de la comunidad: Los puntos de datos de activación (botones) tienen ahora el estado fijado en falso por defecto.",
+                "pl": "Sugestia od społeczności: Punkty danych wyzwalacza (przyciski) mają teraz domyślnie ustawiony status na false.",
+                "zh-cn": "来自社区的建议：现在触发数据点（按钮）的状态默认设置为假。"
+            },             
             "0.1.8": {
-                "en": "Retrieve historical data (API update from manufacturer) and optimize data point settingse",
+                "en": "Retrieve historical data (API update from manufacturer) and optimize data point settings",
                 "de": "Abruf von historischen Daten (API Update vom Hersteller) und Optimierung von Datenpunkteinstellungen.",
                 "ru": "Извлекайте исторические данные (обновление API от производителя) и оптимизируйте настройки точек данных.",
                 "pt": "Recuperar dados históricos (actualização API do fabricante) e optimizar as definições dos pontos de dados.",
