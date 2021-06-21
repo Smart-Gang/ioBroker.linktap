@@ -58,7 +58,7 @@
         "type": "state",
         "common": {
             "name": "Device signal strength",
-            "type": "string",
+            "type": "number",
             "read": true,
             "write": false,
             "role": "value"

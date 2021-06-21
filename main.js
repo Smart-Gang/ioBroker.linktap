@@ -156,6 +156,10 @@ class LinkTap extends utils.Adapter {
                         await this.createOrUpdateObject(dataPointId, taplinkerObject[taplinkerProp]);
                         if(taplinkerObject[taplinkerProp].common.write === false){
                             this.setState(dataPointId, { val: d[taplinkerProp], ack: true });
+                        } else {
+                            if(taplinkerObject[taplinkerProp].common.role === "button"){
+                                this.setState(dataPointId, { val: false, ack: true });
+                            }                            
                         }                        
                     }
                 }
@@ -417,12 +421,15 @@ class LinkTap extends utils.Adapter {
                 if (idParts.length != 5) {
                     this.logger.error("ID: " + id + " has invalid format.");
                     return "Error while activating scheduling mode.";
-                }
+                }                
                 switch (idParts[4]) {
                     case "StartInstantMode":
                         idParts.pop();
                         this.getCurrentState(idParts.join('.') + '.' + 'InstantModeDuration').then((value) => {
-                            this.myApiController.startInstantMode(idParts, value);
+                            if(state.val === true) {
+                                this.myApiController.startInstantMode(idParts, value);
+                                this.setState(id, { val: false, ack: true });
+                            }
                         });
                         break;
                     case "StartEcoInstantMode":
@@ -430,16 +437,25 @@ class LinkTap extends utils.Adapter {
                         this.getCurrentState(idParts.join('.') + '.' + 'InstantModeDuration').then((value) => {
                             this.getCurrentState(idParts.join('.') + '.' + 'EcoInstantModeOn').then((ecoOn) => {
                                 this.getCurrentState(idParts.join('.') + '.' + 'EcoInstantModeOff').then((ecoOff) => {
-                                    this.myApiController.startEcoInstantMode(idParts, value, ecoOn, ecoOff);
+                                    if(state.val === true) {
+                                        this.myApiController.startEcoInstantMode(idParts, value, ecoOn, ecoOff);
+                                        this.setState(id, { val: false, ack: true });
+                                    }
                                 });
                             });
                         });
                         break;
                     case "StopInstantMode":
-                        this.myApiController.stopInstantMode(idParts);
+                        if(state.val === true) {
+                            this.myApiController.stopInstantMode(idParts);
+                            this.setState(id, { val: false, ack: true });
+                        }
                         break;
                     default:
-                        this.myApiController.activateSchedulingMode(idParts);
+                        if(state.val === true) {
+                            this.myApiController.activateSchedulingMode(idParts);
+                            this.setState(id, { val: false, ack: true });
+                        }                            
                         break;
                 }
             }

@@ -1,6 +1,6 @@
 {
   "name": "iobroker.linktap",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Control your garden irrigation with the LinkTap Wireless Water Timer",
   "author": {
     "name": "Smart-Gang",
