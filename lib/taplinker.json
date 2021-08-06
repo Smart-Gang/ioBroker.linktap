@@ -308,7 +308,7 @@
         "type": "state",
         "common": {
             "name": "Starts eco instant mode. (Set duration in state 'InstantModeDuration' and 'EcoInstantModeOn' / 'EcoInstantModeOff'",
-            "type": "number",
+            "type": "boolean",
             "read": true,
             "write": true,
             "role": "button"  
