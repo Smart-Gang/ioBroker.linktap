@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "linktap",
-        "version": "0.1.9",
+        "version": "0.2.0",
         "news": {
+            "0.2.0": {
+                "en": "Changed types of state 'signal' to number and of button 'StartEcoInstantMode' to boolean.",
+                "de": "Der Typ des Zustands 'Signal' wurde in eine Zahl und der der Schaltfläche 'StartEcoInstantMode' in einen booleschen Wert geändert.",
+                "ru": "Изменены типы состояния 'signal' на число и кнопки 'StartEcoInstantMode' на boolean.",
+                "pt": "Mudou os tipos de 'sinal' de estado para número e de botão 'StartEcoInstantMode' para booleano.",
+                "nl": "Gewijzigd type van toestand 'signaal' in getal en van knop 'StartEcoInstantMode' in booleaans.",
+                "fr": "Changement des types de l'état 'signal' en nombre et du bouton 'StartEcoInstantMode' en booléen.",
+                "it": "Cambiati i tipi di stato 'segnale' in numero e di pulsante 'StartEcoInstantMode' in booleano.",
+                "es": "Cambiados los tipos de estado 'señal' a número y de botón 'StartEcoInstantMode' a booleano.",
+                "pl": "Zmieniono typy stanu 'signal' na liczbę oraz przycisku 'StartEcoInstantMode' na boolean.",
+                "zh-cn": "将状态 '信号' 的类型改为数字，将按钮 'StartEcoInstantMode' 的类型改为布尔值。"
+            },
             "0.1.9": {
                 "en": "Community suggestion: The trigger data points (buttons) now have the status set to false by default.",
                 "de": "Vorschlag der Community: Die Triggerdatenpunkte (Buttons) haben jetzt standardmäßig den Status auf false.",
