@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "linktap",
-        "version": "0.2.0",
+        "version": "0.2.1",
         "news": {
+            "0.2.1": {
+                "en": "Updated CI testing & dependencies.",
+                "de": "Aktualisierung der CI Tests und Versionsabhängigkeiten",
+                "ru": "Обновлено тестирование CI и зависимостей.",
+                "pt": "Testes CI e dependências actualizados.",
+                "nl": "CI testen en afhankelijkheden bijgewerkt.",
+                "fr": "Mise à jour des tests et des dépendances du CI.",
+                "it": "Test e dipendenze CI aggiornati.",
+                "es": "Actualización de las pruebas y dependencias de CI.",
+                "pl": "Zaktualizowane testy CI i zależności.",
+                "zh-cn": "更新了CI测试和依赖性。"
+            },            
             "0.2.0": {
                 "en": "Changed types of state 'signal' to number and of button 'StartEcoInstantMode' to boolean.",
                 "de": "Der Typ des Zustands 'Signal' wurde in eine Zahl und der der Schaltfläche 'StartEcoInstantMode' in einen booleschen Wert geändert.",
