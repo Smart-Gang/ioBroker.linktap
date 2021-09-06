@@ -20,6 +20,5 @@ test_script:
   - node --version
   - npm --version
   - ps: Start-Sleep -s 15
-  - 'npm run test:package'
-  - 'npm run test:integration'
+  - 'npm run test:package'  
 build: 'off'
