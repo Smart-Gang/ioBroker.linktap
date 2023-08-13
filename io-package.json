@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "linktap",
-        "version": "0.2.1",
+        "version": "0.2.2",
         "news": {
+            "0.2.2": {
+                "en": "Added support for new devices (ValveLinker and multiple-outlet water timer) with 18-digit IDs.",
+                "de": "Unterstützung für neue Geräte (ValveLinker und Wasserzeitschaltuhr mit mehreren Auslässen) mit 18-stelligen IDs hinzugefügt.",
+                "ru": "Добавлена поддержка новых устройств (ValveLinker и многорозеточный таймер воды) с 18-значными идентификаторами.",
+                "pt": "Adicionado suporte para novos dispositivos (ValveLinker e temporizador de água de saída múltipla) com IDs de 18 dígitos.",
+                "nl": "Ondersteuning toegevoegd voor nieuwe apparaten (ValveLinker en watertimer met meerdere uitgangen) met ID's van 18 cijfers.",
+                "fr": "Ajout de la prise en charge de nouveaux dispositifs (ValveLinker et programmateur d'eau à sorties multiples) avec des identifiants à 18 chiffres.",
+                "it": "È stato aggiunto il supporto per i nuovi dispositivi (ValveLinker e timer per acqua a uscita multipla) con ID a 18 cifre.",
+                "es": "Se ha añadido compatibilidad con nuevos dispositivos (ValveLinker y programador de riego de varias salidas) con ID de 18 dígitos.",
+                "pl": "Dodano obsługę nowych urządzeń (ValveLinker i zegar sterujący dla wielu wylotów wody) z 18-cyfrowymi identyfikatorami.",
+                "zh-cn": "新增了对具有 18 位 ID 的新设备（ValveLinker 和多出水口定时器）的支持。"
+            },
             "0.2.1": {
                 "en": "Updated CI testing & dependencies.",
                 "de": "Aktualisierung der CI Tests und Versionsabhängigkeiten",
