@@ -17,7 +17,7 @@ Control your garden irrigation with the LinkTap Wireless Water Timer
 Manufacturer: https://www.link-tap.com/
 
 ## Installation
-Was developed under Node.js 12. So it is recommended to use this version at least.
+Please use Node.js 16 or higher.
 
 ## Settings
 Create Api key at https://www.link-tap.com/#!/api-for-developers with your LinkTap credentials. 
