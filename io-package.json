@@ -84,7 +84,6 @@
         },
         "connectionType": "cloud",
         "dataSource": "poll",
-        "title": "LinkTap",
         "titleLang": {
             "en": "LinkTap",
             "de": "LinkTap",
