@@ -6,7 +6,7 @@
     "interval_device_state_desc_2": "W przypadku kilkukrotnego ponownego uruchomienia adaptera w tym czasie, możliwe jest, że bramki / urządzenia typu taplinker nie będą mogły być natychmiast rozpoznane.",
     "footer_row1": "Uruchomienie opcji podlewania można uruchomić za pomocą przycisków. W tym celu konieczne jest jednak wstępne skonfigurowanie odpowiednich trybów w aplikacji. API Link-Tap.com nie pozwala na tworzenie trybów, a jedynie ich aktywację i zmianę.",
     "footer_row2": "Proszę również ustawić odpowiednie argumenty dla wykonania trybu.",
-    "footer_row3": "Tryb natychmiastowy: InstantModeDuration<br /><br />Eco tryb natychmiastowy: Tryb natychmiastowy: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff",    
+    "footer_row3": "Tryb natychmiastowy: InstantModeDuration - Eco tryb natychmiastowy: Tryb natychmiastowy: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff",    
     "interval_historical_state": "Przedział czasu, w którym należy pobrać dane historyczne dotyczące nawadniania za ostatnie 30 dni (min. 10).",
     "interval_historical_state_desc_1": "Proszę wprowadzić wartości całkowite większe lub równe 10. Dla wartości niecałkowitych wykonywany jest parsek.",
     "interval_device_state_desc_1": "Proszę wprowadzić wartości całkowite większe lub równe 5. Dla wartości niecałkowitych wykonywany jest parsek.",

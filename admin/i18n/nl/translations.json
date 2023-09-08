@@ -6,7 +6,7 @@
     "interval_device_state_desc_2": "Als de adapter gedurende deze tijd meerdere keren opnieuw wordt opgestart, is het mogelijk dat de gateways / taplinkers niet onmiddellijk kunnen worden bepaald.",
     "footer_row1": "Het starten van de bewateringsopties kan met de toetsen worden gestart. Hiervoor is het echter noodzakelijk dat de betreffende modi ook in eerste instantie in de app worden geconfigureerd. De API Link-Tap.com staat niet het aanmaken van modi toe, maar alleen het activeren en wijzigen van modi.",
     "footer_row2": "Stel ook de relevante argumenten voor het uitvoeren van de mode in.",
-    "footer_row3": "Onmiddellijke modus: InstantModeDuration<br /><br />Eco instant mode: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff",    
+    "footer_row3": "Onmiddellijke modus: InstantModeDuration - Eco instant mode: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff",    
     "interval_historical_state": "Interval voor het ophalen van de historische gegevens over irrigatie van de laatste 30 dagen (min. 10).",
     "interval_historical_state_desc_1": "Gelieve gehele waarden groter of gelijk aan 10 in te voeren. Voor niet-integer waarden wordt een parse uitgevoerd.",
     "interval_device_state_desc_1": "Gelieve gehele waarden groter of gelijk aan 5 in te voeren. Voor niet-integer waarden wordt een parse uitgevoerd.",

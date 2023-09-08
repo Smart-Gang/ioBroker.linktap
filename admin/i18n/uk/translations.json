@@ -6,7 +6,7 @@
     "interval_device_state_desc_2": "Якщо протягом цього часу адаптер буде перезавантажено кілька разів, можливо, шлюзи/маршрутизатори не вдасться визначити одразу.",
     "footer_row1": "Запуск опцій поливу можна ініціювати за допомогою кнопок. Однак для цього потрібно, щоб відповідні режими також були попередньо налаштовані в застосунку. API Link-Tap.com не дозволяє створювати режими, а лише активувати та перемикати режими.",
     "footer_row2": "Будь ласка, також задайте відповідні аргументи для виконання режиму.",
-    "footer_row3": "Instant mode: InstantModeDuration<br /><br />Eco instant mode: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff",    
+    "footer_row3": "Instant mode: InstantModeDuration - Eco instant mode: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff",    
     "interval_historical_state": "Інтервал для отримання історичних даних про полив за останні 30 днів (мінімум 10).",
     "interval_historical_state_desc_1": "Будь ласка, введіть цілі значення, більші або рівні 10. Для нецілих значень виконується розбір.",
     "interval_device_state_desc_1": "Будь ласка, введіть цілі значення, більші або рівні 5. Для нецілих значень виконується розбір.",

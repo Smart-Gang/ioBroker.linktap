@@ -6,7 +6,7 @@
     "interval_device_state_desc_2": "Se l'adattatore viene riavviato più volte durante questo intervallo di tempo, è possibile che i gateways / taplinkers non possano essere determinati immediatamente.",
     "footer_row1": "L'avvio delle opzioni di irrigazione può essere avviato tramite i pulsanti. Per questo, tuttavia, è necessario che anche le modalità corrispondenti siano inizialmente configurate nell'app. L'API Link-Tap.com non consente la creazione di modalità, ma solo l'attivazione e il cambio di modalità.",
     "footer_row2": "Si prega di impostare anche gli argomenti rilevanti per l'esecuzione della modalità.",
-    "footer_row3": "Modalità istantanea: InstantModeDuration<br /><br />Eco modalità istantanea: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff",    
+    "footer_row3": "Modalità istantanea: InstantModeDuration - Eco modalità istantanea: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff",    
     "interval_historical_state": "Intervallo per recuperare i dati storici sull'irrigazione per gli ultimi 30 giorni (min. 10).",
     "interval_historical_state_desc_1": "Si prega di inserire valori interi maggiori o uguali a 10. Un parsing viene eseguito per i valori non interi.",
     "interval_device_state_desc_1": "Si prega di inserire valori interi maggiori o uguali a 5. Un parsing viene eseguito per i valori non interi.",
