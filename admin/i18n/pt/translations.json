@@ -1,0 +1,14 @@
+{
+    "username": "Nome de utilizador (não endereço de e-mail da sua conta LinkTap)",
+    "apikey": "Chave API",
+    "interval_water_state": "Intervalo para recuperação do estado de rega em minutos (min. 1)",
+    "interval_water_state_desc_1": "Por favor, introduza valores inteiros greate than 0. Um parse é realizado para valores não inteiros.",
+    "interval_device_state_desc_2": "Se o adaptador for reiniciado várias vezes durante este tempo, é possível que as gateways / taplinkers não possam ser determinadas imediatamente.",
+    "footer_row1": "O início das opções de rega pode ser iniciado utilizando os botões. Para tal, contudo, é necessário que os modos correspondentes sejam também configurados inicialmente na aplicação. A API Link-Tap.com não permite a criação de modos, mas apenas a activação e mudança de modos.",
+    "footer_row2": "Por favor, defina também os argumentos relevantes para a execução do modo.",
+    "footer_row3": "Modo instantâneo: InstantModeDuration<br /><br />Eco modo instantâneo: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff",    
+    "interval_historical_state": "Intervalo para recuperar os dados históricos sobre irrigação dos últimos 30 dias (min. 10).",
+    "interval_historical_state_desc_1": "Por favor, introduza valores inteiros maiores ou iguais a 10. Um parse é realizado para valores não inteiros.",
+    "interval_device_state_desc_1": "Por favor, introduza valores inteiros maiores ou iguais a 5. Um parse é realizado para valores não inteiros.",
+    "interval_device_state": "Intervalo para recuperação dos portões e dos dispositivos em minutos (mín. 5)"
+}

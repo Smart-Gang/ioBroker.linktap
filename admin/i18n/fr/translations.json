@@ -1,0 +1,14 @@
+{
+    "username": "Nom d'utilisateur (pas l'adresse électronique de votre compte LinkTap)",
+    "apikey": "Clé API",
+    "interval_water_state": "Intervalle de récupération de l'état d'arrosage en minutes (min. 1)",
+    "interval_water_state_desc_1": "Veuillez saisir des valeurs entières supérieures à 0. Une analyse syntaxique est effectuée pour les valeurs non entières.",
+    "interval_device_state_desc_2": "Si l'adaptateur est redémarré plusieurs fois pendant ce laps de temps, il est possible que les passerelles / taplinkers ne puissent pas être déterminés immédiatement.",
+    "footer_row1": "Le démarrage des options d'arrosage peut être lancé à l'aide des boutons. Pour cela, il est toutefois nécessaire que les modes correspondants soient également configurés au départ dans l'application. L'API Link-Tap.com ne permet pas la création de modes, mais seulement l'activation et le changement de modes.",
+    "footer_row2": "Veuillez également définir les arguments pertinents pour l'exécution du mode.",
+    "footer_row3": "Mode instantané : InstantModeDuration<br /><br />Eco mode instantané : InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff",    
+    "interval_historical_state": "Intervalle pour récupérer les données historiques sur l'irrigation pour les 30 derniers jours (min. 10).",
+    "interval_historical_state_desc_1": "Veuillez saisir des valeurs entières supérieures ou égales à 10. Une analyse syntaxique est effectuée pour les valeurs non entières.",
+    "interval_device_state_desc_1": "Veuillez saisir des valeurs entières supérieures ou égales à 5. Une analyse syntaxique est effectuée pour les valeurs non entières.",
+    "interval_device_state": "Intervalle pour la récupération des passerelles et des dispositifs en minutes (min. 5)"
+}

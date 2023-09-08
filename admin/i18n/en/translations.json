@@ -1,0 +1,14 @@
+{
+    "username": "Username (not email address from your LinkTap Account)",
+    "apikey": "API key",
+    "interval_water_state": "Interval for retrieving watering state in minutes (min. 1)",
+    "interval_water_state_desc_1": "Please enter integer values greater than 0. A parse is performed for non-integer values.",
+    "interval_device_state_desc_2": "If the adapter is restarted several times during this time, it is possible that the gateways / taplinkers cannot be determined immediately.",
+    "footer_row1": "The start of the watering options can be initiated using the buttons. For this, however, it is necessary that the corresponding modes are also initially configured in the app. The API Link-Tap.com does not allow the creation of modes, but only the activation and changing of modes.",
+    "footer_row2": "Please also set the relevant arguments for executing the mode.",
+    "footer_row3": "Instant mode: InstantModeDuration<br /><br />Eco instant mode: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff",    
+    "interval_historical_state": "Interval to retrieve the historical data on irrigation for the last 30 days (min. 10).",
+    "interval_historical_state_desc_1": "Please enter integer values greater or equal than 10. A parse is performed for non-integer values.",
+    "interval_device_state_desc_1": "Please enter integer values greater or equal than 5. A parse is performed for non-integer values.",
+    "interval_device_state": "Interval for retrieving the gateways and the devices in minutes (min. 5)"
+}

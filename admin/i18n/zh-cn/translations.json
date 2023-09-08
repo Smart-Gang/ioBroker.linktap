@@ -1,0 +1,14 @@
+{
+    "username": "用户名（不是您LinkTap账户的电子邮件地址）。",
+    "apikey": "API密钥",
+    "interval_water_state": "恢复浇水状态的时间间隔，以分钟为单位(min. 1)",
+    "interval_water_state_desc_1": "请输入大于 0 的整数值，对于非整数值将进行解析。",
+    "interval_device_state_desc_2": "如果在这段时间内多次重启适配器，则有可能无法立即确定网关 / 分接联动装置。",
+    "footer_row1": "可以通过按钮启动浇水选项。但为此，还需要在应用程序中初始配置相应的模式。API Link-Tap.com不允许创建模式，只允许激活和改变模式。",
+    "footer_row2": "也请设置执行模式的相关参数。",
+    "footer_row3": "即时模式。InstantModeDuration<br /><br />Eco即时模式。InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff。",    
+    "interval_historical_state": "检索过去30天灌溉历史数据的时间间隔(最少10天)",
+    "interval_historical_state_desc_1": "请输入大于或等于10的整数值。对非整数值进行解析。",
+    "interval_device_state_desc_1": "请输入大于或等于5的整数值。非整数值将进行解析。",
+    "interval_device_state": "检索网关和设备的时间间隔，以分钟为单位(5分钟)"
+}

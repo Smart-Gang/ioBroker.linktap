@@ -1,0 +1,14 @@
+{
+    "username": "Benutzername (nicht zwingend E-Mail Adresse des LinkTap Kontos)",
+    "apikey": "API key",
+    "interval_water_state": "Intervall zum Abrufen des Bewässerungsstatus in Minuten (min. 1)",
+    "interval_water_state_desc_1": "Bitte geben Sie ganzzahlige Werte größer als 0 ein. Für nicht ganzzahlige Werte wird ein Parse durchgeführt.",
+    "interval_device_state_desc_2": "Wenn der Adapter in dieser Zeit mehrmals neu gestartet wird, ist es möglich, dass die Gateways / Taplinker nicht sofort ermittelt werden können.",
+    "footer_row1": "Das Starten der Bewässerungsoptionen kann über die Buttons initiiert werden. Hierfür ist es jedoch erforderlich, dass die entsprechenden Modi auch in der App initial konfiguriert sind. Die API Link-Tap.com ermöglicht nicht das Erstellen von Modi, sondern nur das Aktivieren und Wechseln von Modi.",
+    "footer_row2": "Bitte auch die relevanten Argumente für die Ausführung des Modi setzen.",
+    "footer_row3": "Instant mode: InstantModeDuration<br /><br />Eco instant mode: InstantModeDuration, EcoInstantModeOn, EcoInstantModeOff",    
+    "interval_historical_state": "Intervall zum Abrufen der historischen Daten zur Bewässerung für die letzten 30 Tage (min. 10).",
+    "interval_historical_state_desc_1": "Bitte geben Sie ganzzahlige Werte größer oder gleich 10 ein. Bei nicht-ganzzahligen Werten wird ein Parse durchgeführt.",
+    "interval_device_state_desc_1": "Bitte geben Sie ganzzahlige Werte größer oder gleich 5 ein. Bei nicht-ganzzahligen Werten wird ein Parse durchgeführt.",
+    "interval_device_state": "Intervall zum Abrufen der Gateways und der Devices in Minuten (min. 5)"
+}
