@@ -25,7 +25,6 @@ tsconfig.*.json
 
 # npm package files
 iobroker.*.tgz
-package-lock.json
 
 # maintenance scripts
 maintenance/**
