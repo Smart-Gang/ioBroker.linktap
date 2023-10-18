@@ -1,9 +1,9 @@
 {
     "common": {
         "name": "linktap",
-        "version": "0.2.3",
+        "version": "0.3.0",
         "news": {
-            "0.2.3": {
+            "0.3.0": {
                 "en": "Added support for new devices (ValveLinker and multiple-outlet water timer) with 18-digit IDs.",
                 "de": "Unterstützung für neue Geräte (ValveLinker und Wasserzeitschaltuhr mit mehreren Auslässen) mit 18-stelligen IDs hinzugefügt.",
                 "ru": "Добавлена поддержка новых устройств (ValveLinker и многорозеточный таймер воды) с 18-значными идентификаторами.",
