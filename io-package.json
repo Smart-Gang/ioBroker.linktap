@@ -128,7 +128,7 @@
         "loglevel": "info",
         "mode": "daemon",
         "type": "garden",
-        "tier": "3",
+        "tier": 3,
         "compact": true,
         "adminUI": {
             "config": "json"
