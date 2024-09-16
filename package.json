@@ -7,7 +7,7 @@
     "email": "gangrulez@gmail.com"
   },
   "homepage": "https://github.com/Smart-Gang/ioBroker.linktap",
-  "licenseInformationcense": {"license": "MIT", "type": "free", "link": "https://opensource.org/licenses/MIT"},
+  "license": "MIT",
   "keywords": [
     "ioBroker",
     "Smart Home",

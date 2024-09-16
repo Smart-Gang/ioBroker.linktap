@@ -119,7 +119,11 @@
             "Taplinker",
             "Wireless Water Timer"
         ],
-        "licenseInformationcense": {"license": "MIT", "type": "free", "link": "https://opensource.org/licenses/MIT"},
+        "licenseInformation": {
+            "license": "MIT",
+            "link": "https://github.com/jpawlowski/ioBroker.residents/blob/main/LICENSE",
+            "type": "free"
+          },
         "platform": "Javascript/Node.js",        
         "icon": "LinkTap_Logo.png",
         "enabled": true,
