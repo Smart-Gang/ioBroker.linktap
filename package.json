@@ -25,7 +25,7 @@
     "node-fetch": "^2.7.0"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },    
   "devDependencies": {
     "@iobroker/testing": "^4.1.0",
