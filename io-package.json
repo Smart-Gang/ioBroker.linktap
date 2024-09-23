@@ -119,9 +119,12 @@
             "Taplinker",
             "Wireless Water Timer"
         ],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "main": "main.js",
+        "licenseInformation": {
+            "license": "MIT",
+            "link": "https://github.com/jpawlowski/ioBroker.residents/blob/main/LICENSE",
+            "type": "free"
+          },
+        "platform": "Javascript/Node.js",        
         "icon": "LinkTap_Logo.png",
         "enabled": true,
         "extIcon": "https://raw.githubusercontent.com/Smart-Gang/ioBroker.linktap/master/admin/LinkTap_Logo.png",
@@ -129,13 +132,14 @@
         "loglevel": "info",
         "mode": "daemon",
         "type": "garden",
+        "tier": 3,
         "compact": true,
         "adminUI": {
             "config": "json"
         },
         "dependencies": [
             {                
-                "js-controller": ">=3.1.0"
+                "js-controller": ">=5.0.19"
             }
         ],
         "globalDependencies" : [
