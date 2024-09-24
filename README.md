@@ -29,6 +29,9 @@ Important: The desired schedules must be set up in the app prior to use. These c
 
 ## Changelog
 
+### 1.0.0
+* (Smart-Gang) Update of various dependencies and update to Node 18.
+
 ### 0.3.0
 * (Smart-Gang) Added support for new devices (ValveLinker and multiple-outlet water timer) with 18-digit IDs.
 
@@ -51,7 +54,7 @@ Important: The desired schedules must be set up in the app prior to use. These c
 ## License
 MIT License
 
-Copyright (c) 2023 Author <gangrulez@gmail.com>
+Copyright (c) 2024 Author <gangrulez@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
