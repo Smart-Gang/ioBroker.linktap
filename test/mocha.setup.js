@@ -10,3 +10,9 @@ const { should, use } = require('chai');
 
 should();
 use(sinonChai);
+
+// Dynamischer Import für ES-Module
+(async () => {
+	const chaiAsPromised = await import("chai-as-promised");
+	use(chaiAsPromised.default);
+})();
