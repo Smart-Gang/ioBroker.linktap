@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "linktap",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "news": {
+            "1.0.2": {
+                "en": "Update of various dependencies and update to Node 20.",
+                "de": "Aktualisierung verschiedener Abhängigkeiten und Update auf Node 20.",
+                "ru": "Обновление различных зависимостей и обновление до Node 20.",
+                "pt": "Atualização de várias dependências e atualização para o Nó 20.",
+                "nl": "Bijwerken van verschillende afhankelijkheden en bijwerken naar Node 20.",
+                "fr": "Mise à jour de diverses dépendances et mise à jour vers Node 20.",
+                "it": "Aggiornamento di varie dipendenze e aggiornamento al Nodo 20.",
+                "es": "Actualización de varias dependencias y actualización a Nodo 20.",
+                "pl": "Aktualizacja różnych zależności i aktualizacja do Node 20.",
+                "zh-cn": "更新各种依赖项并更新至 Node 20",
+                "uk": "Оновлення різних залежностей та оновлення до Node 20."
+            },             
             "1.0.1": {
                 "en": "Update of various dependencies and update to Node 18.",
                 "de": "Aktualisierung verschiedener Abhängigkeiten und Update auf Node 18.",
