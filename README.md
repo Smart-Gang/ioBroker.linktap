@@ -29,7 +29,7 @@ Important: The desired schedules must be set up in the app prior to use. These c
 
 ## Changelog
 
-### 1.0.2
+### 1.0.3
 * (Smart-Gang) Update of various dependencies and update to Node 20.
 
 ### 1.0.1
