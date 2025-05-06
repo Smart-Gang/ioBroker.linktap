@@ -3,7 +3,7 @@
         "name": "linktap",
         "version": "1.0.3",
         "news": {
-            "1.0.2": {
+            "1.0.3": {
                 "en": "Update of various dependencies and update to Node 20.",
                 "de": "Aktualisierung verschiedener Abhängigkeiten und Update auf Node 20.",
                 "ru": "Обновление различных зависимостей и обновление до Node 20.",
