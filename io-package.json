@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "linktap",
-        "version": "1.0.2",
+        "version": "1.0.3",
         "news": {
             "1.0.2": {
                 "en": "Update of various dependencies and update to Node 20.",
