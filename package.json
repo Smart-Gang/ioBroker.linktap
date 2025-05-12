@@ -28,7 +28,7 @@
     "node": ">=20.0.0"
   },
   "devDependencies": {
-    "@types/chai": "^5.2.1",
+    "@types/chai": "^5.2.2",
     "@types/gulp": "^4.0.13",    
     "@types/mocha": "^10.0.10",
     "@iobroker/testing": "^5.0.4",
