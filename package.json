@@ -31,7 +31,7 @@
     "@types/chai": "^5.2.2",
     "@types/gulp": "^4.0.13",    
     "@types/mocha": "^10.0.10",
-    "@iobroker/testing": "^5.0.4",
+    "@iobroker/testing": "^5.1.0",
     "@types/chai-as-promised": "^8.0.2",
     "@types/node": "^24.3.0",    
     "chai": "^5.2.1",
