@@ -56,6 +56,7 @@ Important: The desired schedules must be set up in the app prior to use. These c
 ### 0.1.7
 * (Smart-Gang) First public release
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
 
 ## License
 MIT License
