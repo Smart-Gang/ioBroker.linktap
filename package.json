@@ -74,8 +74,8 @@
     "test:package": "mocha test/package --exit",
     "test:integration": "mocha test/integration --exit",
     "test": "npm run test:js && npm run test:package",
-    "lint": "eslint .",
-    "lint:ts": "eslint .",
+    "lint": "eslint -c eslint.config.mjs .",
+    "lint:ts": "eslint -c eslint.config.mjs .",
     "translate": "node --experimental-require-module node_modules/@iobroker/adapter-dev/bin/translate-adapter.js",
     "release:standard": "release-script"
   },
