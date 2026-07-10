@@ -176,11 +176,11 @@ class LinkTap extends utils.Adapter {
         this.log.info(fctName + ' started');
     
         if(this.dataPollTimeoutTaplinker !== null) {
-            clearInterval(this.dataPollTimeoutTaplinker);    
+            this.clearInterval(this.dataPollTimeoutTaplinker);    
             this.dataPollTimeoutTaplinker = null;    
             this.log.info(fctName + ' scheduler stopped');
         }                        
-        this.dataPollTimeoutTaplinker = setInterval(async () =>  {       
+        this.dataPollTimeoutTaplinker = this.setInterval(async () =>  {       
             var fctName = 'updateTaplinkerStatus';
             this.log.info(fctName + ' started');
     
@@ -201,11 +201,11 @@ class LinkTap extends utils.Adapter {
         this.log.info(fctName + ' started');
     
         if(this.dataPollTimeoutWatering !== null) {
-            clearInterval(this.dataPollTimeoutWatering);    
+            this.clearInterval(this.dataPollTimeoutWatering);    
             this.dataPollTimeoutWatering = null;    
             this.log.info(fctName + ' scheduler stopped');
         }                        
-        this.dataPollTimeoutWatering = setInterval(async () =>  {       
+        this.dataPollTimeoutWatering = this.setInterval(async () =>  {       
             var fctName = 'updateWateringStatus';
             this.log.info(fctName + ' started');
     
@@ -226,11 +226,11 @@ class LinkTap extends utils.Adapter {
         this.log.info(fctName + ' started');
     
         if(this.dataPollTimeoutHistory !== null) {
-            clearInterval(this.dataPollTimeoutHistory);    
+            this.clearInterval(this.dataPollTimeoutHistory);    
             this.dataPollTimeoutHistory = null;    
             this.log.info(fctName + ' scheduler stopped');
         }                        
-        this.dataPollTimeoutHistory = setInterval(async () =>  {       
+        this.dataPollTimeoutHistory = this.setInterval(async () =>  {       
             var fctName = 'updateHistory';
             this.log.info(fctName + ' started');
     
@@ -374,9 +374,9 @@ class LinkTap extends utils.Adapter {
      */
     onUnload(callback) {
         try {
-            if(this.dataPollTimeoutTaplinker !== null) clearInterval(this.dataPollTimeoutTaplinker);
-            if(this.dataPollTimeoutWatering !== null) clearInterval(this.dataPollTimeoutWatering);
-            if(this.dataPollTimeoutHistory !== null) clearInterval(this.dataPollTimeoutHistory);
+            if(this.dataPollTimeoutTaplinker !== null) this.clearInterval(this.dataPollTimeoutTaplinker);
+            if(this.dataPollTimeoutWatering !== null) this.clearInterval(this.dataPollTimeoutWatering);
+            if(this.dataPollTimeoutHistory !== null) this.clearInterval(this.dataPollTimeoutHistory);
             this.setConnected(false);
             callback();
         } catch (e) {
