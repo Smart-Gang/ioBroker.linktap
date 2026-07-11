@@ -12,7 +12,6 @@
 const utils = require('@iobroker/adapter-core');
 const LinkTapApiController = require('./lib/linktap_api_controller');
 
-
 class LinkTap extends utils.Adapter {
 
     /**
