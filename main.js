@@ -7,26 +7,25 @@
  *      MIT License
  *
  */
-'use strict';
+"use strict";
 
-const utils = require('@iobroker/adapter-core');
-const LinkTapApiController = require('./lib/linktap_api_controller');
+const utils = require("@iobroker/adapter-core");
+const LinkTapApiController = require("./lib/linktap_api_controller");
 
 class LinkTap extends utils.Adapter {
-
     /**
-     * @param {Partial<utils.AdapterOptions>} [options={}]
+     * @param {Partial<utils.AdapterOptions>} [options]
      */
     constructor(options) {
         super({
             ...options,
-            name: 'linktap',
+            name: "linktap",
         });
-        this.on('ready', this.onReady.bind(this));
-        this.on('stateChange', this.onStateChange.bind(this));
+        this.on("ready", this.onReady.bind(this));
+        this.on("stateChange", this.onStateChange.bind(this));
         // this.on('objectChange', this.onObjectChange.bind(this));
         // this.on('message', this.onMessage.bind(this));
-        this.on('unload', this.onUnload.bind(this));
+        this.on("unload", this.onUnload.bind(this));
 
         this.connected = false;
         this.dataPollIntervalWatering = 60000;
@@ -38,9 +37,9 @@ class LinkTap extends utils.Adapter {
         this.myApiController = null;
     }
 
-
     /**
      * Gets ids for channels and states
+     *
      * @param {string} gatewayId - ID of gateway
      * @param {object} taplinkerId - ID of taplinker
      * @param {object} stateKey - ID of state
@@ -50,16 +49,17 @@ class LinkTap extends utils.Adapter {
             return gatewayId;
         }
         if (gatewayId != null && taplinkerId != null && stateKey == null) {
-            return gatewayId + '.' + taplinkerId;
+            return `${gatewayId}.${taplinkerId}`;
         }
         if (taplinkerId === null) {
-            return gatewayId + '.' + stateKey;
+            return `${gatewayId}.${stateKey}`;
         }
-        return gatewayId + '.' + taplinkerId + '.' + stateKey;
+        return `${gatewayId}.${taplinkerId}.${stateKey}`;
     }
 
     /**
      * Gets the current value for the state
+     *
      * @param {string} id - ID of state
      */
     getCurrentState(id) {
@@ -84,14 +84,14 @@ class LinkTap extends utils.Adapter {
      * Creates all channels
      */
     async createChannels() {
-        const fctName = 'createChannels';
-        this.log.info(fctName + ' started');
+        const fctName = "createChannels";
+        this.log.info(`${fctName} started`);
 
         if (this.myApiController != null) {
             for (const g of this.myApiController.gateways) {
                 await this.setObjectAsync(this.getId(g.gatewayId, null, null), {
-                    type: 'channel',
-                    role: 'gateway',
+                    type: "channel",
+                    role: "gateway",
                     common: {
                         name: g.name,
                     },
@@ -99,8 +99,8 @@ class LinkTap extends utils.Adapter {
                 });
                 for (const d of g.devices) {
                     await this.setObjectAsync(this.getId(g.gatewayId, d.taplinkerId, null), {
-                        type: 'channel',
-                        role: 'device',
+                        type: "channel",
+                        role: "device",
                         common: {
                             name: d.taplinkerName,
                         },
@@ -109,22 +109,25 @@ class LinkTap extends utils.Adapter {
                 }
             }
         }
-        this.log.info(fctName + ' finished');
+        this.log.info(`${fctName} finished`);
     }
 
     /**
      * Creates or updates adapter objects
+     *
+     * @param id
+     * @param object
      */
     async createOrUpdateObject(id, object) {
         const foundObject = await this.getObjectAsync(id);
         if (foundObject == null) {
             await this.setObjectAsync(id, object);
-            this.log.info('Creating new object: ' + id);
+            this.log.info(`Creating new object: ${id}`);
             return; // new object
         }
-        if (foundObject.hasOwnProperty('common') && object.hasOwnProperty('common')) {
+        if (foundObject.hasOwnProperty("common") && object.hasOwnProperty("common")) {
             if (JSON.stringify(foundObject.common) !== JSON.stringify(object.common)) {
-                this.log.info('Update required for changed property: common for object: ' + id);
+                this.log.info(`Update required for changed property: common for object: ${id}`);
                 await this.setObjectAsync(id, object); // updating changed object
             }
         }
@@ -134,11 +137,11 @@ class LinkTap extends utils.Adapter {
      * Creates the data points
      */
     async createDataPoints() {
-        const fctName = 'createDataPoints';
-        this.log.info(fctName + ' started');
+        const fctName = "createDataPoints";
+        this.log.info(`${fctName} started`);
         if (this.myApiController != null) {
-            const gatewayStructure = require('./lib/gateway.json');
-            const taplinkerStructure = require('./lib/taplinker.json');
+            const gatewayStructure = require("./lib/gateway.json");
+            const taplinkerStructure = require("./lib/taplinker.json");
             for (const g of this.myApiController.gateways) {
                 const gatewayObject = Object.assign({}, gatewayStructure);
                 for (const gatewayProp in gatewayObject) {
@@ -156,7 +159,7 @@ class LinkTap extends utils.Adapter {
                         if (taplinkerObject[taplinkerProp].common.write === false) {
                             this.setState(dataPointId, { val: d[taplinkerProp], ack: true });
                         } else {
-                            if (taplinkerObject[taplinkerProp].common.role === 'button') {
+                            if (taplinkerObject[taplinkerProp].common.role === "button") {
                                 this.setState(dataPointId, { val: false, ack: true });
                             }
                         }
@@ -164,82 +167,82 @@ class LinkTap extends utils.Adapter {
                 }
             }
         }
-        this.log.info(fctName + ' finished');
+        this.log.info(`${fctName} finished`);
     }
 
     /**
      * Creates data polling schedule for gateways and devices
      */
     createTaplinkerScheduler() {
-        const fctName = 'createTaplinkerScheduler';
-        this.log.info(fctName + ' started');
+        const fctName = "createTaplinkerScheduler";
+        this.log.info(`${fctName} started`);
 
         if (this.dataPollTimeoutTaplinker !== null) {
             this.clearInterval(this.dataPollTimeoutTaplinker);
             this.dataPollTimeoutTaplinker = null;
-            this.log.info(fctName + ' scheduler stopped');
+            this.log.info(`${fctName} scheduler stopped`);
         }
         this.dataPollTimeoutTaplinker = this.setInterval(async () => {
-            const fctName = 'updateTaplinkerStatus';
-            this.log.info(fctName + ' started');
+            const fctName = "updateTaplinkerStatus";
+            this.log.info(`${fctName} started`);
 
             if (this.myApiController != null) {
                 await this.myApiController.getDevices();
             }
             this.setTaplinkerStates();
-            this.log.info(fctName + ' finished');
+            this.log.info(`${fctName} finished`);
         }, this.dataPollIntervalTaplinker);
-        this.log.info(fctName + ' finished');
+        this.log.info(`${fctName} finished`);
     }
 
     /**
      * Creates data polling schedule for watering state
      */
     createWateringScheduler() {
-        const fctName = 'createWateringScheduler';
-        this.log.info(fctName + ' started');
+        const fctName = "createWateringScheduler";
+        this.log.info(`${fctName} started`);
 
         if (this.dataPollTimeoutWatering !== null) {
             this.clearInterval(this.dataPollTimeoutWatering);
             this.dataPollTimeoutWatering = null;
-            this.log.info(fctName + ' scheduler stopped');
+            this.log.info(`${fctName} scheduler stopped`);
         }
         this.dataPollTimeoutWatering = this.setInterval(async () => {
-            const fctName = 'updateWateringStatus';
-            this.log.info(fctName + ' started');
+            const fctName = "updateWateringStatus";
+            this.log.info(`${fctName} started`);
 
             if (this.myApiController != null) {
                 await this.myApiController.getWateringStatus();
             }
             this.setWateringStates();
-            this.log.info(fctName + ' finished');
+            this.log.info(`${fctName} finished`);
         }, this.dataPollIntervalWatering);
-        this.log.info(fctName + ' finished');
+        this.log.info(`${fctName} finished`);
     }
 
     /**
      * Creates data polling schedule for history
      */
     createHistoryScheduler() {
-        const fctName = 'createHistoryScheduler';
-        this.log.info(fctName + ' started');
+        const fctName = "createHistoryScheduler";
+        this.log.info(`${fctName} started`);
 
         if (this.dataPollTimeoutHistory !== null) {
             this.clearInterval(this.dataPollTimeoutHistory);
             this.dataPollTimeoutHistory = null;
-            this.log.info(fctName + ' scheduler stopped');
+            this.log.info(`${fctName} scheduler stopped`);
         }
         this.dataPollTimeoutHistory = this.setInterval(async () => {
-            const fctName = 'updateHistory';
-            this.log.info(fctName + ' started');
+            const fctName = "updateHistory";
+            this.log.info(`${fctName} started`);
 
             if (this.myApiController != null) {
                 await this.myApiController.getHistory();
             }
             this.setHistoryState();
-            this.log.info(fctName + ' finished');
+            this.log.info(`${fctName} finished`);
         }, this.dataPollIntervalHistory);
-        this.log.info(fctName + ' finished');
+        this.log.info(`${fctName} finished`);
     }
 
     /**
@@ -247,16 +250,19 @@ class LinkTap extends utils.Adapter {
      */
     setWateringStates() {
         if (this.myApiController != null) {
-            this.myApiController.gateways.forEach((g) => {
+            this.myApiController.gateways.forEach(g => {
                 g.devices.forEach(d => {
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'watering'), { val: d.watering, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'vel'), { val: d.vel, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'vol'), { val: d.vol, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'total'), { val: d.total, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'onDuration'), { val: d.onDuration, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'ecoTotal'), { val: d.ecoTotal, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'ecoOn'), { val: d.ecoOn, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'ecoOff'), { val: d.ecoOff, ack: true });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "watering"), { val: d.watering, ack: true });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "vel"), { val: d.vel, ack: true });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "vol"), { val: d.vol, ack: true });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "total"), { val: d.total, ack: true });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "onDuration"), {
+                        val: d.onDuration,
+                        ack: true,
+                    });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "ecoTotal"), { val: d.ecoTotal, ack: true });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "ecoOn"), { val: d.ecoOn, ack: true });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "ecoOff"), { val: d.ecoOff, ack: true });
                 });
             });
         }
@@ -267,24 +273,36 @@ class LinkTap extends utils.Adapter {
      */
     setTaplinkerStates() {
         if (this.myApiController != null) {
-            this.myApiController.gateways.forEach((g) => {
-                this.setState(this.getId(g.gatewayId, null, 'name'), { val: g.name, ack: true });
-                this.setState(this.getId(g.gatewayId, null, 'status'), { val: g.status, ack: true });
-                this.setState(this.getId(g.gatewayId, null, 'location'), { val: g.location, ack: true });
-                this.setState(this.getId(g.gatewayId, null, 'version'), { val: g.version, ack: true });
-                this.setState(this.getId(g.gatewayId, null, 'gatewayId'), { val: g.gatewayId, ack: true });
+            this.myApiController.gateways.forEach(g => {
+                this.setState(this.getId(g.gatewayId, null, "name"), { val: g.name, ack: true });
+                this.setState(this.getId(g.gatewayId, null, "status"), { val: g.status, ack: true });
+                this.setState(this.getId(g.gatewayId, null, "location"), { val: g.location, ack: true });
+                this.setState(this.getId(g.gatewayId, null, "version"), { val: g.version, ack: true });
+                this.setState(this.getId(g.gatewayId, null, "gatewayId"), { val: g.gatewayId, ack: true });
                 g.devices.forEach(d => {
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'taplinkerId'), { val: d.taplinkerId, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'taplinkerName'), { val: d.taplinkerName, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'location'), { val: d.location, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'status'), { val: d.status, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'version'), { val: d.version, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'signal'), { val: d.signal, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'batteryStatus'), { val: d.batteryStatus, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'workMode'), { val: d.workMode, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'fall'), { val: d.fall, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'valveBroken'), { val: d.valveBroken, ack: true });
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'noWater'), { val: d.noWater, ack: true });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "taplinkerId"), {
+                        val: d.taplinkerId,
+                        ack: true,
+                    });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "taplinkerName"), {
+                        val: d.taplinkerName,
+                        ack: true,
+                    });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "location"), { val: d.location, ack: true });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "status"), { val: d.status, ack: true });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "version"), { val: d.version, ack: true });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "signal"), { val: d.signal, ack: true });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "batteryStatus"), {
+                        val: d.batteryStatus,
+                        ack: true,
+                    });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "workMode"), { val: d.workMode, ack: true });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "fall"), { val: d.fall, ack: true });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "valveBroken"), {
+                        val: d.valveBroken,
+                        ack: true,
+                    });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "noWater"), { val: d.noWater, ack: true });
                 });
             });
         }
@@ -295,9 +313,9 @@ class LinkTap extends utils.Adapter {
      */
     setHistoryState() {
         if (this.myApiController != null) {
-            this.myApiController.gateways.forEach((g) => {
+            this.myApiController.gateways.forEach(g => {
                 g.devices.forEach(d => {
-                    this.setState(this.getId(g.gatewayId, d.taplinkerId, 'history'), { val: d.history, ack: true });
+                    this.setState(this.getId(g.gatewayId, d.taplinkerId, "history"), { val: d.history, ack: true });
                 });
             });
         }
@@ -309,43 +327,55 @@ class LinkTap extends utils.Adapter {
     async onReady() {
         this.setConnected(false);
 
-        this.log.info('User : ' + this.config.txtUsername);
+        this.log.info(`User : ${this.config.txtUsername}`);
 
         if (!this.config.txtUsername || !this.config.txtApiKey) {
-            this.log.warn('Please open Admin page for this adapter to set the username and the API key.');
+            this.log.warn("Please open Admin page for this adapter to set the username and the API key.");
             return;
         }
 
-        if (isNaN(this.config.txtPollIntervalDevices) || this.config.txtPollIntervalDevices === '' || this.config.txtPollIntervalDevices === null) {
-            this.log.warn('No valid device poll interval found. Set poll interval to 10 minute.');
+        if (
+            isNaN(this.config.txtPollIntervalDevices) ||
+            this.config.txtPollIntervalDevices === "" ||
+            this.config.txtPollIntervalDevices === null
+        ) {
+            this.log.warn("No valid device poll interval found. Set poll interval to 10 minute.");
         } else {
             const parsedPollIntervalDevices = parseInt(this.config.txtPollIntervalDevices, 10);
             if (parsedPollIntervalDevices < 5) {
-                this.log.info('Set device poll interval to 5 minute(s).');
+                this.log.info("Set device poll interval to 5 minute(s).");
                 this.dataPollIntervalTaplinker = 5 * 60 * 1000;
             } else {
                 this.log.info(`Set device poll interval to ${parsedPollIntervalDevices} minute(s).`);
                 this.dataPollIntervalTaplinker = parsedPollIntervalDevices * 60 * 1000;
             }
         }
-        if (isNaN(this.config.txtPollIntervalWatering) || this.config.txtPollIntervalWatering === '' || this.config.txtPollIntervalWatering === null) {
-            this.log.warn('No valid watering poll interval found. Set poll interval to 1 minute.');
+        if (
+            isNaN(this.config.txtPollIntervalWatering) ||
+            this.config.txtPollIntervalWatering === "" ||
+            this.config.txtPollIntervalWatering === null
+        ) {
+            this.log.warn("No valid watering poll interval found. Set poll interval to 1 minute.");
         } else {
             const parsedPollIntervalWatering = parseInt(this.config.txtPollIntervalWatering, 10);
             if (parsedPollIntervalWatering < 1) {
-                this.log.info('Set water state poll interval to 1 minute(s).');
+                this.log.info("Set water state poll interval to 1 minute(s).");
                 this.dataPollIntervalWatering = 1 * 60 * 1000;
             } else {
                 this.log.info(`Set water state poll interval to ${parsedPollIntervalWatering} minute(s).`);
                 this.dataPollIntervalWatering = parsedPollIntervalWatering * 60 * 1000;
             }
         }
-        if (isNaN(this.config.txtPollIntervalHistory) || this.config.txtPollIntervalHistory === '' || this.config.txtPollIntervalHistory === null) {
-            this.log.warn('No valid history poll interval found. Set poll interval to 10 minute.');
+        if (
+            isNaN(this.config.txtPollIntervalHistory) ||
+            this.config.txtPollIntervalHistory === "" ||
+            this.config.txtPollIntervalHistory === null
+        ) {
+            this.log.warn("No valid history poll interval found. Set poll interval to 10 minute.");
         } else {
             const parsedPollIntervalHistory = parseInt(this.config.txtPollIntervalHistory, 10);
             if (parsedPollIntervalHistory < 10) {
-                this.log.info('Set history state poll interval to 10 minute(s).');
+                this.log.info("Set history state poll interval to 10 minute(s).");
                 this.dataPollIntervalHistory = 10 * 60 * 1000;
             } else {
                 this.log.info(`Set history state poll interval to ${parsedPollIntervalHistory} minute(s).`);
@@ -353,7 +383,7 @@ class LinkTap extends utils.Adapter {
             }
         }
 
-        this.getForeignObject('system.config', (_err, _obj) => {
+        this.getForeignObject("system.config", (_err, _obj) => {
             this.myApiController = new LinkTapApiController({
                 logger: this.log,
                 username: this.config.txtUsername,
@@ -372,7 +402,7 @@ class LinkTap extends utils.Adapter {
         await this.myApiController.getHistory();
         await this.createChannels();
         await this.createDataPoints();
-        this.subscribeStates('*');
+        this.subscribeStates("*");
         this.setConnected(this.myApiController.connected);
         this.createTaplinkerScheduler();
         this.createWateringScheduler();
@@ -381,6 +411,7 @@ class LinkTap extends utils.Adapter {
 
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
+     *
      * @param {() => void} callback
      */
     onUnload(callback) {
@@ -420,6 +451,7 @@ class LinkTap extends utils.Adapter {
 
     /**
      * Is called if a subscribed state changes
+     *
      * @param {string} id - ID of state
      * @param {ioBroker.State | null | undefined} state - State object
      */
@@ -428,34 +460,36 @@ class LinkTap extends utils.Adapter {
             return;
         }
         this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-        if (id.endsWith('ActivateSevenDayMode')
-            || id.endsWith('ActivateOddEvenMode')
-            || id.endsWith('ActivateMonthMode')
-            || id.endsWith('ActivateIntervalMode')
-            || id.endsWith('StartInstantMode')
-            || id.endsWith('StopInstantMode')
-            || id.endsWith('StartEcoInstantMode')) {
+        if (
+            id.endsWith("ActivateSevenDayMode") ||
+            id.endsWith("ActivateOddEvenMode") ||
+            id.endsWith("ActivateMonthMode") ||
+            id.endsWith("ActivateIntervalMode") ||
+            id.endsWith("StartInstantMode") ||
+            id.endsWith("StopInstantMode") ||
+            id.endsWith("StartEcoInstantMode")
+        ) {
             if (this.myApiController != null) {
-                const idParts = id.split('.');
+                const idParts = id.split(".");
                 if (idParts.length !== 5) {
                     this.log.error(`ID: ${id} has invalid format.`);
                     return;
                 }
                 switch (idParts[4]) {
-                    case 'StartInstantMode':
+                    case "StartInstantMode":
                         idParts.pop();
-                        this.getCurrentState(`${idParts.join('.')}.InstantModeDuration`).then((value) => {
+                        this.getCurrentState(`${idParts.join(".")}.InstantModeDuration`).then(value => {
                             if (state.val === true) {
                                 this.myApiController.startInstantMode(idParts, value);
                                 this.setState(id, { val: false, ack: true });
                             }
                         });
                         break;
-                    case 'StartEcoInstantMode':
+                    case "StartEcoInstantMode":
                         idParts.pop();
-                        this.getCurrentState(`${idParts.join('.')}.InstantModeDuration`).then((value) => {
-                            this.getCurrentState(`${idParts.join('.')}.EcoInstantModeOn`).then((ecoOn) => {
-                                this.getCurrentState(`${idParts.join('.')}.EcoInstantModeOff`).then((ecoOff) => {
+                        this.getCurrentState(`${idParts.join(".")}.InstantModeDuration`).then(value => {
+                            this.getCurrentState(`${idParts.join(".")}.EcoInstantModeOn`).then(ecoOn => {
+                                this.getCurrentState(`${idParts.join(".")}.EcoInstantModeOff`).then(ecoOff => {
                                     if (state.val === true) {
                                         this.myApiController.startEcoInstantMode(idParts, value, ecoOn, ecoOff);
                                         this.setState(id, { val: false, ack: true });
@@ -464,7 +498,7 @@ class LinkTap extends utils.Adapter {
                             });
                         });
                         break;
-                    case 'StopInstantMode':
+                    case "StopInstantMode":
                         if (state.val === true) {
                             this.myApiController.stopInstantMode(idParts);
                             this.setState(id, { val: false, ack: true });
@@ -501,6 +535,7 @@ class LinkTap extends utils.Adapter {
 
     /**
      * Set connected state
+     *
      * @param {boolean} isConnected - Connection state
      */
     setConnected(isConnected) {
@@ -508,14 +543,13 @@ class LinkTap extends utils.Adapter {
             this.connected = isConnected;
         }
     }
-
 }
 
 // @ts-expect-error parent is a valid property on module
 if (module.parent) {
     // Export the constructor in compact mode
     /**
-     * @param {Partial<utils.AdapterOptions>} [options={}]
+     * @param {Partial<utils.AdapterOptions>} [options]
      */
     module.exports = options => new LinkTap(options);
 } else {
