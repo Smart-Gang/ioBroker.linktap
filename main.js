@@ -68,7 +68,7 @@ class LinkTap extends utils.Adapter {
                 if (err) {
                     reject(err);
                 } else {
-                    if (typeof state != undefined && state != null) {
+                    if (typeof state != "undefined" && state != null) {
                         const value = state.val;
                         resolve(value);
                     } else {
@@ -125,6 +125,7 @@ class LinkTap extends utils.Adapter {
             this.log.info(`Creating new object: ${id}`);
             return; // new object
         }
+        // eslint-disable-next-line no-prototype-builtins
         if (foundObject.hasOwnProperty("common") && object.hasOwnProperty("common")) {
             if (JSON.stringify(foundObject.common) !== JSON.stringify(object.common)) {
                 this.log.info(`Update required for changed property: common for object: ${id}`);
@@ -427,7 +428,7 @@ class LinkTap extends utils.Adapter {
             }
             this.setConnected(false);
             callback();
-        } catch (_e) {
+        } catch {
             callback();
         }
     }
