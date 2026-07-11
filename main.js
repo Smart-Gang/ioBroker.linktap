@@ -14,7 +14,7 @@ const LinkTapApiController = require("./lib/linktap_api_controller");
 
 class LinkTap extends utils.Adapter {
     /**
-     * @param {Partial<utils.AdapterOptions>} [options]
+     * @param {Partial<utils.AdapterOptions>} [options] - adapter options
      */
     constructor(options) {
         super({
@@ -115,8 +115,8 @@ class LinkTap extends utils.Adapter {
     /**
      * Creates or updates adapter objects
      *
-     * @param id
-     * @param object
+     * @param {string} id - object ID
+     * @param {ioBroker.Object} object - object definition
      */
     async createOrUpdateObject(id, object) {
         const foundObject = await this.getObjectAsync(id);
@@ -413,7 +413,7 @@ class LinkTap extends utils.Adapter {
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
      *
-     * @param {() => void} callback
+     * @param {() => void} callback - shutdown completion callback
      */
     onUnload(callback) {
         try {
@@ -550,7 +550,7 @@ class LinkTap extends utils.Adapter {
 if (module.parent) {
     // Export the constructor in compact mode
     /**
-     * @param {Partial<utils.AdapterOptions>} [options]
+     * @param {Partial<utils.AdapterOptions>} [options] - adapter options
      */
     module.exports = options => new LinkTap(options);
 } else {
