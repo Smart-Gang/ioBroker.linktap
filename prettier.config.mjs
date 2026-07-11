@@ -3,7 +3,7 @@ import prettierConfig from '@iobroker/eslint-config/prettier.config.mjs';
 
 export default {
     ...prettierConfig,
-    "endOfLine": "auto"
+    "endOfLine": "auto",
     // uncomment next line if you prefer double quotes
-    // singleQuote: false,
+    singleQuote: false,
 };
