@@ -1,0 +1,9 @@
+{
+  "plugins": {
+    "changelog": {
+      "ignore": [
+        "package-lock.json"
+      ]
+    }
+  }
+}
