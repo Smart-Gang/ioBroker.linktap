@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "linktap",
-        "version": "1.0.3",
+        "version": "1.0.4",
         "news": {
+            "1.0.4": {
+                "en": "Adapter requires node.js >= 22 now / removed node-fetch",
+                "de": "Adapter erfordert jetzt node.js >= 22 / node-fetch entfernt",
+                "ru": "Адаптер теперь требует node.js >= 22 / удалён node-fetch",
+                "pt": "O adaptador agora requer node.js >= 22 / node-fetch removido",
+                "nl": "Adapter vereist nu node.js >= 22 / node-fetch verwijderd",
+                "fr": "L'adaptateur nécessite désormais node.js >= 22 / node-fetch supprimé",
+                "it": "L'adattatore richiede ora node.js >= 22 / node-fetch rimosso",
+                "es": "El adaptador ahora requiere node.js >= 22 / se eliminó node-fetch",
+                "pl": "Adapter wymaga teraz node.js >= 22 / usunięto node-fetch",
+                "zh-cn": "适配器现要求 node.js >= 22 / 已移除 node-fetch",
+                "uk": "Адаптер тепер вимагає node.js >= 22 / видалено node-fetch"
+            },
             "1.0.3": {
                 "en": "Update of various dependencies and update to Node 20.",
                 "de": "Aktualisierung verschiedener Abhängigkeiten und Update auf Node 20.",
