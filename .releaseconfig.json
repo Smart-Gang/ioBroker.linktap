@@ -1,9 +1,5 @@
 {
-  "plugins": {
-    "changelog": {
-      "ignore": [
-        "package-lock.json"
-      ]
-    }
-  }
+  "plugins": [
+    "iobroker"
+  ]
 }
