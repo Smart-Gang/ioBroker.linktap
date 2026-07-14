@@ -29,7 +29,7 @@ Important: The desired schedules must be set up in the app prior to use. These c
 
 ## Changelog
 
-### 1.0.5
+### 1.0.6
 - (copilot) Adapter requires node.js >= 22 now / removed node-fetch
 
 ### 1.0.3
