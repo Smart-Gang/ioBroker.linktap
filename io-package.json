@@ -1,9 +1,9 @@
 {
     "common": {
         "name": "linktap",
-        "version": "1.0.6",
+        "version": "1.0.7",
         "news": {
-            "1.0.6": {
+            "1.0.7": {
                 "en": "Adapter requires node.js >= 22 now / removed node-fetch",
                 "de": "Adapter erfordert jetzt node.js >= 22 / node-fetch entfernt",
                 "ru": "Адаптер теперь требует node.js >= 22 / удалён node-fetch",
